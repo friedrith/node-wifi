@@ -1,0 +1,25 @@
+{
+  "name": "node-wifi",
+  "version": "0.1.0",
+  "description": "NodeJS tool to manage wifi",
+  "main": "src/wifi.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/elqui-app/node-wifi.git"
+  },
+  "keywords": [
+    "wifi",
+    "multiplatform"
+  ],
+  "author": "",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/elqui-app/node-wifi/issues"
+  }
+}
