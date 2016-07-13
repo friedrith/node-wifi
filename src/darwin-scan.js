@@ -3,27 +3,30 @@ var macProvider = '/System/Library/PrivateFrameworks/Apple80211.framework/Versio
 var networkUtils = require('./networkUtils.js');
 
 
-function scanWifi(callback) {
+function scanWifi(config) {
 
-    var networks = []
-    var network = {}
+    return function(callback) {
 
-    exec(macProvider + ' -s', function(err, scanResults) {
-
-	if (err) {
-	    callback && callback(err);
-	}
-
-	var terms = { BSSID: 'BSSID',
-		      RSSI: 'RSSI',
-		      CHANNEL: 'CHANNEL',
-		      HT: 'HT',
-		      SECURITY: 'SECURITY',
-		      CC: 'CC' }
+	var networks = []
+	var network = {}
+	
+	exec(macProvider + ' -s', function(err, scanResults) {
 	    
-	var resp = parseAirport(terms, scanResults);
-	callback && callback(null, resp);
-    });
+	    if (err) {
+		callback && callback(err);
+	    }
+	    
+	    var terms = { BSSID: 'BSSID',
+			  RSSI: 'RSSI',
+			  CHANNEL: 'CHANNEL',
+			  HT: 'HT',
+			  SECURITY: 'SECURITY',
+			  CC: 'CC' }
+	    
+	    var resp = parseAirport(terms, scanResults);
+	    callback && callback(null, resp);
+	});
+    }
 }
 
 
