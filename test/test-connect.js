@@ -9,7 +9,7 @@ var ap = {
     password : ""
 }
 
-wifi.connect(ap, function(err) {
+wifi.connect(wifi.config, ap, function(err) {
 
     if (err) {
 
