@@ -1,7 +1,8 @@
 var wifi = require('../src/wifi');
 
 wifi.init({
-    debug : true
+    debug : true,
+    iface : 'wlan0'
 });
 
 var ap = {   
@@ -9,7 +10,7 @@ var ap = {
     password : ""
 }
 
-wifi.connect(wifi.config, ap, function(err) {
+wifi.connect(ap, function(err) {
 
     if (err) {
 

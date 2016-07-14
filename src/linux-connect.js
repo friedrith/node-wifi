@@ -1,15 +1,24 @@
 var exec = require('child_process').exec;
 
-function connectToWifi(config, ap, callback) {
+function connectToWifi(config) {
 
-    var commandStr = "nmcli d wifi connect '" + ap.ssid + "'" + 
-	" password " + "'" + ap.password + "'" + " iface " + config.iface;
+    return function(ap, callback) {
 
-    exec(commandStr, function(err, resp) {
+	if (config.iface) {
+	    var commandStr = "nmcli d wifi connect '" + ap.ssid + "'" + 
+		" password " + "'" + ap.password + "'" + " iface " + 
+		config.iface;
+	} else {
+	    var commandStr = "nmcli d wifi connect '" + ap.ssid + "'" + 
+		" password " + "'" + ap.password + "'";
+	}
 
-	callback && callback(err);
-
-    });
+	exec(commandStr, function(err, resp) {
+	    
+	    callback && callback(err);
+	    
+	});
+    }
 }
 
 exports.connectToWifi = connectToWifi;

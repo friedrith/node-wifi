@@ -12,38 +12,35 @@ var config = {
     debug : false,
     callbackDelay : 0,
     iface : null
-}
+};
 
 
 function init(options) {
 
-    if (options.debug == true) {
-	config.debug = true;
-    } else {
-	config.debug = false;
+
+    if (options && options.debug) {
+	config.debug = options.debug;
     }
-    config.callbackDelay = options.callbackDelay;
-    config.iface = options.iface;
+    if (options.callbackDelay) {
+	config.callbackDelay = options.callbackDelay;
+    }
+    if (options.iface) {
+	config.iface = options.iface;
+    }
 
     switch(process.platform) {
 
     case "linux":
-	connect = linuxConnect;
-	scan = linuxScan;
-	if (config.iface == null) {
-	    config.iface = 'wlan0';
-	}
+	connect = linuxConnect(config);
+	scan = linuxScan(config);
 	break;
     case "darwin":
-	connect = darwinConnect;
-	scan = darwinScan;
-	if (config.iface == null) {
-	    config.iface = en0;
-	}
+	connect = darwinConnect(config);
+	scan = darwinScan(config);
 	break;
     case "win32":
-	connect = windowsConnect;
-	scan = windowsScan;
+	connect = windowsConnect(config);
+	scan = windowsScan(config);
 	break;
     default:
 	console.log("ERROR : UNRECOGNIZED OS");
@@ -51,7 +48,6 @@ function init(options) {
     }
     exports.scan = scan;
     exports.connect = connect;
-    exports.config = config;
 }
 
 exports.init = init;
