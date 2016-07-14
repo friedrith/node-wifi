@@ -7,31 +7,39 @@ var darwinScan = require('./darwin-scan.js').scanWifi;
 
 var scan;
 var connect;
-var debug;
-var callbackDelay;
+
+var config = {
+    debug : false,
+    callbackDelay : 0,
+    iface : null
+}
+
 
 function init(options) {
 
     if (options.debug == true) {
-	debug = true;
+	config.debug = true;
     } else {
-	debug = false;
+	config.debug = false;
     }
-
-    if (options.callbackDelay) {
-	callbackDelay = options.callbackDelay;
-    }
-
+    config.callbackDelay = options.callbackDelay;
+    config.iface = options.iface;
 
     switch(process.platform) {
 
     case "linux":
 	connect = linuxConnect;
 	scan = linuxScan;
+	if (config.iface == null) {
+	    config.iface = 'wlan0';
+	}
 	break;
     case "darwin":
 	connect = darwinConnect;
 	scan = darwinScan;
+	if (config.iface == null) {
+	    config.iface = en0;
+	}
 	break;
     case "win32":
 	connect = windowsConnect;
@@ -43,6 +51,7 @@ function init(options) {
     }
     exports.scan = scan;
     exports.connect = connect;
+    exports.config = config;
 }
 
 exports.init = init;
