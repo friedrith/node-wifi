@@ -47,3 +47,5 @@ As of now, the module only manages :
 
 * Connect for linux
 * Scan for linux
+* Connect for darwin
+* Scan for darwin
