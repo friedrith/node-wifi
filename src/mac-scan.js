@@ -1,6 +1,6 @@
 var exec = require('child_process').exec;
 var macProvider = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport';
-var networkUtils = require('./networkUtils.js');
+var networkUtils = require('./network-utils.js');
 
 
 function scanWifi(config) {
