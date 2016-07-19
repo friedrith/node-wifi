@@ -4,13 +4,12 @@ function connectToWifi(config) {
 
     return function(ap, callback) {
 
+
+	var commandStr = "nmcli d wifi connect '" + ap.ssid + "'" + 
+	    " password " + "'" + ap.password + "'" ;
+
 	if (config.iface) {
-	    var commandStr = "nmcli d wifi connect '" + ap.ssid + "'" + 
-		" password " + "'" + ap.password + "'" + " iface " + 
-		config.iface;
-	} else {
-	    var commandStr = "nmcli d wifi connect '" + ap.ssid + "'" + 
-		" password " + "'" + ap.password + "'";
+	    commandStr = commandStr + " iface " + config.iface;
 	}
 
 	exec(commandStr, function(err, resp) {
