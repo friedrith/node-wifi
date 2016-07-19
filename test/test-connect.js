@@ -2,7 +2,7 @@ var wifi = require('../src/wifi');
 
 wifi.init({
     debug : true,
-    iface : 'wlan0'
+    iface : 'en0'
 });
 
 var ap = {   
@@ -11,10 +11,14 @@ var ap = {
 }
 
 wifi.connect(ap, function(err) {
-
+    
     if (err) {
 
+	console.log('dfggerhrtb');
 	console.log(err);
 
     }
 });
+
+
+
