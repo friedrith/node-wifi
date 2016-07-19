@@ -2,8 +2,8 @@ var windowsConnect = require('./windows-connect.js').connectToWifi;
 var windowsScan = require('./windows-scan.js').scanWifi;
 var linuxConnect = require('./linux-connect.js').connectToWifi;
 var linuxScan = require('./linux-scan.js').scanWifi;
-var darwinConnect = require('./darwin-connect.js').connectToWifi;
-var darwinScan = require('./darwin-scan.js').scanWifi;
+var macConnect = require('./mac-connect.js').connectToWifi;
+var macScan = require('./mac-scan.js').scanWifi;
 
 var scan;
 var connect;
@@ -35,8 +35,8 @@ function init(options) {
 	scan = linuxScan(config);
 	break;
     case "darwin":
-	connect = darwinConnect(config);
-	scan = darwinScan(config);
+	connect = macConnect(config);
+	scan = macScan(config);
 	break;
     case "win32":
 	connect = windowsConnect(config);
