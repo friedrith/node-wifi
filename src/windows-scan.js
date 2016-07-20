@@ -1,5 +1,5 @@
 var exec = require('child_process').exec;
-var networkUtils = require('./networkUtils');
+var networkUtils = require('./network-utils');
 
 function scanWifi(config) {
 
