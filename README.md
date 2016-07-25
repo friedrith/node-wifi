@@ -21,33 +21,30 @@ npm install node-wifi
 Getting started 
 -------------
 
-```
-var wifi = require('node-wifi');
 
-//Initialize wifi module
-wifi.init({
-debug : true,  //verbose output
-connectionDelay : 0  //adds a delay to callback in connect
-})
+    var wifi = require('node-wifi');
 
-//Scan networks
-wifi.scan(function(err, networks) {
+    //Initialize wifi module
+    wifi.init();
 
-if (err) {
-console.log(err);
-} else {
-console.log(networks);
-}
-});
+    //Scan networks
+    wifi.scan(function(err, networks) {
 
-//Connect to a network
-wifi.connect({ ssid : "ssid", password : "password"}, function(err) {
-if (err) {
-console.log(err);
-}
-console.log('Connected');
-}); 
-```
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(networks);
+        }
+    });
+
+    //Connect to a network
+    wifi.connect({ ssid : "ssid", password : "password"}, function(err) {
+        if (err) {
+            console.log(err);
+        }
+        console.log('Connected');
+    }); 
+
 
 The module only manages :
 
@@ -59,7 +56,6 @@ The module only manages :
 Use binary 
 -------------
 
-./wifi --scan 
+    ./wifi --scan 
 
-./wifi --connect --sid <ssid> --password <password> 
-[--iface <wlan0>]
+    ./wifi --connect --sid <ssid> --password <password> [--iface <wlan0>]
