@@ -20,34 +20,69 @@ var wifi = require('node-wifi');
 
 //Initialize wifi module
 wifi.init({
-    debug : true,  //verbose output
-    iface : null //set network interface
+debug : true,  //verbose output
+connectionDelay : 0  //adds a delay to callback in connect
 })
 
 //Scan networks
 wifi.scan(function(err, networks) {
 
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(networks);
-    }
+if (err) {
+console.log(err);
+} else {
+console.log(networks);
+}
 });
 
 //Connect to a network
 wifi.connect({ ssid : "ssid", password : "password"}, function(err) {
-    if (err) {
-        console.log(err);
-    }
-    console.log('Connected');
+if (err) {
+console.log(err);
+}
+console.log('Connected');
 }); 
 ```
 
-As of now, the module only manages :
+The module only manages :
 
 * Connect for linux
 * Scan for linux
-* Connect for mac
-* Scan for mac
-* Connect for windows
-* Scan for windows
+* Connect for darwin
+* Scan for darwin
+
+Executing bin scripts 
+-------------
+
+```
+//executing scan function
+
+./scan --otpions
+```
+####options####
+
+- debug
+
+```
+//executing connect function 
+
+./connect --options
+```
+####Options####
+
+- ssid
+- password
+- iface 
+- debug
+
+#####Example####
+
+```
+//executing scan function
+./scan --ssid yourSSID --password yourPassword
+```
+
+```
+//executing connect function
+
+./connect --debug
+```
