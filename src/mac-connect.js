@@ -1,9 +1,11 @@
 var exec = require('child_process').exec;
+var util = require('util');
 
 function connectToWifi(config) {
 
     return function(ap, callback) {
 
+	var new_env = util._extend(process.env, { LANG: "en"});
 	var commandStr = "networksetup -setairportnetwork ";
 	
 	if (config.iface) {
@@ -13,7 +15,7 @@ function connectToWifi(config) {
 	    commandStr += "en0 " + ap.ssid + " " + ap.password;
 	}
 	
-	exec(commandStr, function(err, resp) {
+	exec(commandStr, new_env, function(err, resp) {
 	    
 	    callback && callback(err);
 	    
