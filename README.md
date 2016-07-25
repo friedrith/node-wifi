@@ -50,8 +50,10 @@ The module only manages :
 
 * Connect for linux
 * Scan for linux
-* Connect for darwin
-* Scan for darwin
+* Connect for mac
+* Scan for mac
+* Connect for windows
+* Scan for mac
 
 Use binary 
 -------------
