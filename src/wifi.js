@@ -10,7 +10,6 @@ var connect;
 
 var config = {
     debug : false,
-    callbackDelay : 0,
     iface : null
 };
 
