@@ -1,5 +1,6 @@
 var exec = require('child_process').exec;
 var networkUtils = require('./network-utils');
+var util = require('util');
 
 
 function scanWifi(config) {
@@ -9,26 +10,27 @@ function scanWifi(config) {
 
 	var networks = [];
 	var network = {};
+	var new_env = util._extend(process.env, { LANG: "en"});
 	
-	exec("nmcli -m multiline dev wifi list", function(err, scanResults) { 	
-
+	exec("nmcli -m multiline dev wifi list", new_env, function(err, scanResults) { 	
+	    
 	    if (err) {
-
+		
 		callback && callback(err);
 		return;
-
+		
 	    }
-
+	    
 	    var ssid = false;
 	    var freq = false;
 	    var signal = false;
 	    var sec = false;
 	    var mac = false;
-
+	    
 	    scanResults = scanResults.toString('utf8').split(' ').join('').split('\n');	
 	    
 	    for (var i = 0; i < scanResults.length; i++) {
-
+		
 		scanResults[i] = scanResults[i].split(":");
 		if (scanResults[i].length == 2) {
 		    scanResults[i][1] = scanResults[i][1].split("'").join("");
