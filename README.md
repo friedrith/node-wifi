@@ -9,6 +9,12 @@ These methods include scanning for wifi access points and connecting to these ac
 
 We wish to be clear in saying that this module is inspired from node-wifi-control but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems. 
 
+----------
+
+Install
+-------------
+
+npm install node-wifi
 
 ----------
 
@@ -50,39 +56,10 @@ The module only manages :
 * Connect for darwin
 * Scan for darwin
 
-Executing bin scripts 
+Use binary 
 -------------
 
-```
-//executing scan function
+./wifi --scan 
 
-./scan --otpions
-```
-####options####
-
-- debug
-
-```
-//executing connect function 
-
-./connect --options
-```
-####Options####
-
-- ssid
-- password
-- iface 
-- debug
-
-#####Example####
-
-```
-//executing scan function
-./scan --ssid yourSSID --password yourPassword
-```
-
-```
-//executing connect function
-
-./connect --debug
-```
+./wifi --connect --sid <ssid> --password <password> 
+[--iface <wlan0>]
