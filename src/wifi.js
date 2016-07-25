@@ -20,9 +20,6 @@ function init(options) {
     if (options && options.debug) {
 	config.debug = options.debug;
     }
-    if (options.callbackDelay) {
-	config.callbackDelay = options.callbackDelay;
-    }
     if (options.iface) {
 	config.iface = options.iface;
     }
@@ -42,8 +39,7 @@ function init(options) {
 	scan = windowsScan(config);
 	break;
     default:
-	console.log("ERROR : UNRECOGNIZED OS");
-	process.exit();
+	throw new Error("ERROR : UNRECOGNIZED OS");
     }
     exports.scan = scan;
     exports.connect = connect;

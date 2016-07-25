@@ -21,6 +21,7 @@ var wifi = require('node-wifi');
 //Initialize wifi module
 wifi.init({
     debug : true,  //verbose output
+    iface : null //set network interface
 })
 
 //Scan networks
