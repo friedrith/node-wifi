@@ -14,7 +14,7 @@ We wish to be clear in saying that this module is inspired from node-wifi-contro
 Install
 -------------
 
-npm install node-wifi
+    npm install node-wifi
 
 ----------
 
