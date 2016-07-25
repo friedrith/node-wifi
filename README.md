@@ -20,25 +20,25 @@ var wifi = require('node-wifi');
 
 //Initialize wifi module
 wifi.init({
-debug : true,  //verbose output
+    debug : true,  //verbose output
 })
 
 //Scan networks
 wifi.scan(function(err, networks) {
 
-if (err) {
-console.log(err);
-} else {
-console.log(networks);
-}
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(networks);
+    }
 });
 
 //Connect to a network
 wifi.connect({ ssid : "ssid", password : "password"}, function(err) {
-if (err) {
-console.log(err);
-}
-console.log('Connected');
+    if (err) {
+        console.log(err);
+    }
+    console.log('Connected');
 }); 
 ```
 
@@ -48,5 +48,5 @@ As of now, the module only manages :
 * Scan for linux
 * Connect for mac
 * Scan for mac
-* Connect for linux
-* Scan for linux
+* Connect for windows
+* Scan for windows
