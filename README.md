@@ -21,7 +21,6 @@ var wifi = require('node-wifi');
 //Initialize wifi module
 wifi.init({
 debug : true,  //verbose output
-connectionDelay : 0  //adds a delay to callback in connect
 })
 
 //Scan networks
@@ -47,5 +46,7 @@ As of now, the module only manages :
 
 * Connect for linux
 * Scan for linux
-* Connect for darwin
-* Scan for darwin
+* Connect for mac
+* Scan for mac
+* Connect for linux
+* Scan for linux
