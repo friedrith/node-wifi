@@ -25,7 +25,10 @@ Getting started
     var wifi = require('node-wifi');
 
     //Initialize wifi module
-    wifi.init();
+    wifi.init({
+        debug : true,
+        iface : null
+    });
 
     //Scan networks
     wifi.scan(function(err, networks) {
