@@ -1,6 +1,6 @@
 {
   "name": "node-wifi",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "NodeJS tool to manage wifi",
   "main": "src/wifi.js",
   "directories": {
