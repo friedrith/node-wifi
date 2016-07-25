@@ -58,4 +58,4 @@ Use binary
 
     ./wifi --scan 
 
-    ./wifi --connect --sid <ssid> --password <password> [--iface <wlan0>]
+    ./wifi --connect --ssid <ssid> --password <password> [--iface <wlan0>]
