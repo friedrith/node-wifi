@@ -14,7 +14,6 @@ wifi.connect(ap, function(err) {
     
     if (err) {
 
-	console.log('dfggerhrtb');
 	console.log(err);
 
     }
