@@ -14,7 +14,11 @@ We wish to be clear in saying that this module is inspired from node-wifi-contro
 Install
 -------------
 
-    npm install node-wifi
+    // Use as a module
+    npm install node-wifi 
+
+    // Use as a binary
+    npm install node-wifi -g
 
 ----------
 
@@ -27,6 +31,7 @@ Getting started
     //Initialize wifi module
     wifi.init({
         debug : true,
+        // the OS will find the right network interface if it is null  
         iface : null
     });
 
@@ -56,11 +61,11 @@ The module only manages :
 * Connect for mac
 * Scan for mac
 * Connect for windows
-* Scan for mac
+* Scan for windows
 
-Use binary 
+Use as binary 
 -------------
 
-    ./wifi --scan 
+    wifi --scan 
 
-    ./wifi --connect --ssid <ssid> --password <password> [--iface <wlan0>]
+    wifi --connect --ssid <ssid> --password <password> [--iface <wlan0>]

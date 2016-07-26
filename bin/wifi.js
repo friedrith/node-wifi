@@ -17,7 +17,7 @@ var conf = nconf.argv({
 	default : false
     },
     "ssid": {
-	describe : "network ssisd you want to connect to",
+	describe : "network ssid you want to connect to",
 	default : ""
     },
     "password": {
@@ -25,10 +25,10 @@ var conf = nconf.argv({
 	default : ""
     },
     "iface": {
-	describe : "network interface you want to use",
-	default : 'en0'
+	describe : "network interface you want to use (If null, we will try to find one",
+	default : null
     }
-}).env();
+});
 
 
 var scan = nconf.get('scan');
