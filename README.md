@@ -7,7 +7,7 @@ The node-wifi module allows mac, windows and linux users to interact with surrou
 
 These methods include scanning for wifi access points and connecting to these access points.
 
-We wish to be clear in saying that this module is inspired from node-wifi-control but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems. 
+We wish to be clear in saying that this module is inspired from [node-wifi-control](https://github.com/msolters/wifi-control-node) but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems. 
 
 ----------
 
