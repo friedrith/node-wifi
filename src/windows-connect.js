@@ -1,11 +1,13 @@
 var fs = require('fs');
 var exec = require('child_process').exec;
+var util = require('util');
 
 function connectToWifi(config) {
 
  	return function(ap, callback) {
 
       		var COMMANDS, com, connectToAPChain, i, j, l, len, ref, ssid, xmlContent;
+		var new_env = util._extend(process.env, {LANG : "en"});
       		ssid = {
         	plaintext: ap.ssid,
         	hex: ""
@@ -28,9 +30,9 @@ function connectToWifi(config) {
       		var ERROR;
       		for (l = 0, len = connectToAPChain.length; l < len; l++) {
         	com = connectToAPChain[l];
-        	exec(COMMANDS[com], function() {
+        	exec(COMMANDS[com], new_env, function() {
 
-      			exec("del \".\\" + ap.ssid + ".xml\"", function(err, resp) 			{
+      			exec("del \".\\" + ap.ssid + ".xml\"", new_env, function(err, resp) 			{
 	      
 				ERROR = err;
 			})
@@ -65,20 +67,6 @@ function win32WirelessProfileBuilder(ssid, security, key) {
     return profile_content;
 }
 
-
- function execSync(command, options) {
-      var results;
-      if (options == null) {
-        options = {};
-      }
-      results = execSyncToBuffer(command, options);
-      if (!results.status) {
-        return results.stdout;
-      }
-      throw {
-        stderr: results.stderr
-      }
- }
 
 exports.connectToWifi = connectToWifi
 
