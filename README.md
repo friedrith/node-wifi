@@ -7,7 +7,18 @@ The node-wifi module allows mac, windows and linux users to interact with surrou
 
 These methods include scanning for wifi access points and connecting to these access points.
 
-We wish to be clear in saying that this module is inspired from [node-wifi-control](https://github.com/msolters/wifi-control-node) but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems. 
+We wish to be clear in saying that this module is inspired from [node-wifi-control](https://github.com/msolters/wifi-control-node) but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems.
+
+
+The module only manages :
+
+* Connect for linux
+* Scan for linux
+* Connect for mac
+* Scan for mac
+* Connect for windows
+* Scan for windows
+
 
 ----------
 
@@ -31,8 +42,8 @@ Getting started
     //Initialize wifi module
     wifi.init({
         debug : true,
-        // the OS will find the right network interface if it is null  
         iface : null
+        // the OS will find the right network interface if it is null  
     });
 
     //Scan networks
@@ -54,14 +65,6 @@ Getting started
     }); 
 
 
-The module only manages :
-
-* Connect for linux
-* Scan for linux
-* Connect for mac
-* Scan for mac
-* Connect for windows
-* Scan for windows
 
 Use as binary 
 -------------
