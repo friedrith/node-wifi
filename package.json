@@ -1,6 +1,6 @@
 {
   "name": "node-wifi",
-  "version": “1.0.2",
+  "version": "1.0.2",
   "description": "NodeJS tool to manage wifi",
   "bin": {
     "wifi": "bin/wifi.js"
