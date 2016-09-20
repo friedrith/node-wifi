@@ -12,7 +12,7 @@ function scanWifi(config) {
 	var network = {};
 	var new_env = util._extend(process.env, { LANG: "en"});
 	
-	exec("nmcli -m multiline dev wifi list", new_env, function(err, scanResults) { 	
+	exec("nmcli -f all -m multiline dev wifi list", new_env, function(err, scanResults) { 	
 	    
 	    if (err) {
 		
