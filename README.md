@@ -19,6 +19,7 @@ The module only manages :
 * Connect for windows
 * Scan for windows
 
+> As everything with hardware dependency, weird behaviors may happen depending of your configuration. You should never hesitate to notify us about a specificity of your OS/Hardware/Wifi card/whatever.
 
 ----------
 
