@@ -24,51 +24,51 @@ The module only manages :
 
 Install
 -------------
+```javascript
+// Use as a module
+npm install node-wifi 
 
-    // Use as a module
-    npm install node-wifi 
-
-    // Use as a binary
-    npm install node-wifi -g
-
+// Use as a binary
+npm install node-wifi -g
+```
 ----------
 
 Getting started 
 -------------
 
+```javascript
+var wifi = require('node-wifi');
 
-    var wifi = require('node-wifi');
+//Initialize wifi module
+wifi.init({
+    debug : true,
+    iface : null
+    // the OS will find the right network interface if it is null  
+});
 
-    //Initialize wifi module
-    wifi.init({
-        debug : true,
-        iface : null
-        // the OS will find the right network interface if it is null  
-    });
+//Scan networks
+wifi.scan(function(err, networks) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(networks);
+    }
+});
 
-    //Scan networks
-    wifi.scan(function(err, networks) {
-
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(networks);
-        }
-    });
-
-    //Connect to a network
-    wifi.connect({ ssid : "ssid", password : "password"}, function(err) {
-        if (err) {
-            console.log(err);
-        }
-        console.log('Connected');
-    }); 
-
+//Connect to a network
+wifi.connect({ ssid : "ssid", password : "password"}, function(err) {
+    if (err) {
+        console.log(err);
+    }
+    console.log('Connected');
+}); 
+```
 
 
 Use as binary 
 -------------
+```javascript
+wifi --scan 
 
-    wifi --scan 
-
-    wifi --connect --ssid <ssid> --password <password> [--iface <wlan0>]
+wifi --connect --ssid <ssid> --password <password> [--iface <wlan0>]
+```
