@@ -28,7 +28,7 @@ Install
 // Use as a module
 npm install node-wifi 
 
-// Use as a binary
+// Use as a CLI
 npm install node-wifi -g
 ```
 ----------
@@ -65,7 +65,7 @@ wifi.connect({ ssid : "ssid", password : "password"}, function(err) {
 ```
 
 
-Use as binary 
+Use as CLI 
 -------------
 ```javascript
 wifi --scan 
