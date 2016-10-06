@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "command-line-args": "^3.0.1",
-    "command-line-usage": "^3.0.3",
-    "nconf": "^0.8.4"
+    "command-line-usage": "^3.0.3"
   }
 }
