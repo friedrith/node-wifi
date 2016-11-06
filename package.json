@@ -1,7 +1,10 @@
 {
   "name": "node-wifi",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "NodeJS tool to manage wifi",
+  "bin": {
+    "wifi": "bin/wifi.js"
+  },
   "main": "src/wifi.js",
   "directories": {
     "test": "test"
@@ -21,5 +24,9 @@
   "license": "LGPL-3.0",
   "bugs": {
     "url": "https://github.com/elqui-app/node-wifi/issues"
+  },
+  "dependencies": {
+    "command-line-args": "^3.0.1",
+    "command-line-usage": "^3.0.3"
   }
 }

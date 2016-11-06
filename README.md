@@ -7,26 +7,46 @@ The node-wifi module allows mac, windows and linux users to interact with surrou
 
 These methods include scanning for wifi access points and connecting to these access points.
 
-We wish to be clear in saying that this module is inspired from node-wifi-control but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems.
+We wish to be clear in saying that this module is inspired from [node-wifi-control](https://github.com/msolters/wifi-control-node) but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems.
 
+The module only manages :
+
+* Connect for linux
+* Scan for linux
+* Connect for mac
+* Scan for mac
+* Connect for windows
+* Scan for windows
+
+> As everything with hardware dependency, weird behaviors may happen depending of your configuration. You should never hesitate to notify us about a specificity of your OS/Hardware/Wifi card/whatever.
 
 ----------
+
+Install
+-------------
+
+```javascript
+// Use as a module
+npm install node-wifi
+
+// Use as a CLI
+npm install node-wifi -g
+```
 
 Getting started
 -------------
 
-```
+```javascript
 var wifi = require('node-wifi');
 
 //Initialize wifi module
 wifi.init({
     debug : true, //verbose output
     iface : null //set network interface
-})
+});
 
 //Scan networks
 wifi.scan(function(err, networks) {
-
     if (err) {
         console.log(err);
     } else {
@@ -43,14 +63,14 @@ wifi.connect({ ssid : "ssid", password : "password"}, function(err) {
 });
 ```
 
-As of now, the module only manages :
+Use as CLI
+-------------
 
-* Connect for linux
-* Scan for linux
-* Connect for mac
-* Scan for mac
-* Connect for windows
-* Scan for windows
+```javascript
+wifi --scan
+
+wifi --connect --ssid <ssid> --password <password> [--iface <wlan0>]
+```
 
 Dependencies
 -------------
