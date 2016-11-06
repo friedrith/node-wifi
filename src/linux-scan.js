@@ -27,7 +27,7 @@ function scanWifi(config) {
     	    var mac = false;
 
     	    scanResults = scanResults.toString('utf8').split(' ').join('').split('\n');
-            console.log(scanResults);
+            // console.log(scanResults);
 
     	    for (var i = 0; i < scanResults.length; i++) {
 
