@@ -7,32 +7,32 @@ function scanWifi(config) {
 
     return function(callback) {
 
-	var networks = []
-	var network = {}
-	var new_env = util._extend(process.env, { LANG: "en"});
-	
-	exec(macProvider + ' -s', new_env,  function(err, scanResults) {
-	    
-	    if (err) {
-		callback && callback(err);
-	    }
-	    
-	    var terms = { BSSID: 'BSSID',
-			  RSSI: 'RSSI',
-			  CHANNEL: 'CHANNEL',
-			  HT: 'HT',
-			  SECURITY: 'SECURITY',
-			  CC: 'CC' }
-	    
-	    var resp = parseAirport(terms, scanResults);
-	    callback && callback(null, resp);
-	});
+    	var networks = []
+    	var network = {}
+    	var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
+
+    	exec(macProvider + ' -s', new_env,  function(err, scanResults) {
+
+    	    if (err) {
+    		callback && callback(err);
+    	    }
+
+    	    var terms = { BSSID: 'BSSID',
+    			  RSSI: 'RSSI',
+    			  CHANNEL: 'CHANNEL',
+    			  HT: 'HT',
+    			  SECURITY: 'SECURITY',
+    			  CC: 'CC' }
+
+    	    var resp = parseAirport(terms, scanResults);
+    	    callback && callback(null, resp);
+    	});
     }
 }
 
 
 function parseAirport(terms, str) {
-    
+
     var lines = str.split('\n');
     var colSsid = 0;
     var colMac = lines[0].indexOf(terms.BSSID);

@@ -9,15 +9,15 @@ function scanWifi(config) {
 
 		var networks = [];
 		var network = {};
-		var new_env = util._extend(process.env, {LANG : "en"});
+		var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
 
 		exec("chcp 65001 && netsh wlan show networks mode=Bssid", new_env, function(err, scanResults) {
-		
+
 			if (err) {
 
 				callback && callback(err);
 				return;
-		
+
 			}
 
 			scanResults = scanResults.toString('utf8').split(' ').join('').split('\r').join('').split('\n').slice(5, scanResults.length);
@@ -43,10 +43,10 @@ function scanWifi(config) {
 				networks.push(network);
 			}
 			var resp = networks;
-			callback && callback(null, resp);  
-		});	
+			callback && callback(null, resp);
+		});
 	}
-}	
+}
 
 function parse(networkTmp) {
 
@@ -56,14 +56,14 @@ function parse(networkTmp) {
 		channel : null,
 		signal_level : null,
 		security : null,
-	}
+	};
 
 	var macLine = networkTmp[4].split(' ').join('').split(':');
 	var ssidLine = networkTmp[0].split(' ').join('').split(':');
 	var channelLine = networkTmp[7].split(' ').join('').split(':');
 	var signalLine = networkTmp[5].split(' ').join('').split(':');
 	var securityLine = networkTmp[2].split(' ').join('').split(':');
-	
+
 	network.mac = macLine[1]+':'+macLine[2]+':'+macLine[3]+':'+macLine[4]+
 			':'+macLine[5]+':'+macLine[6];
 	network.ssid = ssidLine[1];
@@ -76,4 +76,3 @@ function parse(networkTmp) {
 }
 
 exports.scanWifi = scanWifi;
-

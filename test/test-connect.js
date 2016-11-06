@@ -2,22 +2,18 @@ var wifi = require('../src/wifi');
 
 wifi.init({
     debug : true,
-    iface : 'en0'
+    iface : 'wlan0'
 });
 
-var ap = {   
+var ap = {
     ssid : "Elqui_Guests",
     password : ""
 }
 
 wifi.connect(ap, function(err) {
-    
     if (err) {
-
-	console.log(err);
-
+        console.log(err);
+    } else {
+        console.log('connected');
     }
 });
-
-
-

@@ -5,20 +5,18 @@ function connectToWifi(config) {
 
     return function(ap, callback) {
 
-	var new_env = util._extend(process.env, { LANG: "en"});
+    	var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
 
-	var commandStr = "nmcli d wifi connect '" + ap.ssid + "'" + 
-	    " password " + "'" + ap.password + "'" ;
+    	var commandStr = "nmcli d wifi connect '" + ap.ssid + "'" +
+    	    " password " + "'" + ap.password + "'" ;
 
-	if (config.iface) {
-	    commandStr = commandStr + " iface " + config.iface;
-	}
+    	if (config.iface) {
+    	    commandStr = commandStr + " iface " + config.iface;
+    	}
 
-	exec(commandStr, new_env, function(err, resp) {
-	    
-	    callback && callback(err);
-	    
-	});
+    	exec(commandStr, new_env, function(err, resp) {
+    	    callback && callback(err);
+    	});
     }
 }
 
