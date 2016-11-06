@@ -7,7 +7,7 @@ function connectToWifi(config) {
 
     	var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
 
-    	var commandStr = "nmcli d wifi connect '" + ap.ssid + "'" +
+    	var commandStr = "nmcli dev wifi connect '" + ap.ssid + "'" +
     	    " password " + "'" + ap.password + "'" ;
 
     	if (config.iface) {

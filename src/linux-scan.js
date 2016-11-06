@@ -11,7 +11,13 @@ function scanWifi(config) {
     	var network = {};
     	var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
 
-    	exec("nmcli -f all -m multiline dev wifi list", new_env, function(err, scanResults) {
+        var commandStr = "nmcli -f all -m multiline dev wifi list";
+
+        if (config.iface) {
+            commandStr += ' iface '+config.iface;
+        }
+
+    	exec(commandStr, new_env, function(err, scanResults) {
 
     	    if (err) {
 

@@ -1,6 +1,7 @@
 var windowsConnect = require('./windows-connect.js').connectToWifi;
 var windowsScan = require('./windows-scan.js').scanWifi;
 var linuxConnect = require('./linux-connect.js').connectToWifi;
+var linuxDisconnect = require('./linux-disconnect');
 var linuxScan = require('./linux-scan.js').scanWifi;
 var macConnect = require('./mac-connect.js').connectToWifi;
 var macScan = require('./mac-scan.js').scanWifi;
@@ -27,6 +28,7 @@ function init(options) {
         case "linux":
             connect = linuxConnect(config);
             scan = linuxScan(config);
+            exports.disconnect = linuxDisconnect(config);
             break;
         case "darwin":
             connect = macConnect(config);
@@ -49,5 +51,9 @@ exports.scan = function () {
 };
 
 exports.connect = function () {
+    throw new Error("ERROR : use init before");
+};
+
+exports.disconnect = function () {
     throw new Error("ERROR : use init before");
 };
