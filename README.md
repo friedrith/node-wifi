@@ -7,12 +7,12 @@ The node-wifi module allows mac, windows and linux users to interact with surrou
 
 These methods include scanning for wifi access points and connecting to these access points.
 
-We wish to be clear in saying that this module is inspired from node-wifi-control but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems. 
+We wish to be clear in saying that this module is inspired from node-wifi-control but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems.
 
 
 ----------
 
-Getting started 
+Getting started
 -------------
 
 ```
@@ -20,7 +20,7 @@ var wifi = require('node-wifi');
 
 //Initialize wifi module
 wifi.init({
-    debug : true,  //verbose output
+    debug : true, //verbose output
     iface : null //set network interface
 })
 
@@ -40,7 +40,7 @@ wifi.connect({ ssid : "ssid", password : "password"}, function(err) {
         console.log(err);
     }
     console.log('Connected');
-}); 
+});
 ```
 
 As of now, the module only manages :
@@ -51,3 +51,9 @@ As of now, the module only manages :
 * Scan for mac
 * Connect for windows
 * Scan for windows
+
+Dependencies
+-------------
+
+Linux:
+* network-manager
