@@ -7,26 +7,28 @@ function scanWifi(config) {
 
     return function(callback) {
 
-    	var networks = []
-    	var network = {}
-    	var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
+        var networks = []
+        var network = {}
+        var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
 
-    	exec(macProvider + ' -s', new_env,  function(err, scanResults) {
+        exec(macProvider + ' -s', new_env,  function(err, scanResults) {
 
-    	    if (err) {
-    		callback && callback(err);
-    	    }
+            if (err) {
+                callback && callback(err);
+            }
 
-    	    var terms = { BSSID: 'BSSID',
-    			  RSSI: 'RSSI',
-    			  CHANNEL: 'CHANNEL',
-    			  HT: 'HT',
-    			  SECURITY: 'SECURITY',
-    			  CC: 'CC' }
+            var terms = {
+                BSSID: 'BSSID',
+                RSSI: 'RSSI',
+                CHANNEL: 'CHANNEL',
+                HT: 'HT',
+                SECURITY: 'SECURITY',
+                CC: 'CC'
+            };
 
-    	    var resp = parseAirport(terms, scanResults);
-    	    callback && callback(null, resp);
-    	});
+            var resp = parseAirport(terms, scanResults);
+            callback && callback(null, resp);
+        });
     }
 }
 

@@ -6,6 +6,7 @@ var linuxGetCurrentConnections = require('./linux-current-connections');
 var linuxScan = require('./linux-scan.js').scanWifi;
 var macConnect = require('./mac-connect.js').connectToWifi;
 var macScan = require('./mac-scan.js').scanWifi;
+var macGetCurrentConnections = require('./mac-current-connections');
 
 var config = {
     debug : false,
@@ -44,6 +45,7 @@ function init(options) {
         case "darwin":
             connect = macConnect(config);
             scan = macScan(config);
+            getCurrentConnections = macGetCurrentConnections(config);
             break;
         case "win32":
             connect = windowsConnect(config);
