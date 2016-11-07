@@ -7,8 +7,6 @@ const getUsage = require('command-line-usage')
 
 var wifi = require('../src/wifi');
 
-var nconf = require('nconf');
-
 const optionDefinitions = [
   {
       name: 'scan',
@@ -18,12 +16,17 @@ const optionDefinitions = [
   {
       name: 'connect',
       type: Boolean,
-      description: 'Connect to a wifi network. It needs options [bold]{--ssid} and [bold]{--password}. A specific interface may be selected by addind option [bold]{--iface}'
+      description: 'Connect to a wifi network. It needs options [bold]{--ssid} and [bold]{--password}. A specific interface may be selected by adding option [bold]{--iface}'
   },
   {
       name: 'disconnect',
       type: Boolean,
-      description: 'Disconnect from a wifi network. A specific interface may be selected by addind option [bold]{--iface}'
+      description: 'Disconnect from a wifi network. A specific interface may be selected by adding option [bold]{--iface}'
+  },
+  {
+      name: 'current',
+      type: Boolean,
+      description: 'List the current wifi connections. A specific interface may be selected by adding option [bold]{--iface}'
   },
   {
       name: 'ssid',
@@ -83,14 +86,16 @@ var cmds = 0;
 if (options.connect) cmds++;
 if (options.disconnect) cmds++;
 if (options.scan) cmds++;
+if (options.current) cmds++;
+
 
 if (cmds > 1) {
-    console.log('You cannot connect, disconnect and scan at the same time');
+    console.log('You cannot do several operations at the same time');
     process.exit(2);
     // throw new Error();
 }
 
-if (!options.connect && !options.scan && !options.disconnect) {
+if (!options.connect && !options.scan && !options.disconnect && !options.current) {
     console.log(usage);
     process.exit(2);
 }
@@ -113,6 +118,11 @@ if (options.scan) {
 
 if (options.connect) {
 
+    if (!options.ssid || !options.password) {
+        console.log(usage);
+        process.exit(2);
+    }
+
     var ap = {
     	ssid : options.ssid,
     	password : options.password
@@ -139,4 +149,15 @@ if (options.connect) {
             process.exit(2);
     	}
     });
-};
+}
+
+if (options.current) {
+    wifi.getCurrentConnections(function(err, currentConnections) {
+    	if (err) {
+    	    console.log(err);
+            process.exit(2);
+    	} else {
+            console.log(currentConnections);
+        }
+    });
+}

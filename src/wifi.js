@@ -2,6 +2,7 @@ var windowsConnect = require('./windows-connect.js').connectToWifi;
 var windowsScan = require('./windows-scan.js').scanWifi;
 var linuxConnect = require('./linux-connect');
 var linuxDisconnect = require('./linux-disconnect');
+var linuxGetCurrentConnections = require('./linux-current-connections');
 var linuxScan = require('./linux-scan.js').scanWifi;
 var macConnect = require('./mac-connect.js').connectToWifi;
 var macScan = require('./mac-scan.js').scanWifi;
@@ -16,7 +17,7 @@ function init(options) {
         config.debug = options.debug;
     }
 
-    if (options.iface) {
+    if (options && options.iface) {
         config.iface = options.iface;
     }
 
@@ -29,12 +30,16 @@ function init(options) {
     var disconnect = function () {
         throw new Error("ERROR : not available for this OS");
     };
+    var getCurrentConnections = function () {
+        throw new Error("ERROR : not available for this OS");
+    };
 
     switch(process.platform) {
         case "linux":
             connect = linuxConnect(config);
             scan = linuxScan(config);
             disconnect = linuxDisconnect(config);
+            getCurrentConnections = linuxGetCurrentConnections(config);
             break;
         case "darwin":
             connect = macConnect(config);
@@ -50,6 +55,7 @@ function init(options) {
     exports.scan = scan;
     exports.connect = connect;
     exports.disconnect = disconnect;
+    exports.getCurrentConnections = getCurrentConnections;
 }
 
 exports.init = init;
@@ -62,5 +68,9 @@ exports.connect = function () {
 };
 
 exports.disconnect = function () {
+    throw new Error("ERROR : use init before");
+};
+
+exports.getCurrentConnections = function () {
     throw new Error("ERROR : use init before");
 };

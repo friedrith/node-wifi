@@ -59,7 +59,7 @@ wifi.scan(function(err, networks) {
                 mac: '...',
                 frequency: <number>, // in MHz
                 signal_level: <number>, // in dB
-                security: '...', // unfortunately the format still depends of the OS
+                security: '...' // unfortunately the format still depends of the OS
             },
             ...
         ];
@@ -83,6 +83,29 @@ wifi.disconnect(function(err) {
     }
     console.log('Disconnected');
 });
+
+// Disconnect from a network
+// not available on all os for now
+wifi.getCurrentConnections(function(err, currentConnections) {
+    if (err) {
+        console.log(err);
+    }
+    console.log(currentConnections);
+    /*
+    // you may have several connections
+    [
+        {
+            iface: '...', // network interface used for the connection
+            ssid: '...',
+            mac: '...',
+            frequency: <number>, // in MHz
+            signal_level: <number>, // in dB
+            security: '...' // unfortunately the format still depends of the OS
+        }
+    ]
+    */
+});
+
 ```
 
 Use as CLI
