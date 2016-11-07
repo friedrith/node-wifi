@@ -47,8 +47,7 @@ function parseAirport(terms, str) {
         wifis.push({
             'mac' : lines[i].substr(colMac, colRssi - colMac).trim(),
             'ssid' : lines[i].substr(0, colMac).trim(),
-            'channel' : networkUtils.frequencyFromChannel(
-		lines[i].substr(colChannel, colHt - colChannel).trim()),
+            'frequency' : networkUtils.frequencyFromChannel(lines[i].substr(colChannel, colHt - colChannel).trim()),
             'signal_level' : lines[i].substr(colRssi, colChannel - colRssi).trim(),
             'security' : lines[i].substr(colSec).trim()
         });

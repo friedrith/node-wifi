@@ -53,7 +53,7 @@ function parse(networkTmp) {
 	var network = {
 		mac : null,
 		ssid : null,
-		channel : null,
+		frequency : null,
 		signal_level : null,
 		security : null,
 	};
@@ -67,7 +67,7 @@ function parse(networkTmp) {
 	network.mac = macLine[1]+':'+macLine[2]+':'+macLine[3]+':'+macLine[4]+
 			':'+macLine[5]+':'+macLine[6];
 	network.ssid = ssidLine[1];
-	network.channel = networkUtils.frequencyFromChannel(channelLine[1]);
+	network.frequency = networkUtils.frequencyFromChannel(channelLine[1]);
 	network.signal_level = networkUtils.dBFromQuality(signalLine[1]);
 	network.security = securityLine[1];
 

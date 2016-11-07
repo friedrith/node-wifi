@@ -1,19 +1,15 @@
 var windowsConnect = require('./windows-connect.js').connectToWifi;
 var windowsScan = require('./windows-scan.js').scanWifi;
-var linuxConnect = require('./linux-connect.js').connectToWifi;
+var linuxConnect = require('./linux-connect');
 var linuxDisconnect = require('./linux-disconnect');
 var linuxScan = require('./linux-scan.js').scanWifi;
 var macConnect = require('./mac-connect.js').connectToWifi;
 var macScan = require('./mac-scan.js').scanWifi;
 
-var scan;
-var connect;
-
 var config = {
     debug : false,
     iface : null
 };
-
 
 function init(options) {
     if (options && options.debug) {
@@ -24,11 +20,21 @@ function init(options) {
         config.iface = options.iface;
     }
 
+    var scan = function () {
+        throw new Error("ERROR : not available for this OS");
+    };
+    var connect = function () {
+        throw new Error("ERROR : not available for this OS");
+    };
+    var disconnect = function () {
+        throw new Error("ERROR : not available for this OS");
+    };
+
     switch(process.platform) {
         case "linux":
             connect = linuxConnect(config);
             scan = linuxScan(config);
-            exports.disconnect = linuxDisconnect(config);
+            disconnect = linuxDisconnect(config);
             break;
         case "darwin":
             connect = macConnect(config);
@@ -43,6 +49,7 @@ function init(options) {
     }
     exports.scan = scan;
     exports.connect = connect;
+    exports.disconnect = disconnect;
 }
 
 exports.init = init;

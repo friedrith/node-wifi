@@ -21,6 +21,11 @@ const optionDefinitions = [
       description: 'Connect to a wifi network. It needs options [bold]{--ssid} and [bold]{--password}. A specific interface may be selected by addind option [bold]{--iface}'
   },
   {
+      name: 'disconnect',
+      type: Boolean,
+      description: 'Disconnect from a wifi network. A specific interface may be selected by addind option [bold]{--iface}'
+  },
+  {
       name: 'ssid',
       type: String,
       typeLabel: '[underline]{ssid}',
@@ -73,13 +78,19 @@ if (options.help) {
     process.exit(0);
 }
 
-if (options.connect && options.scan) {
-    console.log('You cannot scan and connect at the same time');
+var cmds = 0;
+
+if (options.connect) cmds++;
+if (options.disconnect) cmds++;
+if (options.scan) cmds++;
+
+if (cmds > 1) {
+    console.log('You cannot connect, disconnect and scan at the same time');
     process.exit(2);
     // throw new Error();
 }
 
-if (!options.connect && !options.scan) {
+if (!options.connect && !options.scan && !options.disconnect) {
     console.log(usage);
     process.exit(2);
 }
@@ -99,6 +110,21 @@ if (options.scan) {
     	}
     });
 }
+
+if (options.connect) {
+
+    var ap = {
+    	ssid : options.ssid,
+    	password : options.password
+    }
+
+    wifi.connect(ap, function(err) {
+    	if (err) {
+    	    console.log(err);
+            process.exit(2);
+    	}
+    });
+};
 
 if (options.connect) {
 

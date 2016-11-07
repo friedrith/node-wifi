@@ -47,7 +47,7 @@ function scanWifi(config) {
         		    ssid = true;
         		    break;
         		case 'FREQ':
-        		    network.channel = parseInt(scanResults[i][1]);
+        		    network.frequency = parseInt(scanResults[i][1]);
         		    freq = true;
         		    break;
         		case 'SIGNAL':
