@@ -14,6 +14,7 @@ The module manages :
 * Connect for linux
 * Scan for linux
 * Disconnect for Linux
+* List the current connections for Linux
 * Connect for mac
 * Scan for mac
 * Connect for windows
@@ -117,6 +118,8 @@ wifi --scan
 wifi --connect --ssid <ssid> --password <password> [--iface <wlan0>]
 
 wifi --disconnect
+
+wifi --current
 ```
 
 Dependencies
