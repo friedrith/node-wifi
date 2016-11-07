@@ -92,6 +92,8 @@ Use as CLI
 wifi --scan
 
 wifi --connect --ssid <ssid> --password <password> [--iface <wlan0>]
+
+wifi --disconnect
 ```
 
 Dependencies
