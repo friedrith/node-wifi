@@ -14,9 +14,10 @@ The module manages :
 * Connect for linux
 * Scan for linux
 * Disconnect for Linux
-* List the current connections for Linux
+* List the current wifi connections for Linux
 * Connect for mac
 * Scan for mac
+* List the current wifi connections for mac
 * Connect for windows
 * Scan for windows
 
@@ -96,12 +97,12 @@ wifi.getCurrentConnections(function(err, currentConnections) {
     // you may have several connections
     [
         {
-            iface: '...', // network interface used for the connection
+            iface: '...', // network interface used for the connection, not available on macOS
             ssid: '...',
             mac: '...',
             frequency: <number>, // in MHz
             signal_level: <number>, // in dB
-            security: '...' // unfortunately the format still depends of the OS
+            security: '...' // not available on linux
         }
     ]
     */
