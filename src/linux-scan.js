@@ -32,7 +32,8 @@ function scanWifi(config) {
     	    var sec = false;
     	    var mac = false;
 
-    	    scanResults = scanResults.toString('utf8').split(' ').join('').split('\n');
+    	    // scanResults = scanResults.toString('utf8').split(' ').join('').split('\n');
+            scanResults = scanResults.toString('utf8').replace(/\:[ ]*/g, ':').split('\n');
             // console.log(scanResults);
 
     	    for (var i = 0; i < scanResults.length; i++) {
