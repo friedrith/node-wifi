@@ -7,8 +7,6 @@ const getUsage = require('command-line-usage')
 
 var wifi = require('../src/wifi');
 
-var nconf = require('nconf');
-
 const optionDefinitions = [
   {
       name: 'scan',
