@@ -1,13 +1,15 @@
+require('dotenv').config();
+
 var wifi = require('../src/wifi');
 
 wifi.init({
     debug : true,
-    iface : 'wlan0'
+    iface : process.env.WIFI_IFACE
 });
 
 var ap = {
-    ssid : "Elqui_Guests",
-    password : ""
+    ssid : process.env.WIFI_SSID,
+    password : process.env.WIFI_PASSWORD
 }
 
 wifi.connect(ap, function(err) {

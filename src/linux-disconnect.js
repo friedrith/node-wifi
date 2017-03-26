@@ -1,11 +1,9 @@
 var exec = require('child_process').exec;
-var util = require('util');
+var env = require('./env');
 
 module.exports = function (config) {
 
     return function(callback) {
-
-    	var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
 
     	var commandStr = "nmcli dev disconnect" ;
 
@@ -13,7 +11,7 @@ module.exports = function (config) {
     	    commandStr += " " + config.iface;
     	}
 
-    	exec(commandStr, new_env, function(err, resp) {
+    	exec(commandStr, env, function(err, resp) {
     	    callback && callback(err);
     	});
     }

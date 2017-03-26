@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 var wifi = require('../src/wifi');
 
 wifi.init({
     debug : true,
-    iface : 'wlp1s0'
+    iface : process.env.WIFI_IFACE
 });
 
 wifi.disconnect(function(err) {

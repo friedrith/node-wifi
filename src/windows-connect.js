@@ -1,13 +1,12 @@
 var fs = require('fs');
 var exec = require('child_process').exec;
-var util = require('util');
+var env = require('./env');
 
 function connectToWifi(config) {
 
     return function(ap, callback) {
 
         var COMMANDS, com, connectToAPChain, i, j, l, len, ref, ssid, xmlContent;
-        var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
         ssid = {
             plaintext: ap.ssid,
             hex: ""
@@ -30,9 +29,9 @@ function connectToWifi(config) {
         var ERROR;
         for (l = 0, len = connectToAPChain.length; l < len; l++) {
             com = connectToAPChain[l];
-            exec(COMMANDS[com], new_env, function() {
+            exec(COMMANDS[com], env, function() {
 
-                exec("del \".\\" + ap.ssid + ".xml\"", new_env, function(err, resp) 			{
+                exec("del \".\\" + ap.ssid + ".xml\"", env, function(err, resp) 			{
 
                     ERROR = err;
                 })

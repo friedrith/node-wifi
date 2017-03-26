@@ -1,11 +1,16 @@
 var exec = require('child_process').exec;
 var util = require('util');
+var env = require('./env');
+
+var escapeShell = function(cmd) {
+    return '"'+cmd.replace(/(["\s'$`\\])/g,'\\$1')+'"';
+};
+
 
 module.exports = function (config) {
 
     return function(ap, callback) {
 
-    	var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
 
     	var commandStr = "nmcli dev wifi connect '" + ap.ssid + "'" +
     	    " password " + "'" + ap.password + "'" ;
@@ -14,7 +19,9 @@ module.exports = function (config) {
     	    commandStr = commandStr + " iface " + config.iface;
     	}
 
-    	exec(commandStr, new_env, function(err, resp) {
+        commandStr = escapeShell(commandStr);
+
+    	exec(commandStr, env, function(err, resp) {
     	    callback && callback(err);
     	});
     }

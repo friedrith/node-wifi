@@ -1,7 +1,9 @@
+require('dotenv').config();
+
 var wifi = require('../src/wifi');
 
 wifi.init({
-    iface : null
+    iface : process.env.WIFI_IFACE
 });
 
 wifi.getCurrentConnections(function(err, currentConnections) {

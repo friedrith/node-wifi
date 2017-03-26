@@ -1,7 +1,7 @@
 var exec = require('child_process').exec;
 var macProvider = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport';
 var networkUtils = require('./network-utils.js');
-var util = require('util');
+var env = require('./env');
 
 function scanWifi(config) {
 
@@ -9,9 +9,8 @@ function scanWifi(config) {
 
         var networks = []
         var network = {}
-        var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
 
-        exec(macProvider + ' -s', new_env,  function(err, scanResults) {
+        exec(macProvider + ' -s', env,  function(err, scanResults) {
 
             if (err) {
                 callback && callback(err);

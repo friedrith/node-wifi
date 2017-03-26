@@ -1,6 +1,6 @@
 var exec = require('child_process').exec;
 var networkUtils = require('./network-utils');
-var util = require('util');
+var env = require('./env');
 
 function scanWifi(config) {
 
@@ -9,9 +9,8 @@ function scanWifi(config) {
 
 		var networks = [];
 		var network = {};
-		var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
 
-		exec("chcp 65001 && netsh wlan show networks mode=Bssid", new_env, function(err, scanResults) {
+		exec("chcp 65001 && netsh wlan show networks mode=Bssid", env, function(err, scanResults) {
 
 			if (err) {
 

@@ -1,7 +1,6 @@
 var exec = require('child_process').exec;
 var networkUtils = require('./network-utils');
-var util = require('util');
-
+var env = require('./env');
 
 function scanWifi(config) {
 
@@ -9,7 +8,6 @@ function scanWifi(config) {
 
     	var networks = [];
     	var network = {};
-    	var new_env = util._extend(process.env, { LANG: "en", LC_ALL: "en", LC_MESSAGES: "en"});
 
         var commandStr = "nmcli -f all -m multiline dev wifi list";
 
@@ -17,7 +15,7 @@ function scanWifi(config) {
             commandStr += ' iface '+config.iface;
         }
 
-    	exec(commandStr, new_env, function(err, scanResults) {
+    	exec(commandStr, env, function(err, scanResults) {
 
     	    if (err) {
 
