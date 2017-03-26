@@ -52,8 +52,7 @@ function scanWifi(config) {
         		    freq = true;
         		    break;
         		case 'SIGNAL':
-        		    network.signal_level = networkUtils.dBFromQuality(
-        			scanResults[i][1]);
+        		    network.signal_level = networkUtils.dBFromQuality(scanResults[i][1]);
         		    signal = true;
         		    break;
         		case 'SECURITY':

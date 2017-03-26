@@ -2,7 +2,7 @@ var wifi = require('../src/wifi');
 
 wifi.init({
     debug : true,
-    iface: 'wlan0'
+    iface: 'wlp1s0'
 });
 
 wifi.scan(function(err, networks) {

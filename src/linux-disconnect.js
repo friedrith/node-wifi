@@ -10,7 +10,7 @@ module.exports = function (config) {
     	var commandStr = "nmcli dev disconnect" ;
 
     	if (config.iface) {
-    	    commandStr += " iface " + config.iface;
+    	    commandStr += " " + config.iface;
     	}
 
     	exec(commandStr, new_env, function(err, resp) {
