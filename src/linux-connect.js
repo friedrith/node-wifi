@@ -19,7 +19,7 @@ module.exports = function (config) {
     	    commandStr = commandStr + " iface " + config.iface;
     	}
 
-        commandStr = escapeShell(commandStr);
+        // commandStr = escapeShell(commandStr);
 
     	exec(commandStr, env, function(err, resp) {
     	    callback && callback(err);
