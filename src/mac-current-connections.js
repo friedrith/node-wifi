@@ -18,7 +18,7 @@ function parseAirport (stdout) {
         } else if (line.match(/[ ]*link auth: (.*)/)) {
             connection.security = line.match(/[ ]*link auth: (.*)/)[1];
         } else if (line.match(/[ ]*channel: (.*)/)) {
-            connection.frequency = parseInt(networkUtils.frequencyFromChannel(parseInt(line.match(/[ ]*channel: (.*)/)[1])));
+            connection.frequency = parseInt(networkUtils.frequencyFromChannel(parseInt(line.match(/[ ]*channel: (.*)/)[1].split(',')[0])));
             connections.push(connection);
             connection = {};
         }
