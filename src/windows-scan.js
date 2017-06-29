@@ -19,7 +19,7 @@ function scanWifi(config) {
 
 			}
 
-			scanResults = scanResults.toString('utf8').split(' ').join('').split('\r').join('').split('\n').slice(5, scanResults.length);
+			scanResults = scanResults.toString('utf8')/*.split(' ').join('')*/.split('\r').join('').split('\n').slice(5, scanResults.length);
 
 			var numNetworks = -1;
 			var currentLine = 0;
@@ -49,6 +49,8 @@ function scanWifi(config) {
 
 function parse(networkTmp) {
 
+	// console.log(networkTmp)
+
 	var network = {
 		mac : null,
 		ssid : null,
@@ -57,18 +59,26 @@ function parse(networkTmp) {
 		security : null,
 	};
 
-	var macLine = networkTmp[4].split(' ').join('').split(':');
+	// console.log(networkTmp[4].match(/.*?:\s(.*)/))
+
+	// var macLine = networkTmp[4].match(/.*?:\s(.*)/)[1];//.split(' ').join('').split(':');
 	var ssidLine = networkTmp[0].split(' ').join('').split(':');
 	var channelLine = networkTmp[7].split(' ').join('').split(':');
 	var signalLine = networkTmp[5].split(' ').join('').split(':');
 	var securityLine = networkTmp[2].split(' ').join('').split(':');
 
-	network.mac = macLine[1]+':'+macLine[2]+':'+macLine[3]+':'+macLine[4]+
-			':'+macLine[5]+':'+macLine[6];
-	network.ssid = ssidLine[1];
-	network.frequency = networkUtils.frequencyFromChannel(channelLine[1]);
-	network.signal_level = networkUtils.dBFromQuality(signalLine[1]);
-	network.security = securityLine[1];
+	/*
+	var macLine = networkTmp[4].split(' ').join('').split(':');
+	var ssidLine = networkTmp[0].split(' ').join('').split(':');
+	var channelLine = networkTmp[7].split(' ').join('').split(':');
+	var signalLine = networkTmp[5].split(' ').join('').split(':');
+	var securityLine = networkTmp[2].split(' ').join('').split(':');*/
+
+	network.mac = networkTmp[4].match(/.*?:\s(.*)/)[1];
+	network.ssid = networkTmp[0].match(/.*?:\s(.*)/)[1];
+	network.frequency = networkUtils.frequencyFromChannel(networkTmp[7].match(/.*?:\s(.*)/)[1]);
+	network.signal_level = networkUtils.dBFromQuality(networkTmp[5].match(/.*?:\s(.*)/)[1]);
+	network.security = networkTmp[2].match(/.*?:\s(.*)/)[1];
 
 	return network;
 
