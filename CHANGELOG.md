@@ -6,4 +6,8 @@
 
 # Version 1.2.4
 
-* fixed bug introduced during #7 fix 
+* fixed bug introduced during #7 fix
+
+# Version 1.2.5
+
+* fixed bug #13
