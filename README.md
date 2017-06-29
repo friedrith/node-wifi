@@ -11,15 +11,10 @@ We wish to be clear in saying that this module is inspired from [node-wifi-contr
 
 The module manages :
 
-* Connect for linux
-* Scan for linux
-* Disconnect for Linux
-* List the current wifi connections for Linux
-* Connect for mac
-* Scan for mac
-* List the current wifi connections for mac
-* Connect for windows
-* Scan for windows
+* Connect for linux | mac | windows
+* Scan for linux | mac | windows
+* List the current wifi connections for linux | mac
+* Disconnect for linux
 
 > As everything with hardware dependency, weird behaviors may happen depending of your configuration. You should never hesitate to notify us about a specificity of your OS/Hardware/Wifi card/whatever.
 
