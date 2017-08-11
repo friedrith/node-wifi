@@ -12,7 +12,7 @@ function scanWifi(config) {
         var commandStr = "nmcli -f all -m multiline dev wifi list";
 
         if (config.iface) {
-            commandStr += ' iface '+config.iface;
+            commandStr += ' ifname '+config.iface;
         }
 
     	exec(commandStr, env, function(err, scanResults) {
