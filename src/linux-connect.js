@@ -16,7 +16,7 @@ module.exports = function (config) {
     	    " password " + "'" + ap.password + "'" ;
 
     	if (config.iface) {
-    	    commandStr = commandStr + " iface " + config.iface;
+    	    commandStr = commandStr + " ifname " + config.iface;
     	}
 
         // commandStr = escapeShell(commandStr);
