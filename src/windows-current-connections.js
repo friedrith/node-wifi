@@ -53,7 +53,6 @@ module.exports = function (config) {
 
                 if (connected && connection.iface && (!config.iface || connection.iface === config.iface) && connection.ssid && connection.mac && connection.security) {
                     connections.push(connection);
-                    console.log('pushing');
                 }
             }
         });
