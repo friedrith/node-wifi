@@ -1,6 +1,7 @@
 var windowsConnect = require('./windows-connect.js').connectToWifi;
 var windowsScan = require('./windows-scan.js').scanWifi;
 var windowsDisconnect = require('./windows-disconnect.js');
+var windowsGetCurrentConnections = require('./windows-current-connections');
 var linuxConnect = require('./linux-connect');
 var linuxDisconnect = require('./linux-disconnect');
 var linuxGetCurrentConnections = require('./linux-current-connections');
@@ -52,6 +53,7 @@ function init(options) {
             connect = windowsConnect(config);
             scan = windowsScan(config);
             disconnect = windowsDisconnect(config);
+            getCurrentConnections = windowsGetCurrentConnections(config);
             break;
         default:
             throw new Error("ERROR : UNRECOGNIZED OS");
