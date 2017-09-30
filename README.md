@@ -2,6 +2,8 @@
 node-wifi
 ===================
 
+![node-wifi](https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png)
+
 
 The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods.
 
@@ -13,8 +15,8 @@ The module manages :
 
 * Connect for linux | mac | windows
 * Scan for linux | mac | windows
-* List the current wifi connections for linux | mac
-* Disconnect for linux
+* List the current wifi connections for linux | mac | windows
+* Disconnect for linux | windows
 
 > As everything with hardware dependency, weird behaviors may happen depending of your configuration. You should never hesitate to notify us about a specificity of your OS/Hardware/Wifi card/whatever.
 

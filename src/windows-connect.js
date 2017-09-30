@@ -27,18 +27,23 @@ function connectToWifi(config) {
         };
         connectToAPChain = ["loadProfile", "connect"];
         var ERROR;
-        for (l = 0, len = connectToAPChain.length; l < len; l++) {
-            com = connectToAPChain[l];
-            exec(COMMANDS[com], env, function() {
+        try {
+          for (l = 0, len = connectToAPChain.length; l < len; l++) {
+              com = connectToAPChain[l];
+              exec(COMMANDS[com], env, function() {
 
-                exec("del \".\\" + ap.ssid + ".xml\"", env, function(err, resp) 			{
+                  exec("del \".\\" + ap.ssid + ".xml\"", env, function(err, resp) 			{
 
-                    ERROR = err;
-                })
-            })
+                      ERROR = err;
+                  })
+              })
+          }
+          var err = ERROR
+          callback && callback(err);
+        } catch (e) {
+          callback && callback(e);
         }
-        var err = ERROR
-        callback && callback(err);
+
     }
 }
 
