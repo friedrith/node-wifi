@@ -54,11 +54,14 @@ wifi.scan(function(err, networks) {
         /*
         networks = [
             {
-                ssid: '...',
-                mac: '...',
-                frequency: <number>, // in MHz
-                signal_level: <number>, // in dB
-                security: '...' // unfortunately the format still depends of the OS
+              ssid: '...',
+              bssid: '...',
+              mac: '...', // equals to bssid (for retrocompatibility)
+              channel: <number>,
+              frequency: <number>, // in MHz
+              signal_level: <number>, // in dB
+              security: '...' //
+              security_flags: '...' // encryption protocols (format depending of the OS)
             },
             ...
         ];
@@ -96,14 +99,25 @@ wifi.getCurrentConnections(function(err, currentConnections) {
         {
             iface: '...', // network interface used for the connection, not available on macOS
             ssid: '...',
-            mac: '...',
+            bssid: '...',
+            mac: '...', // equals to bssid (for retrocompatibility)
+            channel: <number>,
             frequency: <number>, // in MHz
             signal_level: <number>, // in dB
-            security: '...' // not available on linux
+            security: '...' //
+            security_flags: '...' // encryption protocols (format depending of the OS)
         }
     ]
     */
 });
+
+// All functions also return promise if there is no callback given
+wifi.scan().then(function (networks) {
+  // networks
+}).catch(function (error) {
+  // error
+})
+
 
 ```
 
