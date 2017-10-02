@@ -12,10 +12,20 @@ var ap = {
     password : process.env.WIFI_PASSWORD
 }
 
-wifi.connect(ap, function(err) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log('connected');
-    }
-});
+if (process.env.PROMISE == "true") {
+  console.log('with promise');
+  wifi.connect(ap, function(err) {
+      if (err) {
+          console.log(err);
+      } else {
+          console.log('connected');
+      }
+  });
+} else {
+  console.log('with callback');
+  wifi.connect(ap).then(function () {
+    console.log('connected');
+  }).catch(function (e) {
+    console.log(e);
+  })
+}

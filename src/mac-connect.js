@@ -1,23 +1,43 @@
 var exec = require('child_process').exec;
 var env = require('./env');
 
-function connectToWifi(config) {
+function connectToWifi(config, ap, callback) {
 
-    return function(ap, callback) {
+  var iface = 'en0';
+  var commandStr = "networksetup -setairportnetwork ";
 
-    	var iface = 'en0';
-    	var commandStr = "networksetup -setairportnetwork ";
+  if (config.iface) {
+      iface = config.iface.toString();
+  }
 
-    	if (config.iface) {
-    	    iface = config.iface.toString();
-    	}
-    	commandStr = commandStr + "'" + iface + "'" + " " + "'" + ap.ssid + "'" + " " + "'" + ap.password + "'";
-    	//console.log(commandStr);
+  commandStr = commandStr + "'" + iface + "'" + " " + "'" + ap.ssid + "'" + " " + "'" + ap.password + "'";
+  //console.log(commandStr);
 
-    	exec(commandStr, env, function(err, resp) {
-    	    callback && callback(err);
-    	});
+  exec(commandStr, env, function(err, resp, stderr) {
+    //console.log(stderr, resp);
+    if (resp && resp.indexOf('Failed to join network') >= 0) {
+      callback && callback(resp);
+    } else {
+      callback && callback(err);
     }
+  });
 }
 
-exports.connectToWifi = connectToWifi;
+exports.connectToWifi = function (config) {
+  return function (ap, callback) {
+    if (callback) {
+      connectToWifi(config, ap, callback);
+    } else {
+      return new Promise(function (resolve, reject) {
+        connectToWifi(config, ap, function (err, networks) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(networks);
+          }
+        })
+      });
+    }
+  }
+
+};

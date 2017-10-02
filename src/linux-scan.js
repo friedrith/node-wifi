@@ -27,7 +27,7 @@ function scanWifi(config, callback) {
             channel: parseInt(fields[4].replace(/\&\&/g, ':')),
             frequency: parseInt(fields[5].replace(/\&\&/g, ':')),
             signal_level: networkUtils.dBFromQuality(fields[6].replace(/\&\&/g, ':')),
-            security: fields[7].replace(/\&\&/g, ':'),
+            security: fields[7].replace(/\&\&/g, ':') != '(none)' ? fields[7].replace(/\&\&/g, ':') : 'none',
             security_flags: {
               wpa:  fields[8].replace(/\&\&/g, ':'),
               rsn: fields[9].replace(/\&\&/g, ':'),

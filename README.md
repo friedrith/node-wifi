@@ -60,8 +60,8 @@ wifi.scan(function(err, networks) {
               channel: <number>,
               frequency: <number>, // in MHz
               signal_level: <number>, // in dB
-              security: '...' //
-              security_flags: '...' // encryption protocols (format depending of the OS)
+              security: 'WPA WPA2' //
+              security_flags: '...' // encryption protocols (format currently depending of the OS)
             },
             ...
         ];
