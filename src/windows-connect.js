@@ -2,48 +2,43 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 var env = require('./env');
 
-function connectToWifi(config) {
+function connectToWifi(config, ap, callback) {
+    var COMMANDS, com, connectToAPChain, i, j, l, len, ref, ssid, xmlContent;
+    ssid = {
+        plaintext: ap.ssid,
+        hex: ""
+    };
+    for (i = j = 0, ref = ssid.plaintext.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+        ssid.hex += ssid.plaintext.charCodeAt(i).toString(16);
+    }
+    xmlContent = null;
+    if (ap.password.length) {
+        xmlContent = win32WirelessProfileBuilder(ssid, "wpa2", ap.password);
+    } else {
+        xmlContent = win32WirelessProfileBuilder(ssid);
+    }
+    fs.writeFileSync(ap.ssid + ".xml", xmlContent);
+    COMMANDS = {
+        loadProfile: "netsh " + "wlan" + " add profile filename=\"" + ap.ssid + ".xml\"",
+        connect: "netsh " + "wlan" + " connect ssid=\"" + ap.ssid + "\" name=\"" + ap.ssid + "\""
+    };
+    connectToAPChain = ["loadProfile", "connect"];
+    var ERROR;
+    try {
+      for (l = 0, len = connectToAPChain.length; l < len; l++) {
+          com = connectToAPChain[l];
+          exec(COMMANDS[com], env, function() {
 
-    return function(ap, callback) {
+              exec("del \".\\" + ap.ssid + ".xml\"", env, function(err, resp) 			{
 
-        var COMMANDS, com, connectToAPChain, i, j, l, len, ref, ssid, xmlContent;
-        ssid = {
-            plaintext: ap.ssid,
-            hex: ""
-        };
-        for (i = j = 0, ref = ssid.plaintext.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-            ssid.hex += ssid.plaintext.charCodeAt(i).toString(16);
-        }
-        xmlContent = null;
-        if (ap.password.length) {
-            xmlContent = win32WirelessProfileBuilder(ssid, "wpa2", ap.password);
-        } else {
-            xmlContent = win32WirelessProfileBuilder(ssid);
-        }
-        fs.writeFileSync(ap.ssid + ".xml", xmlContent);
-        COMMANDS = {
-            loadProfile: "netsh " + "wlan" + " add profile filename=\"" + ap.ssid + ".xml\"",
-            connect: "netsh " + "wlan" + " connect ssid=\"" + ap.ssid + "\" name=\"" + ap.ssid + "\""
-        };
-        connectToAPChain = ["loadProfile", "connect"];
-        var ERROR;
-        try {
-          for (l = 0, len = connectToAPChain.length; l < len; l++) {
-              com = connectToAPChain[l];
-              exec(COMMANDS[com], env, function() {
-
-                  exec("del \".\\" + ap.ssid + ".xml\"", env, function(err, resp) 			{
-
-                      ERROR = err;
-                  })
+                  ERROR = err;
               })
-          }
-          var err = ERROR
-          callback && callback(err);
-        } catch (e) {
-          callback && callback(e);
-        }
-
+          })
+      }
+      var err = ERROR
+      callback && callback(err);
+    } catch (e) {
+      callback && callback(e);
     }
 }
 
@@ -72,4 +67,24 @@ function win32WirelessProfileBuilder(ssid, security, key) {
 }
 
 
-exports.connectToWifi = connectToWifi
+//exports.connectToWifi = connectToWifi
+
+
+module.exports = function (config) {
+
+    return function(ap, callback) {
+      if (callback) {
+        connectToWifi(config, ap, callback);
+      } else {
+        return new Promise(function (resolve, reject) {
+          connectToWifi(config, ap, function (err) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          })
+        });
+      }
+    }
+}

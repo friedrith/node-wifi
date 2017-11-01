@@ -2,21 +2,14 @@ var exec = require('child_process').exec;
 var networkUtils = require('./network-utils');
 var env = require('./env');
 
-function scanWifi(config) {
-
-
-	return function(callback) {
-
-		var networks = [];
-		var network = {};
-
+function scanWifi(config, callback) {
+	var networks = [];
+	var network = {};
+	try {
 		exec("chcp 65001 && netsh wlan show networks mode=Bssid", env, function(err, scanResults) {
-
 			if (err) {
-
 				callback && callback(err);
 				return;
-
 			}
 
 			scanResults = scanResults.toString('utf8')/*.split(' ').join('')*/.split('\r').join('').split('\n').slice(5, scanResults.length);
@@ -44,13 +37,13 @@ function scanWifi(config) {
 			var resp = networks;
 			callback && callback(null, resp);
 		});
+	} catch (e) {
+		callback && callback(e);
 	}
+
 }
 
 function parse(networkTmp) {
-
-	// console.log(networkTmp)
-
 	var network = {
 		mac : null,
 		ssid : null,
@@ -58,30 +51,34 @@ function parse(networkTmp) {
 		signal_level : null,
 		security : null,
 	};
-
-	// console.log(networkTmp[4].match(/.*?:\s(.*)/))
-
-	// var macLine = networkTmp[4].match(/.*?:\s(.*)/)[1];//.split(' ').join('').split(':');
-	var ssidLine = networkTmp[0].split(' ').join('').split(':');
-	var channelLine = networkTmp[7].split(' ').join('').split(':');
-	var signalLine = networkTmp[5].split(' ').join('').split(':');
-	var securityLine = networkTmp[2].split(' ').join('').split(':');
-
-	/*
-	var macLine = networkTmp[4].split(' ').join('').split(':');
-	var ssidLine = networkTmp[0].split(' ').join('').split(':');
-	var channelLine = networkTmp[7].split(' ').join('').split(':');
-	var signalLine = networkTmp[5].split(' ').join('').split(':');
-	var securityLine = networkTmp[2].split(' ').join('').split(':');*/
-
 	network.mac = networkTmp[4].match(/.*?:\s(.*)/)[1];
+	network.bssid = network.mac;
 	network.ssid = networkTmp[0].match(/.*?:\s(.*)/)[1];
-	network.frequency = networkUtils.frequencyFromChannel(networkTmp[7].match(/.*?:\s(.*)/)[1]);
+	network.channel = parseInt(networkTmp[7].match(/.*?:\s(.*)/)[1]);
+	network.frequency = parseInt(networkUtils.frequencyFromChannel(network.channel));
 	network.signal_level = networkUtils.dBFromQuality(networkTmp[5].match(/.*?:\s(.*)/)[1]);
 	network.security = networkTmp[2].match(/.*?:\s(.*)/)[1];
+	network.security_flags = networkTmp[3].match(/.*?:\s(.*)/)[1];
+	network.mode = 'Unknown';
 
 	return network;
 
 }
 
-exports.scanWifi = scanWifi;
+module.exports = function (config) {
+  return function (callback) {
+    if (callback) {
+      scanWifi(config, callback);
+    } else {
+      return new Promise(function (resolve, reject) {
+        scanWifi(config, function (err, networks) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(networks);
+          }
+        });
+      });
+    }
+  }
+};

@@ -29,7 +29,7 @@ module.exports = function (config) {
         connectToWifi(config, ap, callback);
       } else {
         return new Promise(function (resolve, reject) {
-          connectToWifi(ap, function (err) {
+          connectToWifi(config, ap, function (err) {
             if (err) {
               reject(err);
             } else {
