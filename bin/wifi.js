@@ -5,6 +5,8 @@
 const commandLineArgs = require('command-line-args')
 const getUsage = require('command-line-usage')
 
+const packageJson = require('../package.json')
+
 var wifi = require('../src/wifi');
 
 const optionDefinitions = [
@@ -51,6 +53,12 @@ const optionDefinitions = [
       alias: 'h',
       type: Boolean,
       description: "Show the help."
+  },
+  {
+      name: 'version',
+      alias: 'v',
+      type: Boolean,
+      description: 'Display the current version of node-wifi.'
   }
 ];
 
@@ -72,8 +80,13 @@ var options = null;
 try {
     options = commandLineArgs(optionDefinitions)
 } catch (e) {
-    console.log('Bad options, please see the help with option -h');
+    console.log('Bad options, please see the help with option -h', e);
     process.exit(2);
+}
+
+if (options.version) {
+  console.log('Version '+packageJson.version);
+  process.exit(0);
 }
 
 if (options.help) {
