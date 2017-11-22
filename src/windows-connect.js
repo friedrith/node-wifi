@@ -2,11 +2,27 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 var env = require('./env');
 
+function execCommand(cmd) {
+    return new Promise(function(resolve, reject) {
+        exec(cmd, env, function(err, stdout, stderr) {
+            if (err) {
+                // Add command output to error, so it's easier to handle
+                err.stdout = stdout;
+                err.stderr = stderr;
+
+                reject(err);
+            } else {
+                resolve(stdout);
+            }
+        });
+    });
+}
+
 function connectToWifi(config) {
 
     return function(ap, callback) {
 
-        var COMMANDS, com, connectToAPChain, i, j, l, len, ref, ssid, xmlContent;
+        var i, j, ref, ssid, xmlContent;
         ssid = {
             plaintext: ap.ssid,
             hex: ""
@@ -21,24 +37,22 @@ function connectToWifi(config) {
             xmlContent = win32WirelessProfileBuilder(ssid);
         }
         fs.writeFileSync(ap.ssid + ".xml", xmlContent);
-        COMMANDS = {
-            loadProfile: "netsh " + "wlan" + " add profile filename=\"" + ap.ssid + ".xml\"",
-            connect: "netsh " + "wlan" + " connect ssid=\"" + ap.ssid + "\" name=\"" + ap.ssid + "\""
-        };
-        connectToAPChain = ["loadProfile", "connect"];
-        var ERROR;
-        for (l = 0, len = connectToAPChain.length; l < len; l++) {
-            com = connectToAPChain[l];
-            exec(COMMANDS[com], env, function() {
 
-                exec("del \".\\" + ap.ssid + ".xml\"", env, function(err, resp) 			{
-
-                    ERROR = err;
-                })
+        execCommand("netsh wlan add profile filename=\"" + ap.ssid + ".xml\"")
+            .then(function() {
+                return execCommand("netsh wlan connect ssid=\"" + ap.ssid + "\" name=\"" + ap.ssid + "\"");
             })
-        }
-        var err = ERROR
-        callback && callback(err);
+            .then(function() {
+                return execCommand("del \".\\" + ap.ssid + ".xml\"");
+            })
+            .then(function() {
+                callback && callback();
+            })
+            .catch(function(err) {
+                exec('netsh wlan delete profile "' + ap.ssid + '"', env, function() {
+                    callback && callback(err);
+                });
+            })
     }
 }
 
