@@ -67,7 +67,7 @@ function parseAirport(terms, str) {
     return wifis;
 }
 
-exports.scanWifi = function (config) {
+module.exports = function (config) {
   return function (callback) {
     if (callback) {
       scanWifi(config, callback);

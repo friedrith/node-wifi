@@ -23,7 +23,7 @@ function connectToWifi(config, ap, callback) {
   });
 }
 
-exports.connectToWifi = function (config) {
+module.exports = function (config) {
   return function (ap, callback) {
     if (callback) {
       connectToWifi(config, ap, callback);

@@ -2,73 +2,100 @@ var exec = require('child_process').exec;
 var env = require('./env');
 var networkUtils = require('./network-utils.js');
 
-module.exports = function (config) {
-    function parseShowInterfaces (stdout) {
-        var ifaces = stdout.split('\r\n\r\n');
-        var connections = [];
-        ifaces.forEach(function (iface) {
-            var inputs = iface.split('\r\n');
+function parseShowInterfaces (stdout, config) {
+    var lines = stdout.split('\r\n');
+    var connections = [];
+    var i = 3;
+    while (lines.length > i + 18) {
+        var connection = {
+            iface: null,          // Name
+            ssid: null,           // SSID
+            bssid: null,
+            mode: '',
+            mac: null,            // Physical address
+            frequency: 0,         // NetworkUtils.frequencyFromChannel(Channel)
+            signal_level: 0,      // Signal, but is in percent not dBm
+            security: null,        // Authentication
+            security_flags: null,
+        };
 
-            if (inputs.length > 0) {
-                // 4 columns before identifiers, then 23 columns before :
-                var connection = {
-                    iface: null,          // Name
-                    ssid: null,           // SSID
-                    mac: null,            // Physical address
-                    frequency: 0,         // NetworkUtils.frequencyFromChannel(Channel)
-                    signal_level: 0,      // Signal, but is in percent not dBm
-                    security: null        // Authentication
-                };
+        var tmpConnection = {};
+        var fields = [
+            'name',
+            'description',
+            'guid',
+            'mac',
+            'state',
+            'ssid',
+            'bssid',
+            'mode',
+            'radio',
+            'authentication',
+            'encryption',
+            'connection',
+            'channel',
+            'reception',
+            'transmission',
+            'signal',
+            'profil'
+        ];
+        for (var j = 0 ; j < fields.length ; j++) {
+            var line = lines[i + j];
+            tmpConnection[fields[j]] = line.match(/.*\: (.*)/)[1];
+        }
 
-                var connected = false;
+        connections.push({
+            iface: tmpConnection['name'],
+            ssid: tmpConnection['ssid'],
+            bssid: tmpConnection['bssid'],
+            mac: tmpConnection['bssid'],
+            mode: tmpConnection['mode'],
+            channel: parseInt(tmpConnection['channel']),
+            frequency:  parseInt(networkUtils.frequencyFromChannel(parseInt(tmpConnection['channel']))),
+            signal_level: networkUtils.dBFromQuality(tmpConnection['signal']),
+            security: tmpConnection['authentication'],
+            security_flags: tmpConnection['encryption'],
+        })
 
-                var ifaceExp = /Name                   : (.*)/;
-                var ssidExp  = /SSID                   : (.*)/;
-                var macExp   = /Physical address       : (.*)/;
-                var freqExp  = /Channel                : (.*)/;
-                var sigExp   = /Signal                 : (.*)/;
-                var secExp   = /Authentication         : (.*)/;
-                var stateExp = /State                  : (.*)/;
-                // console.log(inputs);
-                inputs.forEach(function (input) {
-                    if (input != '' && input != '\n') {
-                        var res;
-                        if (res = input.match(ifaceExp)) {
-                            connection.iface = res[1];
-                        } else if (res = input.match(ssidExp)) {
-                            connection.ssid = res[1];
-                        } else if (res = input.match(macExp)) {
-                            connection.mac = res[1];
-                        } else if (res = input.match(freqExp)) {
-                            connection.frequency = networkUtils.frequencyFromChannel(parseInt(res[1]));
-                        } else if (res = input.match(secExp)) {
-                            connection.security = res[1];
-                        } else if (res = input.match(sigExp)) {
-                            connection.signal_level = networkUtils.dBFromQuality(res[1]);
-                        } else if (res = input.match(stateExp)) {
-                            connected = res[1] === 'connected';
-                        }
-                    }
-                });
 
-                if (connected && connection.iface && (!config.iface || connection.iface === config.iface) && connection.ssid && connection.mac && connection.security) {
-                    connections.push(connection);
-                }
-            }
-        });
-        return connections;
+        i = i + 18;
     }
 
-    return function(callback) {
+    return connections;
+}
 
-        var commandStr = "netsh wlan show interfaces" ;
-
-    	exec(commandStr, env, function(err, stdout) {
-            if (err) {
-                callback && callback(err);
-            } else {
-                callback && callback(null, parseShowInterfaces(stdout));
+function getCurrentConnection(config, callback) {
+    var commandStr = "netsh wlan show interfaces" ;
+    exec(commandStr, env, function(err, stdout) {
+        if (err) {
+            callback && callback(err);
+        } else {
+            try {
+                 var connections = parseShowInterfaces(stdout, config)
+                 callback && callback(null, connections);
+            } catch (e) {
+                callback && callback(e);
             }
-    	});
+        }
+    });
+}
+
+
+module.exports = function (config) {
+
+    return function(callback) {
+      if (callback) {
+        getCurrentConnection(config, callback);
+      } else {
+        return new Promise(function (resolve, reject) {
+          getCurrentConnection(config, function (err, connections) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(connections);
+            }
+          })
+        });
+      }
     }
 }
