@@ -11,4 +11,5 @@ The following is a set of guidelines for contributing to node-wifi.
 4. Test your feature
 5. Create pull request for dev branch
 
-And please try to consider your development for windows, linux and macOS platforms at the same time because having a module compatible with all platforms is the main concern of `node-wifi`.
+And please try to consider your development for windows, linux and macOS platforms at the same time
+because having a module compatible with all platforms is the main concern of `node-wifi`.
