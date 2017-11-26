@@ -17,3 +17,11 @@
 * add disconnection feature on windows (issue #16)
 * add new fields in scan results (bssid equals to mac, channel, security_flags)
 * improve stability of linux scan
+
+# Version 2.0.1
+
+* improve stability of windows scan and current connection
+
+# Version 2.0.2
+
+* correct bug #24
