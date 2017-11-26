@@ -4,9 +4,6 @@ node-wifi
 
 ![node-wifi](https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png)
 
-**BE CAREFUL: This documentation is related to the version 2.0 which is planned to be released in few days and not the version currently on npm. The version 2.0 is totally retrocompatible and the interfaces of the functions are exactly the same. Most changes are about the promises and several fields like channel, security_flags or bssid**
-
-
 The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods.
 
 These methods include scanning for wifi access points and connecting to these access points.
