@@ -7,35 +7,39 @@ function scanWifi(config, callback) {
 	var network = {};
 	try {
 		exec("chcp 65001 && netsh wlan show networks mode=Bssid", env, function(err, scanResults) {
-			if (err) {
-				callback && callback(err);
-				return;
-			}
+			try {
+                if (err) {
+                    callback && callback(err);
+                    return;
+                }
 
-			scanResults = scanResults.toString('utf8')/*.split(' ').join('')*/.split('\r').join('').split('\n').slice(5, scanResults.length);
+                scanResults = scanResults.toString('utf8')/*.split(' ').join('')*/.split('\r').join('').split('\n').slice(5, scanResults.length);
 
-			var numNetworks = -1;
-			var currentLine = 0;
-			var networkTmp;
-			var networksTmp = [];
-			var network;
-			var networks = [];
+                var numNetworks = -1;
+                var currentLine = 0;
+                var networkTmp;
+                var networksTmp = [];
+                var network;
+                var networks = [];
 
-			for (var i = 0; i < scanResults.length; i++) {
-				if (scanResults[i] == '') {
-					numNetworks++;
-					networkTmp = scanResults.slice(currentLine, i);
-					networksTmp.push(networkTmp);
-					currentLine = i+1;
-				}
-			}
+                for (var i = 0; i < scanResults.length; i++) {
+                    if (scanResults[i] == '') {
+                        numNetworks++;
+                        networkTmp = scanResults.slice(currentLine, i);
+                        networksTmp.push(networkTmp);
+                        currentLine = i+1;
+                    }
+                }
 
-			for (var i = 0; i < numNetworks; i++) {
-				network = parse(networksTmp[i]);
-				networks.push(network);
-			}
-			var resp = networks;
-			callback && callback(null, resp);
+                for (var i = 0; i < numNetworks; i++) {
+                    network = parse(networksTmp[i]);
+                    networks.push(network);
+                }
+                var resp = networks;
+                callback && callback(null, resp);
+            } catch (e) {
+                callback && callback(e);
+            }
 		});
 	} catch (e) {
 		callback && callback(e);
