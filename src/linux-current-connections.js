@@ -1,61 +1,62 @@
 var exec = require('child_process').exec;
+var networkUtils = require('./network-utils');
 var env = require('./env');
 
-function parseIwconfig (stdout) {
-    var ifaces = stdout.split('\n\n');
-    var connections = [];
-    ifaces.forEach(function (iface) {
-        var inputs = iface.split('  ');
+function getCurrentConnection(config, callback) {
+  var commandStr = "nmcli --terse --fields active,ssid,bssid,mode,chan,freq,signal,security,wpa-flags,rsn-flags,device device wifi";
+  if (config.iface) {
+      commandStr += ' ifname '+config.iface;
+  }
 
-        if (inputs.length > 0) {
-            var connection = {
-                iface: '',
-                ssid: '',
-                mac: '',
-                frequency: 0,
-                signal_level: 0
-            };
+  exec(commandStr, env, function(err, scanResults) {
+      if (err) {
+        callback && callback(err);
+        return;
+      }
 
-            connection.iface = inputs.splice(0, 1)[0];
-            // console.log(inputs);
-            inputs.forEach(function (input) {
-                if (input != '' && input != '\n') {
-                    if (input.match(/ESSID:\"(.*)\"/)){
-                        connection.ssid = input.match(/ESSID:\"(.*)\"/)[1];
-                    } else if (input.match(/Frequency:(.*) GHz/)) {
-                        connection.frequency = parseInt(parseFloat(input.match(/Frequency:(.*) GHz/)[1])*1000);
-                    } else if (input.match(/Access Point: (.*)/)) {
-                        connection.mac = input.match(/Access Point: (.*)/)[1];
-                    } else if (input.match(/Signal level=(.*) dBm/)) {
-                        connection.signal_level = input.match(/Signal level=(.*) dBm/)[1];
-                    }
-                }
-            });
-
-            if (connection.iface && connection.ssid && connection.frequency && connection.mac && connection.signal_level) {
-                connections.push(connection);
-            }
+      var lines = scanResults.split('\n');
+      var networks = [];
+      for (var i = 0 ; i < lines.length ; i++) {
+        if (lines[i] != '') {
+          var fields = lines[i].replace(/\\\:/g, '&&').split(':');
+          if (fields[0] == 'yes') {
+            networks.push({
+              iface: fields[10].replace(/\&\&/g, ':'),
+              ssid: fields[1].replace(/\&\&/g, ':'),
+              bssid: fields[2].replace(/\&\&/g, ':'),
+              mac: fields[2].replace(/\&\&/g, ':'), // for retrocompatibility with version 1.x
+              mode: fields[3].replace(/\&\&/g, ':'),
+              channel: parseInt(fields[4].replace(/\&\&/g, ':')),
+              frequency: parseInt(fields[5].replace(/\&\&/g, ':')),
+              signal_level: networkUtils.dBFromQuality(fields[6].replace(/\&\&/g, ':')),
+              security: fields[7].replace(/\&\&/g, ':'),
+              security_flags: {
+                wpa:  fields[8].replace(/\&\&/g, ':'),
+                rsn: fields[9].replace(/\&\&/g, ':'),
+              }
+            })
+          }
         }
-    });
-    return connections;
+      }
+      callback && callback(null, networks);
+  });
 }
 
 module.exports = function (config) {
 
     return function(callback) {
-
-    	var commandStr = "iwconfig" ;
-
-    	if (config.iface) {
-    	       commandStr += " " + config.iface;
-    	}
-
-    	exec(commandStr, env, function(err, stdout) {
+      if (callback) {
+        getCurrentConnection(config, callback);
+      } else {
+        return new Promise(function (resolve, reject) {
+          getCurrentConnection(config, function (err, connections) {
             if (err) {
-                callback && callback(err);
+              reject(err);
             } else {
-                callback && callback(null, parseIwconfig(stdout));
+              resolve(connections);
             }
-    	});
+          })
+        });
+      }
     }
 }

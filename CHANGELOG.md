@@ -11,3 +11,9 @@
 # Version 1.2.5
 
 * fixed bug #13
+
+# Version 2.0.0
+
+* add disconnection feature on windows (issue #16)
+* add new fields in scan results (bssid equals to mac, channel, security_flags)
+* improve stability of linux scan

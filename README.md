@@ -2,6 +2,7 @@
 node-wifi
 ===================
 
+![node-wifi](https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png)
 
 The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods.
 
@@ -11,15 +12,10 @@ We wish to be clear in saying that this module is inspired from [node-wifi-contr
 
 The module manages :
 
-* Connect for linux
-* Scan for linux
-* Disconnect for Linux
-* List the current wifi connections for Linux
-* Connect for mac
-* Scan for mac
-* List the current wifi connections for mac
-* Connect for windows
-* Scan for windows
+* Connect for linux | mac | windows
+* Scan for linux | mac | windows
+* List the current wifi connections for linux | mac | windows
+* Disconnect for linux | windows
 
 > As everything with hardware dependency, weird behaviors may happen depending of your configuration. You should never hesitate to notify us about a specificity of your OS/Hardware/Wifi card/whatever.
 
@@ -57,11 +53,15 @@ wifi.scan(function(err, networks) {
         /*
         networks = [
             {
-                ssid: '...',
-                mac: '...',
-                frequency: <number>, // in MHz
-                signal_level: <number>, // in dB
-                security: '...' // unfortunately the format still depends of the OS
+              ssid: '...',
+              bssid: '...',
+              mac: '...', // equals to bssid (for retrocompatibility)
+              channel: <number>,
+              frequency: <number>, // in MHz
+              signal_level: <number>, // in dB
+              security: 'WPA WPA2' //
+              security_flags: '...' // encryption protocols (format currently depending of the OS)
+              mode: '...' // network mode like Infra (format currently depending of the OS)
             },
             ...
         ];
@@ -99,14 +99,26 @@ wifi.getCurrentConnections(function(err, currentConnections) {
         {
             iface: '...', // network interface used for the connection, not available on macOS
             ssid: '...',
-            mac: '...',
+            bssid: '...',
+            mac: '...', // equals to bssid (for retrocompatibility)
+            channel: <number>,
             frequency: <number>, // in MHz
             signal_level: <number>, // in dB
-            security: '...' // not available on linux
+            security: '...' //
+            security_flags: '...' // encryption protocols (format currently depending of the OS)
+            mode: '...' // network mode like Infra (format currently depending of the OS)
         }
     ]
     */
 });
+
+// All functions also return promise if there is no callback given
+wifi.scan().then(function (networks) {
+  // networks
+}).catch(function (error) {
+  // error
+})
+
 
 ```
 

@@ -3,32 +3,29 @@ var macProvider = '/System/Library/PrivateFrameworks/Apple80211.framework/Versio
 var networkUtils = require('./network-utils.js');
 var env = require('./env');
 
-function scanWifi(config) {
+function scanWifi(config, callback) {
 
-    return function(callback) {
+  var networks = []
+  var network = {}
 
-        var networks = []
-        var network = {}
+  exec(macProvider + ' -s', env,  function(err, scanResults) {
 
-        exec(macProvider + ' -s', env,  function(err, scanResults) {
+      if (err) {
+          callback && callback(err);
+      }
 
-            if (err) {
-                callback && callback(err);
-            }
+      var terms = {
+          BSSID: 'BSSID',
+          RSSI: 'RSSI',
+          CHANNEL: 'CHANNEL',
+          HT: 'HT',
+          SECURITY: 'SECURITY',
+          CC: 'CC'
+      };
 
-            var terms = {
-                BSSID: 'BSSID',
-                RSSI: 'RSSI',
-                CHANNEL: 'CHANNEL',
-                HT: 'HT',
-                SECURITY: 'SECURITY',
-                CC: 'CC'
-            };
-
-            var resp = parseAirport(terms, scanResults);
-            callback && callback(null, resp);
-        });
-    }
+      var resp = parseAirport(terms, scanResults);
+      callback && callback(null, resp);
+  });
 }
 
 
@@ -45,16 +42,45 @@ function parseAirport(terms, str) {
 
     var wifis = [];
     for (var i=1,l=lines.length; i<l; i++) {
+        var bssid = lines[i].substr(colMac, colRssi - colMac).trim();
+        var securityFlags = lines[i].substr(colSec).trim();
+        var security = "none";
+        if (securityFlags != "NONE") {
+          security = securityFlags.replace(/\(.*?\)/g, '');
+          securityFlags = securityFlags.match(/\((.*?)\)/g);
+        } else {
+          security = "none";
+          securityFlags = [];
+        }
         wifis.push({
-            'mac' : lines[i].substr(colMac, colRssi - colMac).trim(),
+            'mac' : bssid, // for retrocompatibility
+            'bssid': bssid,
             'ssid' : lines[i].substr(0, colMac).trim(),
-            'frequency' : networkUtils.frequencyFromChannel(lines[i].substr(colChannel, colHt - colChannel).trim()),
+            'channel': parseInt(lines[i].substr(colChannel, colHt - colChannel)),
+            'frequency' : parseInt(networkUtils.frequencyFromChannel(lines[i].substr(colChannel, colHt - colChannel).trim())),
             'signal_level' : lines[i].substr(colRssi, colChannel - colRssi).trim(),
-            'security' : lines[i].substr(colSec).trim()
+            'security' : security,
+            'security_flags': securityFlags
         });
     }
     wifis.pop();
     return wifis;
 }
 
-exports.scanWifi = scanWifi;
+module.exports = function (config) {
+  return function (callback) {
+    if (callback) {
+      scanWifi(config, callback);
+    } else {
+      return new Promise(function (resolve, reject) {
+        scanWifi(config, function (err, networks) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(networks);
+          }
+        })
+      })
+    }
+  }
+};

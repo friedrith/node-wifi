@@ -1,6 +1,6 @@
 {
   "name": "node-wifi",
-  "version": "1.2.5",
+  "version": "2.0.1",
   "description": "NodeJS tool to manage wifi",
   "bin": {
     "wifi": "bin/wifi.js"
@@ -20,10 +20,10 @@
     "wifi",
     "multiplatform"
   ],
-  "author": "",
+  "author": "Thibault Friedrich",
   "license": "LGPL-3.0",
   "bugs": {
-    "url": "https://github.com/elqui-app/node-wifi/issues"
+    "url": "https://github.com/friedrith/node-wifi/issues"
   },
   "dependencies": {
     "command-line-args": "^3.0.1",

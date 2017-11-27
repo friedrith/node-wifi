@@ -18,44 +18,39 @@ function execCommand(cmd) {
     });
 }
 
-function connectToWifi(config) {
-
-    return function(ap, callback) {
-
-        var i, j, ref, ssid, xmlContent;
-        ssid = {
-            plaintext: ap.ssid,
-            hex: ""
-        };
-        for (i = j = 0, ref = ssid.plaintext.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-            ssid.hex += ssid.plaintext.charCodeAt(i).toString(16);
-        }
-        xmlContent = null;
-        if (ap.password.length) {
-            xmlContent = win32WirelessProfileBuilder(ssid, "wpa2", ap.password);
-        } else {
-            xmlContent = win32WirelessProfileBuilder(ssid);
-        }
-        fs.writeFileSync(ap.ssid + ".xml", xmlContent);
-
-        execCommand("netsh wlan add profile filename=\"" + ap.ssid + ".xml\"")
-            .then(function() {
-                return execCommand("netsh wlan connect ssid=\"" + ap.ssid + "\" name=\"" + ap.ssid + "\"");
-            })
-            .then(function() {
-                return execCommand("del \".\\" + ap.ssid + ".xml\"");
-            })
-            .then(function() {
-                callback && callback();
-            })
-            .catch(function(err) {
-                exec('netsh wlan delete profile "' + ap.ssid + '"', env, function() {
-                    callback && callback(err);
-                });
-            })
+function connectToWifi(config, ap, callback) {
+    var i, j, ref, ssid, xmlContent;
+    ssid = {
+        plaintext: ap.ssid,
+        hex: ""
+    };
+    for (i = j = 0, ref = ssid.plaintext.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+        ssid.hex += ssid.plaintext.charCodeAt(i).toString(16);
     }
-}
+    xmlContent = null;
+    if (ap.password.length) {
+        xmlContent = win32WirelessProfileBuilder(ssid, "wpa2", ap.password);
+    } else {
+        xmlContent = win32WirelessProfileBuilder(ssid);
+    }
+    fs.writeFileSync(ap.ssid + ".xml", xmlContent);
 
+    execCommand("netsh wlan add profile filename=\"" + ap.ssid + ".xml\"")
+        .then(function() {
+            return execCommand("netsh wlan connect ssid=\"" + ap.ssid + "\" name=\"" + ap.ssid + "\"");
+        })
+        .then(function() {
+            return execCommand("del \".\\" + ap.ssid + ".xml\"");
+        })
+        .then(function() {
+            callback && callback();
+        })
+        .catch(function(err) {
+            exec('netsh wlan delete profile "' + ap.ssid + '"', env, function() {
+                callback && callback(err);
+            });
+        });
+}
 
 function win32WirelessProfileBuilder(ssid, security, key) {
     var profile_content;
@@ -80,5 +75,21 @@ function win32WirelessProfileBuilder(ssid, security, key) {
     return profile_content;
 }
 
+module.exports = function (config) {
 
-exports.connectToWifi = connectToWifi
+    return function(ap, callback) {
+      if (callback) {
+        connectToWifi(config, ap, callback);
+      } else {
+        return new Promise(function (resolve, reject) {
+          connectToWifi(config, ap, function (err) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          })
+        });
+      }
+    }
+}

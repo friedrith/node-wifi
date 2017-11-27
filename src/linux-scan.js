@@ -2,87 +2,57 @@ var exec = require('child_process').exec;
 var networkUtils = require('./network-utils');
 var env = require('./env');
 
-function scanWifi(config) {
+function scanWifi(config, callback) {
+  var commandStr = "nmcli --terse --fields active,ssid,bssid,mode,chan,freq,signal,security,wpa-flags,rsn-flags device wifi list";
+  if (config.iface) {
+      commandStr += ' ifname '+config.iface;
+  }
 
-    return function(callback) {
+  exec(commandStr, env, function(err, scanResults) {
+      if (err) {
+        callback && callback(err);
+        return;
+      }
 
-    	var networks = [];
-    	var network = {};
-
-        var commandStr = "nmcli -f all -m multiline dev wifi list";
-
-        if (config.iface) {
-            commandStr += ' iface '+config.iface;
+      var lines = scanResults.split('\n');
+      var networks = [];
+      for (var i = 0 ; i < lines.length ; i++) {
+        if (lines[i] != '') {
+          var fields = lines[i].replace(/\\\:/g, '&&').split(':');
+          networks.push({
+            ssid: fields[1].replace(/\&\&/g, ':'),
+            bssid: fields[2].replace(/\&\&/g, ':'),
+            mac: fields[2].replace(/\&\&/g, ':'), // for retrocompatibility with version 1.x
+            mode: fields[3].replace(/\&\&/g, ':'),
+            channel: parseInt(fields[4].replace(/\&\&/g, ':')),
+            frequency: parseInt(fields[5].replace(/\&\&/g, ':')),
+            signal_level: networkUtils.dBFromQuality(fields[6].replace(/\&\&/g, ':')),
+            security: fields[7].replace(/\&\&/g, ':') != '(none)' ? fields[7].replace(/\&\&/g, ':') : 'none',
+            security_flags: {
+              wpa:  fields[8].replace(/\&\&/g, ':'),
+              rsn: fields[9].replace(/\&\&/g, ':'),
+            }
+          });
         }
-
-    	exec(commandStr, env, function(err, scanResults) {
-
-    	    if (err) {
-
-        		callback && callback(err);
-        		return;
-
-    	    }
-
-    	    var ssid = false;
-    	    var freq = false;
-    	    var signal = false;
-    	    var sec = false;
-    	    var mac = false;
-
-    	    // scanResults = scanResults.toString('utf8').split(' ').join('').split('\n');
-            scanResults = scanResults.toString('utf8').replace(/\:[ ]*/g, ':').split('\n');
-            // console.log(scanResults);
-
-    	    for (var i = 0; i < scanResults.length; i++) {
-
-        		scanResults[i] = scanResults[i].split(":");
-        		if (scanResults[i].length == 2) {
-        		    scanResults[i][1] = scanResults[i][1].split("'").join("");
-        		}
-        		switch(scanResults[i][0]) {
-        		case 'SSID':
-        		    network.ssid = scanResults[i][1];
-        		    ssid = true;
-        		    break;
-        		case 'FREQ':
-        		    network.frequency = parseInt(scanResults[i][1]);
-        		    freq = true;
-        		    break;
-        		case 'SIGNAL':
-        		    network.signal_level = networkUtils.dBFromQuality(scanResults[i][1]);
-        		    signal = true;
-        		    break;
-        		case 'SECURITY':
-        		    network.security = scanResults[i][1];
-        		    sec = true;
-        		    break;
-        		case 'BSSID':
-        		    var macAdress = '';
-        		    for (var j = 1; j < 6; j++) {
-        			macAdress = macAdress + scanResults[i][j] + ':';
-        		    }
-        		    macAdress = macAdress + scanResults[i][6];
-        		    network.mac = macAdress;
-        		    mac = true;
-        		    break;
-        		default:
-        		    break;
-        		}
-        		if ((ssid) && (freq) && (signal) && (sec) && (mac)) {
-        		    networks.push(network);
-        		    network = {};
-        		    ssid = false;
-        		    freq = false;
-        		    signal = false;
-        		    sec = false;
-        		    mac = false;
-        		}
-    	    }
-    	    var resp = networks;
-    	    callback && callback(null, resp);
-    	});
-    }
+      }
+      callback && callback(null, networks);
+  });
 }
 
-exports.scanWifi = scanWifi;
+module.exports = function (config) {
+  return function (callback) {
+    if (callback) {
+      scanWifi(config, callback);
+    } else {
+      return new Promise(function (resolve, reject) {
+        scanWifi(config, function (err, networks) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(networks);
+          }
+        });
+      });
+    }
+  }
+};
