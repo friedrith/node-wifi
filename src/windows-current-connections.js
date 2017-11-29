@@ -57,7 +57,6 @@ function parseShowInterfaces (stdout, config) {
             security_flags: tmpConnection['encryption'],
         })
 
-
         i = i + 18;
     }
 
@@ -80,22 +79,20 @@ function getCurrentConnection(config, callback) {
     });
 }
 
-
 module.exports = function (config) {
-
     return function(callback) {
-      if (callback) {
-        getCurrentConnection(config, callback);
-      } else {
-        return new Promise(function (resolve, reject) {
-          getCurrentConnection(config, function (err, connections) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(connections);
-            }
-          })
-        });
-      }
+        if (callback) {
+            getCurrentConnection(config, callback);
+        } else {
+            return new Promise(function (resolve, reject) {
+                getCurrentConnection(config, function (err, connections) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(connections);
+                    }
+                })
+            });
+        }
     }
 }

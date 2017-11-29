@@ -1,6 +1,7 @@
 var fs = require('fs');
 var exec = require('child_process').exec;
 var env = require('./env');
+var scan = require('./windows-scan');
 
 function execCommand(cmd) {
     return new Promise(function(resolve, reject) {
@@ -19,23 +20,21 @@ function execCommand(cmd) {
 }
 
 function connectToWifi(config, ap, callback) {
-    var i, j, ref, ssid, xmlContent;
-    ssid = {
-        plaintext: ap.ssid,
-        hex: ""
-    };
-    for (i = j = 0, ref = ssid.plaintext.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
-        ssid.hex += ssid.plaintext.charCodeAt(i).toString(16);
-    }
-    xmlContent = null;
-    if (ap.password.length) {
-        xmlContent = win32WirelessProfileBuilder(ssid, "wpa2", ap.password);
-    } else {
-        xmlContent = win32WirelessProfileBuilder(ssid);
-    }
-    fs.writeFileSync(ap.ssid + ".xml", xmlContent);
+    scan(config)()
+        .then(function(networks) {
+            var selectedAp = networks.find(function(network) {
+                return network.ssid === ap.ssid;
+            });
 
-    execCommand("netsh wlan add profile filename=\"" + ap.ssid + ".xml\"")
+            if (selectedAp === undefined) {
+                throw "SSID not found";
+            }
+
+            fs.writeFileSync(ap.ssid + ".xml", win32WirelessProfileBuilder(selectedAp, ap.password));
+        })
+        .then(function() {
+            return execCommand("netsh wlan add profile filename=\"" + ap.ssid + ".xml\"")
+        })
         .then(function() {
             return execCommand("netsh wlan connect ssid=\"" + ap.ssid + "\" name=\"" + ap.ssid + "\"");
         })
@@ -52,44 +51,51 @@ function connectToWifi(config, ap, callback) {
         });
 }
 
-function win32WirelessProfileBuilder(ssid, security, key) {
-    var profile_content;
-    if (security == null) {
-        security = false;
+function getHexSsid(plainTextSsid) {
+    var i, j, ref, hex;
+
+    hex = "";
+
+    for (i = j = 0, ref = plainTextSsid.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+        hex += plainTextSsid.charCodeAt(i).toString(16);
     }
-    if (key == null) {
-        key = null;
-    }
-    profile_content = "<?xml version=\"1.0\"?> <WLANProfile xmlns=\"http://www.microsoft.com/networking/WLAN/profile/v1\"> <name>" + ssid.plaintext + "</name> <SSIDConfig> <SSID> <hex>" + ssid.hex + "</hex> <name>" + ssid.plaintext + "</name> </SSID> </SSIDConfig>";
-    switch (security) {
-        case "wpa":
-        profile_content += "<connectionType>ESS</connectionType> <connectionMode>auto</connectionMode> <autoSwitch>true</autoSwitch> <MSM> <security> <authEncryption> <authentication>WPAPSK</authentication> <encryption>TKIP</encryption> <useOneX>false</useOneX> </authEncryption> <sharedKey> <keyType>passPhrase</keyType> <protected>false</protected> <keyMaterial>" + key + "</keyMaterial> </sharedKey> </security> </MSM>";
-        break;
-        case "wpa2":
+
+    return hex;
+}
+
+function win32WirelessProfileBuilder(selectedAp, key) {
+    var profile_content = "<?xml version=\"1.0\"?> <WLANProfile xmlns=\"http://www.microsoft.com/networking/WLAN/profile/v1\"> <name>" + selectedAp.ssid + "</name> <SSIDConfig> <SSID> <hex>" + getHexSsid(selectedAp.ssid) + "</hex> <name>" + selectedAp.ssid + "</name> </SSID> </SSIDConfig>";
+
+    if (selectedAp.security.indexOf("WPA2") !== -1) {
         profile_content += "<connectionType>ESS</connectionType> <connectionMode>auto</connectionMode> <autoSwitch>true</autoSwitch> <MSM> <security> <authEncryption> <authentication>WPA2PSK</authentication> <encryption>AES</encryption> <useOneX>false</useOneX> </authEncryption> <sharedKey> <keyType>passPhrase</keyType> <protected>false</protected> <keyMaterial>" + key + "</keyMaterial> </sharedKey> </security> </MSM>";
-        break;
-        default:
-        profile_content += "<connectionType>ESS</connectionType> <connectionMode>manual</connectionMode> <MSM> <security> <authEncryption> <authentication>open</authentication> <encryption>none</encryption> <useOneX>false</useOneX> </authEncryption> </security> </MSM>";
+    } else if (selectedAp.security.indexOf("WPA") !== -1) {
+        profile_content += "<connectionType>ESS</connectionType> <connectionMode>auto</connectionMode> <autoSwitch>true</autoSwitch> <MSM> <security> <authEncryption> <authentication>WPAPSK</authentication> <encryption>TKIP</encryption> <useOneX>false</useOneX> </authEncryption> <sharedKey> <keyType>passPhrase</keyType> <protected>false</protected> <keyMaterial>" + key + "</keyMaterial> </sharedKey> </security> </MSM>";
+    } else {
+        if (selectedAp.security_flags.indexOf("WEP") !== -1) {
+            profile_content += "<connectionType>ESS</connectionType> <connectionMode>auto</connectionMode> <autoSwitch>true</autoSwitch> <MSM> <security> <authEncryption> <authentication>open</authentication> <encryption>WEP</encryption> <useOneX>false</useOneX> </authEncryption> <sharedKey> <keyType>networkKey</keyType> <protected>false</protected> <keyMaterial>" + key + "</keyMaterial> </sharedKey> </security> </MSM>";
+        } else {
+            profile_content += "<connectionType>ESS</connectionType> <connectionMode>manual</connectionMode> <MSM> <security> <authEncryption> <authentication>open</authentication> <encryption>none</encryption> <useOneX>false</useOneX> </authEncryption> </security> </MSM>";
+        }
     }
+
     profile_content += "</WLANProfile>";
     return profile_content;
 }
 
 module.exports = function (config) {
-
     return function(ap, callback) {
-      if (callback) {
-        connectToWifi(config, ap, callback);
-      } else {
-        return new Promise(function (resolve, reject) {
-          connectToWifi(config, ap, function (err) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve();
-            }
-          })
-        });
-      }
+        if (callback) {
+            connectToWifi(config, ap, callback);
+        } else {
+            return new Promise(function (resolve, reject) {
+                connectToWifi(config, ap, function (err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                })
+            });
+        }
     }
 }

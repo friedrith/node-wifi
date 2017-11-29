@@ -13,18 +13,18 @@ function disconnect (config, callback) {
 
 module.exports = function (config) {
     return function(callback) {
-      if (callback) {
-        disconnect(config, callback);
-      } else {
-        return new Promise(function (resolve, reject) {
-          disconnect(config, function (err) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve();
-            }
-          })
-        })
-      }
+        if (callback) {
+            disconnect(config, callback);
+        } else {
+            return new Promise(function (resolve, reject) {
+                disconnect(config, function (err) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                })
+            })
+        }
     }
 }
