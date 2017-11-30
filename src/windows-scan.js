@@ -24,7 +24,6 @@ function scanWifi(config, callback) {
                 if (scanResults[i] === '') {
                     numNetworks++;
                     networkTmp = scanResults.slice(currentLine, i);
-                    console.log("networkTmp", networkTmp);
                     networksTmp.push(networkTmp);
                     currentLine = i+1;
                 }
