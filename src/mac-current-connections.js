@@ -44,10 +44,9 @@ function getCurrentConnections(config, callback) {
 }
 
 module.exports = function (config) {
-
     return function(callback) {
       if (callback) {
-        getCurrentConnections(callback);
+        getCurrentConnections(config, callback);
       } else {
         return new Promise(function (resolve, reject) {
           getCurrentConnections(config, function (err, currentConnections) {

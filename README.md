@@ -2,6 +2,8 @@
 node-wifi
 ===================
 
+**I am looking for maintainers who could help me to handle all improvements and bug fixes about this project because the hardware/os dependencies make it quite hard to test.**
+
 ![node-wifi](https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png)
 
 The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods.
