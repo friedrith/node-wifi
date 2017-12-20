@@ -2,6 +2,8 @@
 node-wifi
 ===================
 
+**I am looking for maintainers who could help me to handle all improvements and bug fixes about this project because the hardware/os dependencies make it quite hard to test.**
+
 ![node-wifi](https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png)
 
 The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods.
@@ -59,7 +61,7 @@ wifi.scan(function(err, networks) {
               channel: <number>,
               frequency: <number>, // in MHz
               signal_level: <number>, // in dB
-              security: 'WPA WPA2' //
+              security: 'WPA WPA2' // format depending on locale for open networks in Windows
               security_flags: '...' // encryption protocols (format currently depending of the OS)
               mode: '...' // network mode like Infra (format currently depending of the OS)
             },
@@ -86,8 +88,7 @@ wifi.disconnect(function(err) {
     console.log('Disconnected');
 });
 
-// Disconnect from a network
-// not available on all os for now
+// List the current wifi connections
 wifi.getCurrentConnections(function(err, currentConnections) {
     if (err) {
         console.log(err);
