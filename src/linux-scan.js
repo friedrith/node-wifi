@@ -19,7 +19,6 @@ function scanWifi(config, callback) {
       for (var i = 0 ; i < lines.length ; i++) {
         if (lines[i] != '') {
           var fields = lines[i].replace(/\\\:/g, '&&').split(':');
-          console.log(fields)
           if(fields.length < 10){
             //Bad scan field
             continue;
