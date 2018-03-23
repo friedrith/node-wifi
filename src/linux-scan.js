@@ -19,6 +19,10 @@ function scanWifi(config, callback) {
       for (var i = 0 ; i < lines.length ; i++) {
         if (lines[i] != '') {
           var fields = lines[i].replace(/\\\:/g, '&&').split(':');
+          if(fields.length < 10){
+            //Bad scan field
+            break;
+          }
           networks.push({
             ssid: fields[1].replace(/\&\&/g, ':'),
             bssid: fields[2].replace(/\&\&/g, ':'),
