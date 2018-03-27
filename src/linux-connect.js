@@ -21,7 +21,6 @@ function connectToWifi(config, ap, callback) {
     if (resp.includes('Error: ')) {
       err = new Error(resp.replace('Error: ', ''));
     }
-    console.log(err)
     callback && callback(err);
   });
 }
