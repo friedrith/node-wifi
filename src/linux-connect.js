@@ -7,8 +7,8 @@ var escapeShell = function(cmd) {
 };
 
 function connectToWifi(config, ap, callback) {
-  var commandStr = "nmcli -w 10 device wifi connect '" + ap.ssid + "'" +
-      " password " + "'" + ap.password + "'" ;
+  var commandStr = "nmcli -w 10 device wifi connect \"" + ap.ssid + "\"" +
+      " password " + "\"" + ap.password + "\"" ;
 
   if (config.iface) {
       commandStr = commandStr + " ifname " + config.iface;
