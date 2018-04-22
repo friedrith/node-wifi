@@ -3,7 +3,7 @@ var networkUtils = require('./network-utils');
 var env = require('./env');
 
 function scanWifi(config, callback) {
-  var commandStr = "nmcli --terse --fields active,ssid,bssid,mode,chan,freq,signal,security,wpa-flags,rsn-flags device wifi list";
+  var commandStr = "nmcli --terse --fields active,ssid,bssid,mode,chan,freq,signal,security,wpa-flags,rsn-flags,signal device wifi list";
   if (config.iface) {
       commandStr += ' ifname '+config.iface;
   }
@@ -36,7 +36,8 @@ function scanWifi(config, callback) {
             security_flags: {
               wpa:  fields[8].replace(/\&\&/g, ':'),
               rsn: fields[9].replace(/\&\&/g, ':'),
-            }
+            },
+            signal: fields[10].replace(/\&\&/g, ':'),
           });
         }
       }
