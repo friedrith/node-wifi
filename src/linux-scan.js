@@ -18,8 +18,8 @@ function scanWifi(config, callback) {
       var networks = [];
       for (var i = 0 ; i < lines.length ; i++) {
         if (lines[i] != '') {
-          try {
-            var fields = lines[i].replace(/\\\:/g, '&&').split(':');
+          var fields = lines[i].replace(/\\\:/g, '&&').split(':');
+          if (!fields.includes(config.iface)) {
             networks.push({
               ssid: fields[1].replace(/\&\&/g, ':'),
               bssid: fields[2].replace(/\&\&/g, ':'),
@@ -34,8 +34,6 @@ function scanWifi(config, callback) {
                 rsn: fields[9].replace(/\&\&/g, ':'),
               }
             });
-          } catch (error) {
-            throw new Error(error);
           }
         }
       }
