@@ -17,7 +17,7 @@ function scanWifi(config, callback) {
       var lines = scanResults.split('\n');
       var networks = [];
       for (var i = 0 ; i < lines.length ; i++) {
-        if (lines[i] != '') {
+        if (lines[i] != '' && lines[i] != 'undefined') {
           var fields = lines[i].replace(/\\\:/g, '&&').split(':');
           networks.push({
             ssid: fields[1].replace(/\&\&/g, ':'),
