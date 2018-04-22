@@ -35,7 +35,7 @@ function scanWifi(config, callback) {
               }
             });
           } catch (error) {
-            console.log(fields);
+            throw error;
           }
         }
       }
