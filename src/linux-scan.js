@@ -15,11 +15,15 @@ function scanWifi(config, callback) {
       }
 
       var lines = scanResults.split('\n');
+
+      if (config.iface) {
+        lines.shift()
+      }
+
       var networks = [];
       for (var i = 0 ; i < lines.length ; i++) {
         if (lines[i] != '') {
           var fields = lines[i].replace(/\\\:/g, '&&').split(':');
-          if (!fields.includes(config.iface)) {
             networks.push({
               ssid: fields[1].replace(/\&\&/g, ':'),
               bssid: fields[2].replace(/\&\&/g, ':'),
@@ -33,8 +37,7 @@ function scanWifi(config, callback) {
                 wpa:  fields[8].replace(/\&\&/g, ':'),
                 rsn: fields[9].replace(/\&\&/g, ':'),
               }
-            });
-          }
+          });
         }
       }
       callback && callback(null, networks);
