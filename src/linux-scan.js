@@ -19,20 +19,23 @@ function scanWifi(config, callback) {
       for (var i = 0 ; i < lines.length ; i++) {
         if (lines[i] != '') {
           var fields = lines[i].replace(/\\\:/g, '&&').split(':');
-          networks.push({
-            ssid: fields[1].replace(/\&\&/g, ':'),
-            bssid: fields[2].replace(/\&\&/g, ':'),
-            mac: fields[2].replace(/\&\&/g, ':'), // for retrocompatibility with version 1.x
-            mode: fields[3].replace(/\&\&/g, ':'),
-            channel: parseInt(fields[4].replace(/\&\&/g, ':')),
-            frequency: parseInt(fields[5].replace(/\&\&/g, ':')),
-            signal_level: networkUtils.dBFromQuality(fields[6].replace(/\&\&/g, ':')),
-            security: fields[7].replace(/\&\&/g, ':') != '(none)' ? fields[7].replace(/\&\&/g, ':') : 'none',
-            security_flags: {
-              wpa:  fields[8].replace(/\&\&/g, ':'),
-              rsn: fields[9].replace(/\&\&/g, ':'),
-            }
-          });
+          if (fields.length >= 9) {
+            networks.push({
+              ssid: fields[1].replace(/\&\&/g, ':'),
+              bssid: fields[2].replace(/\&\&/g, ':'),
+              mac: fields[2].replace(/\&\&/g, ':'), // for retrocompatibility with version 1.x
+              mode: fields[3].replace(/\&\&/g, ':'),
+              channel: parseInt(fields[4].replace(/\&\&/g, ':')),
+              frequency: parseInt(fields[5].replace(/\&\&/g, ':')),
+              signal_level: networkUtils.dBFromQuality(fields[6].replace(/\&\&/g, ':')),
+              quality: parseFloat(fields[6].replace(/\&\&/g, ':')),
+              security: fields[7].replace(/\&\&/g, ':') != '(none)' ? fields[7].replace(/\&\&/g, ':') : 'none',
+              security_flags: {
+                wpa:  fields[8].replace(/\&\&/g, ':'),
+                rsn: fields[9].replace(/\&\&/g, ':'),
+              }
+            });
+          }
         }
       }
       callback && callback(null, networks);

@@ -29,6 +29,7 @@ function getCurrentConnection(config, callback) {
               channel: parseInt(fields[4].replace(/\&\&/g, ':')),
               frequency: parseInt(fields[5].replace(/\&\&/g, ':')),
               signal_level: networkUtils.dBFromQuality(fields[6].replace(/\&\&/g, ':')),
+              quality: parseFloat(fields[6].replace(/\&\&/g, ':')),
               security: fields[7].replace(/\&\&/g, ':'),
               security_flags: {
                 wpa:  fields[8].replace(/\&\&/g, ':'),

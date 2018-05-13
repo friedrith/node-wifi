@@ -46,6 +46,9 @@ function dBFromQuality(quality) {
     return (parseFloat(quality)/2 - 100);
 }
 
+function qualityFromDB(db) {
+    return 2 * (parseFloat(db) + 100);
+}
 
 exports.frequencyFromChannel = frequencyFromChannel;
 exports.dBFromQuality = dBFromQuality;

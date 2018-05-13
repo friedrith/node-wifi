@@ -39,3 +39,4 @@
 
 * correction bug #38
 * new license LGPL-3.0
+* add quality
