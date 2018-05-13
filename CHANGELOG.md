@@ -39,4 +39,5 @@
 
 * correction bug #38
 * new license LGPL-3.0
-* add quality
+* add quality result which is as signal level but in percentage
+* change the environment settings for en_US 
