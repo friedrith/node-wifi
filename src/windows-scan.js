@@ -50,7 +50,7 @@ function parse(networkTmp) {
     network.channel = parseInt(networkTmp[7].match(/.*?:\s(.*)/)[1]);
     network.frequency = parseInt(networkUtils.frequencyFromChannel(network.channel));
     network.signal_level = networkUtils.dBFromQuality(networkTmp[5].match(/.*?:\s(.*)/)[1]);
-    network.quality = parse(networkTmp[5].match(/.*?:\s(.*)/)[1]);
+    network.quality = parseFloat(networkTmp[5].match(/.*?:\s(.*)/)[1]);
     network.security = networkTmp[2].match(/.*?:\s(.*)/)[1];
     network.security_flags = networkTmp[3].match(/.*?:\s(.*)/)[1];
     network.mode = 'Unknown';
