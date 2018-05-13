@@ -26,6 +26,16 @@
 
 * correct bug #24
 
-# Version 2.04
+# Version 2.0.3
+
+* correct bug #26
+
+# Version 2.0.4
+
+* correct bug #29
+* change urls in package.json because of the author's login changed
+
+# Version 2.0.5
 
 * correction bug #38
+* new license LGPL-3.0
