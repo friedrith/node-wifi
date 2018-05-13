@@ -36,7 +36,11 @@ function connectToWifi(config, ap, callback) {
             return execCommand("netsh wlan add profile filename=\"" + ap.ssid + ".xml\"")
         })
         .then(function() {
-            return execCommand("netsh wlan connect ssid=\"" + ap.ssid + "\" name=\"" + ap.ssid + "\"");
+            var cmd = "netsh wlan connect ssid=\"" + ap.ssid + "\" name=\"" + ap.ssid + "\""
+            if (config.iface) {
+              cmd += " interface=\"" + config.iface + "\""
+            }
+            return execCommand(cmd);
         })
         .then(function() {
             return execCommand("del \".\\" + ap.ssid + ".xml\"");
