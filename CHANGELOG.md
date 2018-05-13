@@ -25,3 +25,7 @@
 # Version 2.0.2
 
 * correct bug #24
+
+# Version 2.04
+
+* correction bug #38
