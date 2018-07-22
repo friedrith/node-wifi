@@ -30,7 +30,7 @@ function connectToWifi(config, ap, callback) {
                 throw "SSID not found";
             }
 
-            fs.writeFileSync(ap.ssid + ".xml", win32WirelessProfileBuilder(selectedAp, ap.password));
+            fs.writeFileSync("nodeWifiConnect.xml", win32WirelessProfileBuilder(selectedAp, ap.password));
         })
         .then(function() {
             return execCommand("netsh wlan add profile filename=\"" + ap.ssid + ".xml\"")
@@ -39,7 +39,7 @@ function connectToWifi(config, ap, callback) {
             return execCommand("netsh wlan connect ssid=\"" + ap.ssid + "\" name=\"" + ap.ssid + "\"");
         })
         .then(function() {
-            return execCommand("del \".\\" + ap.ssid + ".xml\"");
+            return execCommand("del \".\\nodeWifiConnect.xml\"");
         })
         .then(function() {
             callback && callback();
