@@ -17,6 +17,8 @@ function connectToWifi(config, ap, callback) {
     //console.log(stderr, resp);
     if (resp && resp.indexOf('Failed to join network') >= 0) {
       callback && callback(resp);
+    } else if (resp && resp.indexOf('Could not find network') >= 0) {
+      callback && callback(resp);
     } else {
       callback && callback(err);
     }

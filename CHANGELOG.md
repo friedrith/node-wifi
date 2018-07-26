@@ -25,3 +25,19 @@
 # Version 2.0.2
 
 * correct bug #24
+
+# Version 2.0.3
+
+* correct bug #26
+
+# Version 2.0.4
+
+* correct bug #29
+* change urls in package.json because of the author's login changed
+
+# Version 2.0.5
+
+* correction bug #38
+* new license LGPL-3.0
+* add quality result which is as signal level but in percentage
+* change the environment settings for en_US 
