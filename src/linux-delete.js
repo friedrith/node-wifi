@@ -2,7 +2,7 @@ var exec = require('child_process').exec;
 var env = require('./env');
 
 function deleteConnection(config, ap, callback) {
-  var commandStr = "nmcli device connection delete id ";
+  var commandStr = "nmcli connection delete id ";
 
   commandStr += " " + ap.name;
 
