@@ -9,7 +9,7 @@ var linuxGetCurrentConnections = require('./linux-current-connections');
 var linuxScan = require('./linux-scan.js');
 var macConnect = require('./mac-connect.js');
 var macScan = require('./mac-scan.js');
-var macDelete = require('./linux-delete');
+var macDelete = require('./mac-delete');
 var macGetCurrentConnections = require('./mac-current-connections');
 
 var config = {
