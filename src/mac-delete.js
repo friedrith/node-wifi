@@ -10,7 +10,7 @@ function deleteConnection(config, ap, callback) {
     iface = config.iface.toString();
   }
 
-  commandStr = commandStr + "'" + iface + "'" + " " + "'" + ap.name + "'";
+  commandStr = commandStr + "'" + iface + "'" + " " + "'" + ap.ssid + "'";
 
   exec(commandStr, env, function (err, resp, stderr) {
     if (resp && resp.indexOf('was not found in the preferred networks list') >= 0) {
