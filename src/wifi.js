@@ -4,15 +4,17 @@ var windowsDisconnect = require('./windows-disconnect.js');
 var windowsGetCurrentConnections = require('./windows-current-connections');
 var linuxConnect = require('./linux-connect');
 var linuxDisconnect = require('./linux-disconnect');
+var linuxDelete = require('./linux-delete');
 var linuxGetCurrentConnections = require('./linux-current-connections');
 var linuxScan = require('./linux-scan.js');
 var macConnect = require('./mac-connect.js');
 var macScan = require('./mac-scan.js');
+var macDelete = require('./linux-delete');
 var macGetCurrentConnections = require('./mac-current-connections');
 
 var config = {
-    debug : false,
-    iface : null
+    debug: false,
+    iface: null
 };
 
 function init(options) {
@@ -33,20 +35,25 @@ function init(options) {
     var disconnect = function () {
         throw new Error("ERROR : not available for this OS");
     };
+    var deleteConnection = function () {
+        throw new Error("ERROR : not available for this OS");
+    };
     var getCurrentConnections = function () {
         throw new Error("ERROR : not available for this OS");
     };
 
-    switch(process.platform) {
+    switch (process.platform) {
         case "linux":
             connect = linuxConnect(config);
             scan = linuxScan(config);
             disconnect = linuxDisconnect(config);
+            deleteConnection = linuxDelete(config);
             getCurrentConnections = linuxGetCurrentConnections(config);
             break;
         case "darwin":
             connect = macConnect(config);
             scan = macScan(config);
+            deleteConnection = macDelete(config);
             getCurrentConnections = macGetCurrentConnections(config);
             break;
         case "win32":
@@ -61,6 +68,7 @@ function init(options) {
     exports.scan = scan;
     exports.connect = connect;
     exports.disconnect = disconnect;
+    exports.deleteConnection = deleteConnection;
     exports.getCurrentConnections = getCurrentConnections;
 }
 
