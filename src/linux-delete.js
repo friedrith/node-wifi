@@ -4,7 +4,7 @@ var env = require('./env');
 function deleteConnection(config, ap, callback) {
   var commandStr = "nmcli connection delete id ";
 
-  commandStr += " " + ap.ssid;
+  commandStr += " " + "'" + ap.ssid + "'";
 
   exec(commandStr, env, function (err, resp) {
     callback && callback(err);
