@@ -16,7 +16,7 @@ function connectToWifi(config, ap, callback) {
 
     // commandStr = escapeShell(commandStr);
 
-  exec(commandStr, env, function(err, resp) {
+  exec(commandStr, {env}, function(err, resp) {
       callback && callback(err);
   });
 }

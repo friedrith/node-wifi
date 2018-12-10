@@ -5,7 +5,7 @@ var scan = require('./windows-scan');
 
 function execCommand(cmd) {
     return new Promise(function(resolve, reject) {
-        exec(cmd, env, function(err, stdout, stderr) {
+        exec(cmd, {env}, function(err, stdout, stderr) {
             if (err) {
                 // Add command output to error, so it's easier to handle
                 err.stdout = stdout;
@@ -49,7 +49,7 @@ function connectToWifi(config, ap, callback) {
             callback && callback();
         })
         .catch(function(err) {
-            exec('netsh wlan delete profile "' + ap.ssid + '"', env, function() {
+            exec('netsh wlan delete profile "' + ap.ssid + '"', {env}, function() {
                 callback && callback(err);
             });
         });

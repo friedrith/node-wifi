@@ -35,7 +35,7 @@ function parseAirport (stdout) {
 function getCurrentConnections(config, callback) {
   var commandStr = macProvider+" --getinfo" ;
 
-  exec(commandStr, env, function(err, stdout) {
+  exec(commandStr, {env}, function(err, stdout) {
         if (err) {
             callback && callback(err);
         } else {
