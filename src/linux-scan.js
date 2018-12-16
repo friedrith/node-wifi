@@ -17,7 +17,7 @@ function scanWifi(config, callback) {
       var lines = scanResults.split('\n');
 
       if (config.iface) {
-          lines.shift()
+          lines.shift();
       }
 
       var networks = [];
