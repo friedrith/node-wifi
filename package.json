@@ -1,6 +1,6 @@
 {
   "name": "node-wifi",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "NodeJS tool to manage wifi",
   "bin": {
     "wifi": "bin/wifi.js"
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "command-line-args": "^3.0.1",
-    "command-line-usage": "^3.0.3"
+    "command-line-usage": "^5.0.5"
   },
   "devDependencies": {
     "dotenv": "^4.0.0"

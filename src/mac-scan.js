@@ -59,6 +59,7 @@ function parseAirport(terms, str) {
             'channel': parseInt(lines[i].substr(colChannel, colHt - colChannel)),
             'frequency' : parseInt(networkUtils.frequencyFromChannel(lines[i].substr(colChannel, colHt - colChannel).trim())),
             'signal_level' : lines[i].substr(colRssi, colChannel - colRssi).trim(),
+            'quality' : networkUtils.dBFromQuality(lines[i].substr(colRssi, colChannel - colRssi).trim()),
             'security' : security,
             'security_flags': securityFlags
         });

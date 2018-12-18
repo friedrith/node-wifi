@@ -53,6 +53,7 @@ function parseShowInterfaces (stdout, config) {
             channel: parseInt(tmpConnection['channel']),
             frequency:  parseInt(networkUtils.frequencyFromChannel(parseInt(tmpConnection['channel']))),
             signal_level: networkUtils.dBFromQuality(tmpConnection['signal']),
+            quality: parseFloat(tmpConnection['signal']),
             security: tmpConnection['authentication'],
             security_flags: tmpConnection['encryption'],
         })
