@@ -89,6 +89,15 @@ wifi.disconnect(function(err) {
     console.log('Disconnected');
 });
 
+// Delete a saved network
+// not available on all os for now
+wifi.deleteConnection({ ssid : "ssid"}, function(err) {
+    if (err) {
+        console.log(err);
+    }
+    console.log('Deleted');
+});
+
 // List the current wifi connections
 wifi.getCurrentConnections(function(err, currentConnections) {
     if (err) {
