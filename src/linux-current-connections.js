@@ -8,7 +8,7 @@ function getCurrentConnection(config, callback) {
       commandStr += ' list ifname '+config.iface;
   }
 
-  exec(commandStr, env, function(err, scanResults) {
+  exec(commandStr, {env}, function(err, scanResults) {
       if (err) {
         callback && callback(err);
         return;

@@ -8,7 +8,7 @@ function scanWifi(config, callback) {
   var networks = []
   var network = {}
 
-  exec(macProvider + ' -s', env,  function(err, scanResults) {
+  exec(macProvider + ' -s', {env},  function(err, scanResults) {
 
       if (err) {
           callback && callback(err);

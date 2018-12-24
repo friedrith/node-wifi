@@ -6,7 +6,7 @@ function disconnect (config, callback) {
     if (config.iface) {
         cmd += ' interface="' + config.iface + '"'
     }
-    exec(cmd, env, function(err, resp) {
+    exec(cmd, {env}, function(err, resp) {
         callback && callback(err);
     });
 }

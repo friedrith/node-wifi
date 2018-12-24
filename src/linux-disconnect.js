@@ -7,8 +7,8 @@ function disconnect (config, callback) {
   if (config.iface) {
       commandStr += " " + config.iface;
   }
-  
-  exec(commandStr, env, function(err, resp) {
+
+  exec(commandStr, {env}, function(err, resp) {
       callback && callback(err);
   });
 
