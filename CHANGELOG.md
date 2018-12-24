@@ -40,4 +40,8 @@
 * correction bug #38
 * new license LGPL-3.0
 * add quality result which is as signal level but in percentage
-* change the environment settings for en_US 
+* change the environment settings for en_US
+* add new function to delete a previous profile #51
+* fix errors while scanning on raspberry or ASUS Tinker Board issue #41
+
+# Version 2.0.6
