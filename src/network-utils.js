@@ -52,3 +52,4 @@ function qualityFromDB(db) {
 
 exports.frequencyFromChannel = frequencyFromChannel;
 exports.dBFromQuality = dBFromQuality;
+exports.qualityFromDB = qualityFromDB;
