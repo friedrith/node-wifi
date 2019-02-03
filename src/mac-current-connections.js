@@ -11,7 +11,7 @@ function parseAirport (stdout) {
     lines.forEach(function (line) {
         if (line.match(/[ ]*agrCtlRSSI: (.*)/)) {
             connection.signal_level = parseInt(line.match(/[ ]*agrCtlRSSI: (.*)/)[1]);
-            connection.quality = networkUtils.qualityFromDB(parseInt(line.match(/[ ]*agrCtlRSSI: (.*)/)[1]));
+            connection.quality = networkUtils.dBFromQuality(parseInt(line.match(/[ ]*agrCtlRSSI: (.*)/)[1]));
         } else if (line.match(/[ ]*BSSID: ([a-zA-Z0-1:]*)/)) {
             var bssid = line.match(/[ ]*BSSID: ([0-9A-Fa-f:]*)/)[1];
             connection.mac = bssid;
