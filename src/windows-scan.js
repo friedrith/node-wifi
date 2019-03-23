@@ -20,6 +20,8 @@ function scanWifi(config, callback) {
             var networks = [];
             var i;
 
+            const bssids = [];
+
             for (i = 0; i < scanResults.length; i++) {
                 if (scanResults[i] === '') {
                     numNetworks++;
@@ -29,7 +31,21 @@ function scanWifi(config, callback) {
                 }
             }
 
-            for (i = 0; i < numNetworks; i++) {
+            for (i = 0; i < networksTmp.length; i++) {
+                let thisNetwork = networksTmp[i];
+                if (thisNetwork.length > 0) {
+                    const splits = thisNetwork.join('\n').toString().split(/BSSID/i);
+                    if (splits.length > 2) {
+                        for (a = 2; a < splits.length; a++) {
+                            networks.push(parseBssid(thisNetwork, splits[a].split('\n')));
+                        }
+                    } else {
+                        bssids.push(thisNetwork);
+                    }
+                }
+            }
+
+            for (i = 0; i < bssids.length; i++) {
                 network = parse(networksTmp[i]);
                 networks.push(network);
             }
@@ -51,6 +67,23 @@ function parse(networkTmp) {
     network.frequency = parseInt(networkUtils.frequencyFromChannel(network.channel));
     network.signal_level = networkUtils.dBFromQuality(networkTmp[5].match(/.*?:\s(.*)/)[1]);
     network.quality = parseFloat(networkTmp[5].match(/.*?:\s(.*)/)[1]);
+    network.security = networkTmp[2].match(/.*?:\s(.*)/)[1];
+    network.security_flags = networkTmp[3].match(/.*?:\s(.*)/)[1];
+    network.mode = 'Unknown';
+
+    return network;
+}
+
+function parseBssid(networkTmp, bssid) {
+    var network = {};
+
+    network.mac = bssid[0].match(/.*?:\s(.*)/)[1];
+    network.bssid = network.mac;
+    network.ssid = networkTmp[0].match(/.*?:\s(.*)/)[1];
+    network.channel = parseInt(bssid[3].match(/.*?:\s(.*)/)[1]);
+    network.frequency = parseInt(networkUtils.frequencyFromChannel(network.channel));
+    network.signal_level = networkUtils.dBFromQuality(bssid[1].match(/.*?:\s(.*)/)[1]);
+    network.quality = parseFloat(bssid[4].match(/.*?:\s(.*)/)[1]);
     network.security = networkTmp[2].match(/.*?:\s(.*)/)[1];
     network.security_flags = networkTmp[3].match(/.*?:\s(.*)/)[1];
     network.mode = 'Unknown';
