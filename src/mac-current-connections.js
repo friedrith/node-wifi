@@ -14,9 +14,7 @@ function parseAirport(stdout) {
       connection.quality = networkUtils.qualityFromDB(parseInt(line.match(/[ ]*agrCtlRSSI: (.*)/)[1]));
     } else if (line.match(/[ ]*BSSID: ([a-zA-Z0-1:]*)/)) {
       var bssid = line.match(/[ ]*BSSID: ([0-9A-Fa-f:]*)/)[1];
-      if (/^0:(.*)$/.test(bssid)) {
-        bssid = `0${bssid}`;
-      }
+      bssid = bssid.split(':').map(part => part.length === 1 ? `0${part}` : part).join(':');
       connection.mac = bssid;
       connection.bssid = bssid;
     } else if (line.match(/[ ]*SSID: (.*)/)) {
