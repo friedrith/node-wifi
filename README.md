@@ -1,11 +1,13 @@
-# node-wifi
-
-> :information_source: Version 3 will be released soon and will provide a [lot of changes](https://github.com/friedrith/node-wifi/projects/1). Don't worry, everything will be retrocompatible. However, please write a issue before proposing a pull request to integrate the fix
-> directly in the version 2 release.
+<div style="text-align:center">
+<p>
+![node-wifi](https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png)
+<br>
+<br>
+![travis](https://travis-ci.org/friedrith/node-wifi.svg?branch=master)
+</p>
+</div>
 
 **I am looking for maintainers who could help me to handle all improvements and bug fixes about this project because the hardware/os dependencies make it quite hard to test.**
-
-![node-wifi](https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png)
 
 The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods.
 
