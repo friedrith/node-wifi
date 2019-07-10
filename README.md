@@ -161,7 +161,7 @@ Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull 
 
 ## Roadmap
 
-- [ ] add conventional commits
+- [x] add conventional commits
 - [ ] plug to travis
 - [ ] switch to MIT license
 - [ ] install commitizen

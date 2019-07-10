@@ -1,0 +1,4 @@
+# travis.yml
+language: node_js
+script:
+  - commitlint-travis
