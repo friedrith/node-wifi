@@ -10,7 +10,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commitlint": "npx commitlint --from 6d7a5deb8144b6194544240b5ab3d765734687ac"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,8 @@
   },
   "keywords": [
     "wifi",
-    "multiplatform"
+    "multiplatform",
+    "node"
   ],
   "author": "Thibault Friedrich",
   "license": "LGPL-3.0",
@@ -29,7 +31,16 @@
     "command-line-args": "^3.0.1",
     "command-line-usage": "^5.0.5"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "npx commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "devDependencies": {
-    "dotenv": "^4.0.0"
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
+    "@commitlint/travis-cli": "^8.0.0",
+    "dotenv": "^4.0.0",
+    "husky": "^3.0.0"
   }
 }

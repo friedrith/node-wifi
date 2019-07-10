@@ -53,3 +53,5 @@
 
 - fix bug #66
 - fix bug #50
+
+# Version 2.0.8

@@ -154,3 +154,18 @@ wifi --current
 Linux:
 
 - network-manager
+
+## Contribute
+
+Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull request.
+
+## Roadmap
+
+- [ ] add conventional commits
+- [ ] plug to travis
+- [ ] switch to MIT license
+- [ ] install commitizen
+- [ ] rewrite the library using ES7
+- [ ] add unit tests
+- [ ] add eslint
+- [ ] add prettier
