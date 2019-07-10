@@ -22,7 +22,7 @@ function scanWifi(config, callback) {
 
       var networks = [];
       for (var i = 0 ; i < lines.length ; i++) {
-        if (lines[i] != '') {
+        if (lines[i] != '' && lines[i].includes(":")) {
           var fields = lines[i].replace(/\\\:/g, '&&').split(':');
           if (fields.length >= 9) {
             networks.push({
