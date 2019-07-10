@@ -4,7 +4,7 @@ var env = require('./env');
 
 function scanWifi(config, callback) {
     try {
-        exec("chcp 65001 && netsh wlan show networks mode=Bssid", env, function(err, scanResults) {
+        exec("chcp 65001 && netsh wlan show networks mode=Bssid", {env}, function(err, scanResults) {
             if (err) {
                 callback && callback(err);
                 return;

@@ -13,7 +13,7 @@ function connectToWifi(config, ap, callback) {
   commandStr = commandStr + "'" + iface + "'" + " " + "'" + ap.ssid + "'" + " " + "'" + ap.password + "'";
   //console.log(commandStr);
 
-  exec(commandStr, env, function(err, resp, stderr) {
+  exec(commandStr, {env}, function(err, resp, stderr) {
     //console.log(stderr, resp);
     if (resp && resp.indexOf('Failed to join network') >= 0) {
       callback && callback(resp);

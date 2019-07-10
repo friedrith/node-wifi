@@ -5,7 +5,7 @@ var scan = require('./windows-scan');
 
 function execCommand(cmd) {
     return new Promise(function(resolve, reject) {
-        exec(cmd, env, function(err, stdout, stderr) {
+        exec(cmd, {env}, function(err, stdout, stderr) {
             if (err) {
                 // Add command output to error, so it's easier to handle
                 err.stdout = stdout;
@@ -30,7 +30,7 @@ function connectToWifi(config, ap, callback) {
                 throw "SSID not found";
             }
 
-            fs.writeFileSync(ap.ssid + ".xml", win32WirelessProfileBuilder(selectedAp, ap.password));
+            fs.writeFileSync("nodeWifiConnect.xml", win32WirelessProfileBuilder(selectedAp, ap.password));
         })
         .then(function() {
             return execCommand("netsh wlan add profile filename=\"" + ap.ssid + ".xml\"")
@@ -43,13 +43,13 @@ function connectToWifi(config, ap, callback) {
             return execCommand(cmd);
         })
         .then(function() {
-            return execCommand("del \".\\" + ap.ssid + ".xml\"");
+            return execCommand("del \".\\nodeWifiConnect.xml\"");
         })
         .then(function() {
             callback && callback();
         })
         .catch(function(err) {
-            exec('netsh wlan delete profile "' + ap.ssid + '"', env, function() {
+            exec('netsh wlan delete profile "' + ap.ssid + '"', {env}, function() {
                 callback && callback(err);
             });
         });

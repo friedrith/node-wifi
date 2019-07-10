@@ -16,7 +16,7 @@ function connectToWifi(config, ap, callback) {
 
   // commandStr = escapeShell(commandStr);
 
-  exec(commandStr, env, function (err, resp) {
+  exec(commandStr, { env }, function (err, resp) {
     // Errors from nmcli came from stdout, we test presence of 'Error: ' string
     if (resp.includes('Error: ')) {
       err = new Error(resp.replace('Error: ', ''));

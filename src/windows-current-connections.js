@@ -66,7 +66,7 @@ function parseShowInterfaces (stdout, config) {
 
 function getCurrentConnection(config, callback) {
     var commandStr = "netsh wlan show interfaces" ;
-    exec(commandStr, env, function(err, stdout) {
+    exec(commandStr, {env}, function(err, stdout) {
         if (err) {
             callback && callback(err);
         } else {
