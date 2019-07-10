@@ -35,3 +35,5 @@ These are the authorized types:
 - revert
 - style
 - test
+
+And please include the reference to the issue or the pull request in the description.
