@@ -163,6 +163,7 @@ Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull 
 
 - [x] add conventional commits
 - [ ] plug to travis
+- [ ] add github templates
 - [ ] switch to MIT license
 - [ ] install commitizen
 - [ ] rewrite the library using ES7
