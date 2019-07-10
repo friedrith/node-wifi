@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "commitlint": "npx commitlint --from 6d7a5deb8144b6194544240b5ab3d765734687ac"
+    "commitlint": "npx commitlint --from 971803ddc663432fbaea19e90bae4f27bfacd349"
   },
   "repository": {
     "type": "git",

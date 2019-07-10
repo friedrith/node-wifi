@@ -3,4 +3,4 @@ language: node_js
 node_js:
   - "7"
 script:
-  - commitlint
+  - npm run commitlint
