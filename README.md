@@ -13,16 +13,17 @@ The node-wifi module allows mac, windows and linux users to interact with surrou
 
 These methods include scanning for wifi access points and connecting to these access points.
 
+| Features                      | Linux | Mac | Windows |
+| ----------------------------- | ----- | --- | ------- |
+| Connect                       | ✓     | ✓   | ✓       |
+| Scan                          | ✓     | ✓   | ✓       |
+| List current wifi connections | ✓     | ✓   | ✓       |
+| Disconnect                    | ✓     |     | ✓       |
+| Delete connection information | ✓     | ✓   |         |
+
 We wish to be clear in saying that this module is inspired from [node-wifi-control](https://github.com/msolters/wifi-control-node) but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems.
 
-The module manages :
-
-- Connect for linux | mac | windows
-- Scan for linux | mac | windows
-- List the current wifi connections for linux | mac | windows
-- Disconnect for linux | windows
-
-> As everything with hardware dependency, weird behaviors may happen depending of your configuration. You should never hesitate to notify us about a specificity of your OS/Hardware/Wifi card/whatever.
+> As everything with hardware dependencies, weird behaviors may happen depending of your configuration. You should never hesitate to notify us about a specificity of your OS/Hardware/Wifi card/whatever.
 
 ---
 
