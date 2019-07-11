@@ -167,7 +167,7 @@ Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull 
 - [x] add conventional commits
 - [x] plug to travis
 - [x] add github templates
-- [ ] add eslint
+- [x] add eslint
 - [ ] add prettier
 - [ ] switch to MIT license
 - [ ] install commitizen
