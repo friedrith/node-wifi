@@ -165,11 +165,12 @@ Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull 
 ## Roadmap
 
 - [x] add conventional commits
-- [ ] plug to travis
-- [ ] add github templates
+- [x] plug to travis
+- [x] add github templates
+- [ ] add eslint
+- [ ] add prettier
 - [ ] switch to MIT license
 - [ ] install commitizen
 - [ ] rewrite the library using ES7
 - [ ] add unit tests
-- [ ] add eslint
-- [ ] add prettier
+- [ ] stdout how to reproduce bug

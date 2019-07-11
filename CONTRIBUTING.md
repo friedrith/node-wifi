@@ -2,25 +2,49 @@
 
 :+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
 
-The following is a set of guidelines for contributing to node-wifi.
+## Found an Issue?
 
-1. Fork `node-wifi` repository
-2. Post an issue to propose your feature/improvement. It will be very useful to know if your idea has a chance to be accepted
-3. Implement your feature
-4. Test your feature
-5. Squash your commits into one
-6. Write your commit message following [conventional commits specification](https://www.conventionalcommits.org/en/v1.0.0-beta.3/)
-7. Create pull request for dev branch
+Thank you for reporting any issues you find. We do our best to test and make node-wifi as solid as possible, but any reported issue is a real help.
 
-> :information_source: Version 3 will be released soon and will provide a (lot of changes)[https://github.com/friedrith/node-wifi/projects/1]. Don't worry, everything will be retrocompatible. But it is every important to create an issue before proposing a pull request to integrate the fix
-> directly in the version 2 release.
+Please follow these guidelines when reporting issues:
 
-And please try to consider your development for windows, linux and macOS platforms at the same time
-because having a module compatible with all platforms is the main concern of `node-wifi`.
+- Provide a title in the format of `<Error> when <Task>`
+- Tag your issue with the tag `bug`
+- Provide a short summary of what you are trying to do
+- Provide the log of the encountered error if applicable
+- Provide the exact version of node-wifi.
+- Be awesome and consider contributing a [pull request](#want-to-contribute)
+
+## Want to contribute?
+
+You consider contributing changes to node-wifi – we dig that!
+Please consider these guidelines when filing a pull request:
+
+- Follow the [Commit Rules](#commit-rules)
+- Make sure you rebased the current master branch when filing the pull request
+- Squash your commits when filing the pull request
+- Provide a short title with a maximum of 100 characters
+- Provide a more detailed description containing
+  _ What you want to achieve
+  _ What you changed
+  _ What you added
+  _ What you removed
+- For significant changes, post also an issue before to know if your idea has a chance to be accepted
+- Consider your development for windows, linux and macOS platforms at the same time
+  because having a module compatible with all platforms is the main concern of `node-wifi`.
 
 **May the force be with you !!**
 
-## Conventional commits
+## Commit Rules
+
+To help everyone with understanding the commit history of commitlint the following commit rules are enforced.
+
+- [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/)
+- husky commit message hook available
+- present tense
+- maximum of 100 characters
+- for bugs, includes the github tag of the issue in the description.
+- message format of `$type($scope): $message`
 
 These are the authorized types:
 
@@ -35,5 +59,3 @@ These are the authorized types:
 - revert
 - style
 - test
-
-And please include the reference to the issue or the pull request in the description.
