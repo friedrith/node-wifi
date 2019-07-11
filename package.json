@@ -51,6 +51,6 @@
   },
   "type": "commonjs",
   "engines": {
-    "node": ">=4.10.0"
+    "node": ">=8.0.0"
   }
 }
