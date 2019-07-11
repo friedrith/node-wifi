@@ -11,7 +11,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "commitlint": "npx commitlint --from 971803ddc663432fbaea19e90bae4f27bfacd349"
+    "commitlint": "npx commitlint --from 971803ddc663432fbaea19e90bae4f27bfacd349",
+    "lint": "npx eslint src/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,15 @@
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
     "@commitlint/travis-cli": "^8.0.0",
+    "babel-eslint": "^10.0.2",
     "dotenv": "^4.0.0",
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-node": "^9.1.0",
     "husky": "^3.0.0"
+  },
+  "type": "commonjs",
+  "engines": {
+    "node": ">=4.10.0"
   }
 }

@@ -19,7 +19,9 @@ function parseAirport(stdout) {
       var bssid = line.match(/[ ]*BSSID: ([0-9A-Fa-f:]*)/)[1];
       bssid = bssid
         .split(":")
-        .map(part => (part.length === 1 ? `0${part}` : part))
+        .map(function(part) {
+          return part.length === 1 ? "0" + part : part;
+        })
         .join(":");
       connection.mac = bssid;
       connection.bssid = bssid;

@@ -1,9 +1,8 @@
-var exec = require('child_process').exec;
-var env = require('./env');
+var exec = require("child_process").exec;
+var env = require("./env");
 
 function deleteConnection(config, ap, callback) {
-
-  var iface = 'en0';
+  var iface = "en0";
   var commandStr = "networksetup -removepreferredwirelessnetwork ";
 
   if (config.iface) {
@@ -12,8 +11,11 @@ function deleteConnection(config, ap, callback) {
 
   commandStr = commandStr + "'" + iface + "'" + " " + "'" + ap.ssid + "'";
 
-  exec(commandStr, env, function (err, resp, stderr) {
-    if (resp && resp.indexOf('was not found in the preferred networks list') >= 0) {
+  exec(commandStr, env, function(err, resp) {
+    if (
+      resp &&
+      resp.indexOf("was not found in the preferred networks list") >= 0
+    ) {
       callback && callback(resp);
     } else {
       callback && callback(err);
@@ -21,13 +23,13 @@ function deleteConnection(config, ap, callback) {
   });
 }
 
-module.exports = function (config) {
-  return function (ap, callback) {
+module.exports = function(config) {
+  return function(ap, callback) {
     if (callback) {
       deleteConnection(config, ap, callback);
     } else {
-      return new Promise(function (resolve, reject) {
-        deleteConnection(config, ap, function (err, networks) {
+      return new Promise(function(resolve, reject) {
+        deleteConnection(config, ap, function(err, networks) {
           if (err) {
             reject(err);
           } else {
