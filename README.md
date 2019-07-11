@@ -1,9 +1,9 @@
 <div style="text-align:center">
 <p>
-![node-wifi](https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png)
+<img src="https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png" alt="node-wifi" />
 <br>
 <br>
-![travis](https://travis-ci.org/friedrith/node-wifi.svg?branch=master)
+<img src="https://travis-ci.org/friedrith/node-wifi.svg?branch=master" alt="travis" />
 </p>
 </div>
 
