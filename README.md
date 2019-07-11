@@ -1,4 +1,4 @@
-<div style="text-align:center">
+<div align="center">
 <p>
 <img src="https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png" alt="node-wifi" />
 <br>
