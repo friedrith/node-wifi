@@ -75,15 +75,12 @@ wifi.scan(function(err, networks) {
 });
 
 // Connect to a network
-wifi.connect(
-  { ssid: "ssid", password: "password" },
-  function(err) {
-    if (err) {
-      console.log(err);
-    }
-    console.log("Connected");
+wifi.connect({ ssid: "ssid", password: "password" }, function(err) {
+  if (err) {
+    console.log(err);
   }
-);
+  console.log("Connected");
+});
 
 // Disconnect from a network
 // not available on all os for now
@@ -168,8 +165,8 @@ Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull 
 - [x] plug to travis
 - [x] add github templates
 - [x] add eslint
-- [ ] add prettier
-- [ ] switch to MIT license
+- [x] add prettier
+- [x] switch to MIT license
 - [ ] install commitizen
 - [ ] rewrite the library using ES7
 - [ ] add unit tests

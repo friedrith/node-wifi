@@ -24,7 +24,7 @@
     "node"
   ],
   "author": "Thibault Friedrich",
-  "license": "LGPL-3.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/friedrith/node-wifi/issues"
   },
