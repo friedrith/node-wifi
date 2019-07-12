@@ -20,6 +20,7 @@ Please follow these guidelines when reporting issues:
 You consider contributing changes to node-wifi – we dig that!
 Please consider these guidelines when filing a pull request:
 
+- Follow the [Coding Rules](#coding-rules)
 - Follow the [Commit Rules](#commit-rules)
 - Make sure you rebased the current master branch when filing the pull request
 - Squash your commits when filing the pull request
@@ -34,6 +35,17 @@ Please consider these guidelines when filing a pull request:
   because having a module compatible with all platforms is the main concern of `node-wifi`.
 
 **May the force be with you !!**
+
+## Coding Rules
+
+To keep the code base of commitlint neat and tidy the following rules apply to every change
+
+- `prettier` is king
+- `eslint` is awesome
+- Favor micro library over swiss army knives (rimraf, ncp vs. fs-extra)
+- Be awesome
+
+> use commands `npm run eslint` and `npm run prettier:check` to be sure your code respect coding rules.
 
 ## Commit Rules
 
