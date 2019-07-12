@@ -1,11 +1,11 @@
-var exec = require("child_process").exec;
+var exec = require('child_process').exec;
 var macProvider =
-  "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport";
-var env = require("./env");
-var networkUtils = require("./network-utils.js");
+  '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport';
+var env = require('./env');
+var networkUtils = require('./network-utils.js');
 
 function parseAirport(stdout) {
-  var lines = stdout.split("\n");
+  var lines = stdout.split('\n');
 
   var connections = [];
   var connection = {};
@@ -18,11 +18,11 @@ function parseAirport(stdout) {
     } else if (line.match(/[ ]*BSSID: ([a-zA-Z0-1:]*)/)) {
       var bssid = line.match(/[ ]*BSSID: ([0-9A-Fa-f:]*)/)[1];
       bssid = bssid
-        .split(":")
+        .split(':')
         .map(function(part) {
-          return part.length === 1 ? "0" + part : part;
+          return part.length === 1 ? '0' + part : part;
         })
-        .join(":");
+        .join(':');
       connection.mac = bssid;
       connection.bssid = bssid;
     } else if (line.match(/[ ]*SSID: (.*)/)) {
@@ -32,11 +32,11 @@ function parseAirport(stdout) {
       connection.security_flags = [];
     } else if (line.match(/[ ]*channel: (.*)/)) {
       connection.channel = parseInt(
-        line.match(/[ ]*channel: (.*)/)[1].split(",")[0]
+        line.match(/[ ]*channel: (.*)/)[1].split(',')[0]
       );
       connection.frequency = parseInt(
         networkUtils.frequencyFromChannel(
-          parseInt(line.match(/[ ]*channel: (.*)/)[1].split(",")[0])
+          parseInt(line.match(/[ ]*channel: (.*)/)[1].split(',')[0])
         )
       );
       connections.push(connection);
@@ -48,7 +48,7 @@ function parseAirport(stdout) {
 }
 
 function getCurrentConnections(config, callback) {
-  var commandStr = macProvider + " --getinfo";
+  var commandStr = macProvider + ' --getinfo';
 
   exec(commandStr, env, function(err, stdout) {
     if (err) {

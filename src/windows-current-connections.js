@@ -1,31 +1,31 @@
-var exec = require("child_process").exec;
-var env = require("./env");
-var networkUtils = require("./network-utils.js");
+var exec = require('child_process').exec;
+var env = require('./env');
+var networkUtils = require('./network-utils.js');
 
 function parseShowInterfaces(stdout) {
-  var lines = stdout.split("\r\n");
+  var lines = stdout.split('\r\n');
   var connections = [];
   var i = 3;
   while (lines.length > i + 18) {
     var tmpConnection = {};
     var fields = [
-      "name",
-      "description",
-      "guid",
-      "mac",
-      "state",
-      "ssid",
-      "bssid",
-      "mode",
-      "radio",
-      "authentication",
-      "encryption",
-      "connection",
-      "channel",
-      "reception",
-      "transmission",
-      "signal",
-      "profil"
+      'name',
+      'description',
+      'guid',
+      'mac',
+      'state',
+      'ssid',
+      'bssid',
+      'mode',
+      'radio',
+      'authentication',
+      'encryption',
+      'connection',
+      'channel',
+      'reception',
+      'transmission',
+      'signal',
+      'profil'
     ];
     for (var j = 0; j < fields.length; j++) {
       var line = lines[i + j];
@@ -33,19 +33,19 @@ function parseShowInterfaces(stdout) {
     }
 
     connections.push({
-      iface: tmpConnection["name"],
-      ssid: tmpConnection["ssid"],
-      bssid: tmpConnection["bssid"],
-      mac: tmpConnection["bssid"],
-      mode: tmpConnection["mode"],
-      channel: parseInt(tmpConnection["channel"]),
+      iface: tmpConnection['name'],
+      ssid: tmpConnection['ssid'],
+      bssid: tmpConnection['bssid'],
+      mac: tmpConnection['bssid'],
+      mode: tmpConnection['mode'],
+      channel: parseInt(tmpConnection['channel']),
       frequency: parseInt(
-        networkUtils.frequencyFromChannel(parseInt(tmpConnection["channel"]))
+        networkUtils.frequencyFromChannel(parseInt(tmpConnection['channel']))
       ),
-      signal_level: networkUtils.dBFromQuality(tmpConnection["signal"]),
-      quality: parseFloat(tmpConnection["signal"]),
-      security: tmpConnection["authentication"],
-      security_flags: tmpConnection["encryption"]
+      signal_level: networkUtils.dBFromQuality(tmpConnection['signal']),
+      quality: parseFloat(tmpConnection['signal']),
+      security: tmpConnection['authentication'],
+      security_flags: tmpConnection['encryption']
     });
 
     i = i + 18;
@@ -55,7 +55,7 @@ function parseShowInterfaces(stdout) {
 }
 
 function getCurrentConnection(config, callback) {
-  var commandStr = "netsh wlan show interfaces";
+  var commandStr = 'netsh wlan show interfaces';
   exec(commandStr, { env }, function(err, stdout) {
     if (err) {
       callback && callback(err);

@@ -1,22 +1,22 @@
-var exec = require("child_process").exec;
+var exec = require('child_process').exec;
 var macProvider =
-  "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport";
-var networkUtils = require("./network-utils.js");
-var env = require("./env");
+  '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport';
+var networkUtils = require('./network-utils.js');
+var env = require('./env');
 
 function scanWifi(config, callback) {
-  exec(macProvider + " -s", { env }, function(err, scanResults) {
+  exec(macProvider + ' -s', { env }, function(err, scanResults) {
     if (err) {
       callback && callback(err);
     }
 
     var terms = {
-      BSSID: "BSSID",
-      RSSI: "RSSI",
-      CHANNEL: "CHANNEL",
-      HT: "HT",
-      SECURITY: "SECURITY",
-      CC: "CC"
+      BSSID: 'BSSID',
+      RSSI: 'RSSI',
+      CHANNEL: 'CHANNEL',
+      HT: 'HT',
+      SECURITY: 'SECURITY',
+      CC: 'CC'
     };
 
     var resp = parseAirport(terms, scanResults);
@@ -25,7 +25,7 @@ function scanWifi(config, callback) {
 }
 
 function parseAirport(terms, str) {
-  var lines = str.split("\n");
+  var lines = str.split('\n');
   var colMac = lines[0].indexOf(terms.BSSID);
   var colRssi = lines[0].indexOf(terms.RSSI);
   var colChannel = lines[0].indexOf(terms.CHANNEL);
@@ -37,12 +37,12 @@ function parseAirport(terms, str) {
   for (var i = 1, l = lines.length; i < l; i++) {
     var bssid = lines[i].substr(colMac, colRssi - colMac).trim();
     var securityFlags = lines[i].substr(colSec).trim();
-    var security = "none";
-    if (securityFlags != "NONE") {
-      security = securityFlags.replace(/\(.*?\)/g, "");
+    var security = 'none';
+    if (securityFlags != 'NONE') {
+      security = securityFlags.replace(/\(.*?\)/g, '');
       securityFlags = securityFlags.match(/\((.*?)\)/g);
     } else {
-      security = "none";
+      security = 'none';
       securityFlags = [];
     }
     wifis.push({

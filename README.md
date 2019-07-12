@@ -9,9 +9,7 @@
 
 **I am looking for maintainers who could help me to handle all improvements and bug fixes about this project because the hardware/os dependencies make it quite hard to test.**
 
-The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods.
-
-These methods include scanning for wifi access points and connecting to these access points.
+The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods. These methods include scanning for wifi access points and connecting to these access points.
 
 | Features                      | Linux | Mac | Windows |
 | ----------------------------- | ----- | --- | ------- |
@@ -29,11 +27,11 @@ We wish to be clear in saying that this module is inspired from [node-wifi-contr
 
 ## Install
 
-```javascript
-// Use as a module
+```bash
+# Use as a module
 npm install node-wifi
 
-// Use as a CLI
+# Use as a CLI
 npm install node-wifi -g
 ```
 
@@ -167,7 +165,8 @@ Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull 
 - [x] add eslint
 - [x] add prettier
 - [x] switch to MIT license
-- [ ] install commitizen
 - [ ] rewrite the library using ES7
 - [ ] add unit tests
 - [ ] stdout how to reproduce bug
+- [ ] install commitizen
+- [ ] generate changelog and release note

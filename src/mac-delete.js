@@ -1,20 +1,20 @@
-var exec = require("child_process").exec;
-var env = require("./env");
+var exec = require('child_process').exec;
+var env = require('./env');
 
 function deleteConnection(config, ap, callback) {
-  var iface = "en0";
-  var commandStr = "networksetup -removepreferredwirelessnetwork ";
+  var iface = 'en0';
+  var commandStr = 'networksetup -removepreferredwirelessnetwork ';
 
   if (config.iface) {
     iface = config.iface.toString();
   }
 
-  commandStr = commandStr + "'" + iface + "'" + " " + "'" + ap.ssid + "'";
+  commandStr = commandStr + "'" + iface + "'" + ' ' + "'" + ap.ssid + "'";
 
   exec(commandStr, env, function(err, resp) {
     if (
       resp &&
-      resp.indexOf("was not found in the preferred networks list") >= 0
+      resp.indexOf('was not found in the preferred networks list') >= 0
     ) {
       callback && callback(resp);
     } else {

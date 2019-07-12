@@ -1,8 +1,8 @@
-var exec = require("child_process").exec;
-var env = require("./env");
+var exec = require('child_process').exec;
+var env = require('./env');
 
 function disconnect(config, callback) {
-  var cmd = "netsh wlan disconnect";
+  var cmd = 'netsh wlan disconnect';
   if (config.iface) {
     cmd += ' interface="' + config.iface + '"';
   }

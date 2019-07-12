@@ -12,7 +12,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "commitlint": "npx commitlint --from 971803ddc663432fbaea19e90bae4f27bfacd349",
-    "lint": "npx eslint src/**/*.js"
+    "lint": "npx eslint src/**/*.js",
+    "lint:fix": "npx eslint --fix src/**/*.js",
+    "prettier:check": "npx prettier --check 'src/**/*.js'",
+    "prettier:fix": "npx prettier --write 'src/**/*.js'"
   },
   "repository": {
     "type": "git",
