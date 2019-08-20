@@ -37,7 +37,7 @@ function connectToWifi(config, ap, callback) {
     })
     .then(function() {
       return execCommand(
-        'netsh wlan add profile filename="' + ap.ssid + '.xml"'
+        'netsh wlan add profile filename="nodeWifiConnect.xml"'
       );
     })
     .then(function() {
