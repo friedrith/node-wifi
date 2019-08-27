@@ -1,12 +1,15 @@
-var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var env = require('./env');
 
 function deleteConnection(config, ap, callback) {
-  var commandStr = 'nmcli connection delete id ';
+  var args = [];
+  args.push('connection');
+  args.push('delete');
+  args.push('id');
 
-  commandStr += ' ' + "'" + ap.ssid + "'";
+  args.push(ap.ssid);
 
-  exec(commandStr, env, function(err) {
+  execFile('nmcli', args, env, function(err) {
     callback && callback(err);
   });
 }

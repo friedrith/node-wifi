@@ -1,11 +1,11 @@
 var fs = require('fs');
-var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var env = require('./env');
 var scan = require('./windows-scan');
 
-function execCommand(cmd) {
+function execCommand(cmd, params) {
   return new Promise(function(resolve, reject) {
-    exec(cmd, { env }, function(err, stdout, stderr) {
+    execFile(cmd, params, { env }, function(err, stdout, stderr) {
       if (err) {
         // Add command output to error, so it's easier to handle
         err.stdout = stdout;
@@ -36,17 +36,25 @@ function connectToWifi(config, ap, callback) {
       );
     })
     .then(function() {
-      return execCommand(
-        'netsh wlan add profile filename="nodeWifiConnect.xml"'
-      );
+      return execCommand('netsh', [
+        'wlan',
+        'add',
+        'profile',
+        'filename="nodeWifiConnect.xml"'
+      ]);
     })
     .then(function() {
-      var cmd =
-        'netsh wlan connect ssid="' + ap.ssid + '" name="' + ap.ssid + '"';
+      var cmd = 'cmd';
+      var params = [
+        'wlan',
+        'connect',
+        'ssid="' + ap.ssid + '"',
+        'name="' + ap.ssid + '"'
+      ];
       if (config.iface) {
-        cmd += ' interface="' + config.iface + '"';
+        params.push('interface="' + config.iface + '"');
       }
-      return execCommand(cmd);
+      return execCommand(cmd, params);
     })
     .then(function() {
       return execCommand('del ".\\nodeWifiConnect.xml"');
@@ -55,9 +63,14 @@ function connectToWifi(config, ap, callback) {
       callback && callback();
     })
     .catch(function(err) {
-      exec('netsh wlan delete profile "' + ap.ssid + '"', { env }, function() {
-        callback && callback(err);
-      });
+      execFile(
+        'netsh',
+        ['wlan', 'delete', 'profile "' + ap.ssid + '"'],
+        { env },
+        function() {
+          callback && callback(err);
+        }
+      );
     });
 }
 

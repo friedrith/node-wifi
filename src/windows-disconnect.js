@@ -1,12 +1,13 @@
-var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var env = require('./env');
 
 function disconnect(config, callback) {
-  var cmd = 'netsh wlan disconnect';
+  var cmd = 'netsh';
+  var params = ['wlan', 'disconnect'];
   if (config.iface) {
-    cmd += ' interface="' + config.iface + '"';
+    params.push('interface="' + config.iface + '"');
   }
-  exec(cmd, { env }, function(err) {
+  execFile(cmd, params, { env }, function(err) {
     callback && callback(err);
   });
 }
