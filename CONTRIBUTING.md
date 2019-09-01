@@ -71,3 +71,18 @@ These are the authorized types:
 - revert
 - style
 - test
+
+## Versioning
+
+`node-wifi` use [standard-version](https://github.com/conventional-changelog/standard-version) to handle versioning
+automatically. So you just need to follow commit rules and once the maintainer will want to  
+release a version, he will use commands:
+
+```bash
+git pull origin master
+npm run release
+push --follow-tags origin master && npm publish
+```
+
+> Please do not use these commands if you don't have write capabilities on the repository. We want to
+> have versions synchronized with npm so these commands should be executed in the same time.
