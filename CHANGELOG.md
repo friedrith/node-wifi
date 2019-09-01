@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [2.0.9](https://github.com/friedrith/node-wifi/compare/v2.0.8...v2.0.9) (2019-09-01)
 
-## 2.0.8 (2019-09-01)
+### 2.0.8 (2019-09-01)
 
 ### Bug Fixes
 
@@ -12,21 +12,21 @@ All notable changes to this project will be documented in this file. See [standa
 - **lint:** travis build ([08ab90e](https://github.com/friedrith/node-wifi/commit/08ab90e))
 - adapt chalk string syntax ([d27b027](https://github.com/friedrith/node-wifi/commit/d27b027))
 
-## 2.0.7
+### 2.0.7
 
 ### Bug Fixes
 
 - bug #66
 - bug #50
 
-## 2.0.6
+### 2.0.6
 
 ### Bug Fixes
 
 - bug #65
 - bug #73
 
-## 2.0.5
+### 2.0.5
 
 - new license LGPL-3.0
 - add quality result which is as signal level but in percentage
@@ -38,7 +38,7 @@ All notable changes to this project will be documented in this file. See [standa
 - bug #38
 - errors while scanning on raspberry or ASUS Tinker Board issue #41
 
-## 2.0.4
+### 2.0.4
 
 - change urls in package.json because of the author's login changed
 
@@ -46,19 +46,19 @@ All notable changes to this project will be documented in this file. See [standa
 
 - bug #29
 
-## 2.0.3
+### 2.0.3
 
 ### Bug Fixes
 
 - bug #26
 
-## 2.0.2
+### 2.0.2
 
 ### Bug Fixes
 
 - bug #24
 
-## 2.0.1
+### 2.0.1
 
 - improve stability of windows scan and current connection
 
@@ -68,13 +68,13 @@ All notable changes to this project will be documented in this file. See [standa
 - add new fields in scan results (bssid equals to mac, channel, security_flags)
 - improve stability of linux scan
 
-## 1.2.5
+### 1.2.5
 
 ### Bug Fixes
 
 - bug #13
 
-## 1.2.4
+### 1.2.4
 
 ### Bug Fixes
 
