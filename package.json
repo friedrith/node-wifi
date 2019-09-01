@@ -1,6 +1,6 @@
 {
   "name": "node-wifi",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "NodeJS tool to manage wifi",
   "bin": {
     "wifi": "bin/wifi.js"
@@ -15,7 +15,8 @@
     "lint": "npx eslint src/**/*.js",
     "lint:fix": "npx eslint --fix src/**/*.js",
     "prettier:check": "npx prettier --check 'src/**/*.js'",
-    "prettier:fix": "npx prettier --write 'src/**/*.js'"
+    "prettier:fix": "npx prettier --write 'src/**/*.js'",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",

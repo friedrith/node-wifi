@@ -1,3 +1,16 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### 2.0.8 (2019-09-01)
+
+
+### Bug Fixes
+
+* **dependencies:** bump lodash from 3.10.1 to 4.17.11 [#75](https://github.com/friedrith/node-wifi/issues/75) ([04a9477](https://github.com/friedrith/node-wifi/commit/04a9477))
+* **lint:** travis build ([08ab90e](https://github.com/friedrith/node-wifi/commit/08ab90e))
+* adapt chalk string syntax ([d27b027](https://github.com/friedrith/node-wifi/commit/d27b027))
+
 # Version 1.2.3
 
 - improve environment variables management
