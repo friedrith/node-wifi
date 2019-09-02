@@ -1,52 +1,54 @@
-var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var networkUtils = require('./network-utils');
 var env = require('./env');
 
 function scanWifi(config, callback) {
   try {
-    exec('chcp 65001 && netsh wlan show networks mode=Bssid', { env }, function(
-      err,
-      scanResults
-    ) {
-      if (err) {
-        callback && callback(err);
-        return;
-      }
-
-      scanResults = scanResults
-        .toString('utf8')
-        .split('\r')
-        .join('')
-        .split('\n')
-        .slice(5, scanResults.length);
-
-      var numNetworks = -1;
-      var currentLine = 0;
-      var networkTmp;
-      var networksTmp = [];
-      var network;
-      var networks = [];
-      var i;
-
-      for (i = 0; i < scanResults.length; i++) {
-        if (scanResults[i] === '') {
-          numNetworks++;
-          networkTmp = scanResults.slice(currentLine, i);
-          networksTmp.push(networkTmp);
-          currentLine = i + 1;
+    execFile(
+      'netsh',
+      ['wlan', 'show', 'networks', 'mode=Bssid'],
+      { env },
+      function(err, scanResults) {
+        if (err) {
+          callback && callback(err);
+          return;
         }
-      }
 
-      for (i = 0; i < numNetworks; i++) {
-        // skip empty networks
-        if (networksTmp[i] && networksTmp[i].length > 0) {
-          network = parse(networksTmp[i]);
-          networks.push(network);
+        scanResults = scanResults
+          .toString('utf8')
+          .split('\r')
+          .join('')
+          .split('\n')
+          .slice(5, scanResults.length);
+
+        var numNetworks = -1;
+        var currentLine = 0;
+        var networkTmp;
+        var networksTmp = [];
+        var network;
+        var networks = [];
+        var i;
+
+        for (i = 0; i < scanResults.length; i++) {
+          if (scanResults[i] === '') {
+            numNetworks++;
+            networkTmp = scanResults.slice(currentLine, i);
+            networksTmp.push(networkTmp);
+            currentLine = i + 1;
+          }
         }
-      }
 
-      callback && callback(null, networks);
-    });
+        for (i = 0; i < numNetworks; i++) {
+          // skip empty networks
+          if (networksTmp[i] && networksTmp[i].length > 0) {
+            network = parse(networksTmp[i]);
+            networks.push(network);
+          }
+        }
+
+        callback && callback(null, networks);
+      }
+    );
   } catch (e) {
     callback && callback(e);
   }

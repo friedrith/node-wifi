@@ -1,4 +1,4 @@
-var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var env = require('./env');
 var networkUtils = require('./network-utils.js');
 
@@ -55,8 +55,8 @@ function parseShowInterfaces(stdout) {
 }
 
 function getCurrentConnection(config, callback) {
-  var commandStr = 'netsh wlan show interfaces';
-  exec(commandStr, { env }, function(err, stdout) {
+  var params = ['wlan', 'show', 'interfaces'];
+  execFile('netsh', params, { env }, function(err, stdout) {
     if (err) {
       callback && callback(err);
     } else {

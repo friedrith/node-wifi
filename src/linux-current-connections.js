@@ -1,15 +1,24 @@
-var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var networkUtils = require('./network-utils');
 var env = require('./env');
 
 function getCurrentConnection(config, callback) {
-  var commandStr =
-    'nmcli --terse --fields active,ssid,bssid,mode,chan,freq,signal,security,wpa-flags,rsn-flags,device device wifi';
+  var args = [];
+  args.push('--terse');
+  args.push('--fields');
+  args.push(
+    'active,ssid,bssid,mode,chan,freq,signal,security,wpa-flags,rsn-flags,device'
+  );
+  args.push('device');
+  args.push('wifi');
+
   if (config.iface) {
-    commandStr += ' list ifname ' + config.iface;
+    args.push('list');
+    args.push('ifname');
+    args.push(config.iface);
   }
 
-  exec(commandStr, { env }, function(err, scanResults) {
+  execFile('nmcli', args, { env }, function(err, scanResults) {
     if (err) {
       callback && callback(err);
       return;

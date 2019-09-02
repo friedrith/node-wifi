@@ -1,4 +1,4 @@
-var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var macProvider =
   '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport';
 var env = require('./env');
@@ -48,9 +48,9 @@ function parseAirport(stdout) {
 }
 
 function getCurrentConnections(config, callback) {
-  var commandStr = macProvider + ' --getinfo';
+  var args = ['--getinfo'];
 
-  exec(commandStr, env, function(err, stdout) {
+  execFile(macProvider, args, env, function(err, stdout) {
     if (err) {
       callback && callback(err);
     } else {

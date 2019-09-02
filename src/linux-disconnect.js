@@ -1,14 +1,16 @@
-var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var env = require('./env');
 
 function disconnect(config, callback) {
-  var commandStr = 'nmcli device disconnect';
+  var args = [];
+  args.push('device');
+  args.push('disconnect');
 
   if (config.iface) {
-    commandStr += ' ' + config.iface;
+    args.push(config.iface);
   }
 
-  exec(commandStr, { env }, function(err) {
+  execFile('nmcli', args, { env }, function(err) {
     callback && callback(err);
   });
 }
