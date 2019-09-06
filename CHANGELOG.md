@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.12](https://github.com/friedrith/node-wifi/compare/v2.0.11...v2.0.12) (2019-09-06)
+
+
+### Bug Fixes
+
+* security vulnerability for cli (windows, mac and linux) ([a6668ca](https://github.com/friedrith/node-wifi/commit/a6668ca))
+* windows connection profile execute ([84549cb](https://github.com/friedrith/node-wifi/commit/84549cb)), closes [#78](https://github.com/friedrith/node-wifi/issues/78)
+
 ### [2.0.11](https://github.com/friedrith/node-wifi/compare/v2.0.10...v2.0.11) (2019-09-01)
 
 
