@@ -44,7 +44,7 @@ function connectToWifi(config, ap, callback) {
       ]);
     })
     .then(function() {
-      var cmd = 'cmd';
+      var cmd = 'netsh';
       var params = [
         'wlan',
         'connect',
