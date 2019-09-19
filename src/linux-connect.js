@@ -1,5 +1,6 @@
 var execFile = require('child_process').execFile;
 var env = require('./env');
+var os = require('os');
 
 function connectToWifi(config, ap, callback) {
   var args = [];
@@ -22,7 +23,21 @@ function connectToWifi(config, ap, callback) {
     if (resp.includes('Error: ')) {
       err = new Error(resp.replace('Error: ', ''));
     }
-    callback && callback(err);
+
+    // Get some iface information
+    let iface;
+    let conn;
+    if(resp.includes('successfully activated')) {
+      let regexp = /Device '(.*)' /;
+      iface = resp.match(regexp)[1];
+      conn = os.networkInterfaces()[iface];
+    }
+
+    // Create an object with info
+    callback && callback(err, {
+      iface: iface,
+      mac: conn[0].mac,
+    });
   });
 }
 
@@ -32,11 +47,11 @@ module.exports = function(config) {
       connectToWifi(config, ap, callback);
     } else {
       return new Promise(function(resolve, reject) {
-        connectToWifi(config, ap, function(err) {
+        connectToWifi(config, ap, function(err, conn) {
           if (err) {
             reject(err);
           } else {
-            resolve();
+            resolve(conn);
           }
         });
       });
