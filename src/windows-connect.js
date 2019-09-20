@@ -58,11 +58,11 @@ function connectToWifi(config, ap, callback) {
     })
     .then(function() {
       return new Promise(function(resolve, reject) {
-        fs.unlink("nodeWifiConnect.xml", function(err) {
+        fs.unlink('nodeWifiConnect.xml', function(err) {
           if (err) {
             reject(err);
           } else {
-            resolve("");
+            resolve('');
           }
         });
       });
