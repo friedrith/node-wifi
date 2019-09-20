@@ -57,7 +57,15 @@ function connectToWifi(config, ap, callback) {
       return execCommand(cmd, params);
     })
     .then(function() {
-      return execCommand('del ".\\nodeWifiConnect.xml"');
+      return new Promise(function(resolve, reject) {
+        fs.unlink("nodeWifiConnect.xml", function(err) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve("");
+          }
+        });
+      });
     })
     .then(function() {
       callback && callback();
