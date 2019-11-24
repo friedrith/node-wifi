@@ -8,13 +8,15 @@ var linuxDelete = require('./linux-delete');
 var linuxGetCurrentConnections = require('./linux-current-connections');
 var linuxScan = require('./linux-scan.js');
 var macConnect = require('./mac-connect.js');
+var macDisconnect = require('./mac-disconnect.js');
 var macScan = require('./mac-scan.js');
 var macDelete = require('./mac-delete');
 var macGetCurrentConnections = require('./mac-current-connections');
 
 var config = {
   debug: false,
-  iface: null
+  iface: null,
+  delay: 0
 };
 
 function init(options) {
@@ -24,6 +26,10 @@ function init(options) {
 
   if (options && options.iface) {
     config.iface = options.iface;
+  }
+  
+  if (options && options.delay) {
+    config.delay = options.delay;
   }
 
   var scan = function() {
@@ -53,6 +59,7 @@ function init(options) {
     case 'darwin':
       connect = macConnect(config);
       scan = macScan(config);
+      disconnect = macDisconnect(config);
       deleteConnection = macDelete(config);
       getCurrentConnections = macGetCurrentConnections(config);
       break;
