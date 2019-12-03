@@ -27,7 +27,7 @@ function init(options) {
   if (options && options.iface) {
     config.iface = options.iface;
   }
-  
+
   if (options && options.delay) {
     config.delay = options.delay;
   }

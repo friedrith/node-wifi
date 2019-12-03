@@ -5,7 +5,7 @@ var env = require('./env');
 function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
+    if (new Date().getTime() - start > milliseconds) {
       break;
     }
   }
@@ -23,23 +23,19 @@ async function disconnect(config, callback) {
     delay = parseInt(config.delay);
   }
 
-  let commands = [
-    [option, iface, 'off'],
-    [option, iface, 'on']
-  ];
-  
+  let commands = [[option, iface, 'off'], [option, iface, 'on']];
+
   try {
-     await execFile('networksetup', commands[0], { env });
-  } catch(err) {
-     callback && callback(err);
+    await execFile('networksetup', commands[0], { env });
+  } catch (err) {
+    callback && callback(err);
   }
-  
-  if (delay!==0)
-    await sleep(delay*1000);
-  
+
+  if (delay !== 0) await sleep(delay * 1000);
+
   execFile('networksetup', commands[1], { env }, function(err) {
-     callback && callback(err);
-  });	              
+    callback && callback(err);
+  });
 }
 
 module.exports = function(config) {
