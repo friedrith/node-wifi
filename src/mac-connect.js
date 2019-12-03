@@ -12,7 +12,7 @@ function connectToWifi(config, ap, callback) {
   args.push(ap.ssid);
   args.push(ap.password);
 
-  execFile('networksetup', args, { env }, function(err, resp) {
+  execFile('/usr/sbin/networksetup', args, { env }, function(err, resp) {
     if (resp && resp.indexOf('Failed to join network') >= 0) {
       callback && callback(resp);
     } else if (resp && resp.indexOf('Could not find network') >= 0) {
