@@ -24,13 +24,12 @@ async function disconnect(config, callback) {
   }
 
   let commands = [
-  	[option, iface, 'off'],
-	[option, iface, 'on']
+    [option, iface, 'off'],
+    [option, iface, 'on']
   ];
   
-  let resp;
   try {
-     resp = await execFile('networksetup', commands[0], { env });
+     await execFile('networksetup', commands[0], { env });
   } catch(err) {
      callback && callback(err);
   }
