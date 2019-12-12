@@ -11,7 +11,7 @@ function scanWifi(config, callback) {
   );
   args.push('device');
   args.push('wifi');
-  args.push('list');
+  args.push('rescan');
 
   if (config.iface) {
     args.push('ifname');
