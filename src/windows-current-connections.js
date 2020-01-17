@@ -36,7 +36,7 @@ function parseShowInterfaces(stdout) {
       iface: tmpConnection['name'],
       ssid: tmpConnection['ssid'],
       bssid: tmpConnection['bssid'],
-      mac: tmpConnection['bssid'],
+      mac: tmpConnection['mac'],
       mode: tmpConnection['mode'],
       channel: parseInt(tmpConnection['channel']),
       frequency: parseInt(
