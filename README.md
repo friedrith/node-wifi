@@ -1,36 +1,37 @@
-# node-wifi
-
-> :information_source: Version 3 will be released soon and will provide a [lot of changes](https://github.com/friedrith/node-wifi/projects/1). Don't worry, everything will be retrocompatible. However, please write a issue before proposing a pull request to integrate the fix
-> directly in the version 2 release.
+<div align="center">
+<p>
+<img src="https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png" alt="node-wifi" />
+<br>
+<br>
+<img src="https://travis-ci.org/friedrith/node-wifi.svg?branch=master" alt="travis" />
+</p>
+</div>
 
 **I am looking for maintainers who could help me to handle all improvements and bug fixes about this project because the hardware/os dependencies make it quite hard to test.**
 
-![node-wifi](https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png)
+The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods. These methods include scanning for wifi access points and connecting to these access points.
 
-The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods.
-
-These methods include scanning for wifi access points and connecting to these access points.
+| Features                      | Linux | Mac | Windows |
+| ----------------------------- | ----- | --- | ------- |
+| Connect                       | ✓     | ✓   | ✓       |
+| Scan                          | ✓     | ✓   | ✓       |
+| List current wifi connections | ✓     | ✓   | ✓       |
+| Disconnect                    | ✓     |     | ✓       |
+| Delete connection information | ✓     | ✓   |         |
 
 We wish to be clear in saying that this module is inspired from [node-wifi-control](https://github.com/msolters/wifi-control-node) but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems.
 
-The module manages :
-
-- Connect for linux | mac | windows
-- Scan for linux | mac | windows
-- List the current wifi connections for linux | mac | windows
-- Disconnect for linux | windows
-
-> As everything with hardware dependency, weird behaviors may happen depending of your configuration. You should never hesitate to notify us about a specificity of your OS/Hardware/Wifi card/whatever.
+> As everything with hardware dependencies, weird behaviors may happen depending of your configuration. You should never hesitate to notify us about a specificity of your OS/Hardware/Wifi card/whatever.
 
 ---
 
 ## Install
 
-```javascript
-// Use as a module
+```bash
+# Use as a module
 npm install node-wifi
 
-// Use as a CLI
+# Use as a CLI
 npm install node-wifi -g
 ```
 
@@ -72,15 +73,12 @@ wifi.scan(function(err, networks) {
 });
 
 // Connect to a network
-wifi.connect(
-  { ssid: "ssid", password: "password" },
-  function(err) {
-    if (err) {
-      console.log(err);
-    }
-    console.log("Connected");
+wifi.connect({ ssid: "ssid", password: "password" }, function(err) {
+  if (err) {
+    console.log(err);
   }
-);
+  console.log("Connected");
+});
 
 // Disconnect from a network
 // not available on all os for now
@@ -154,3 +152,21 @@ wifi --current
 Linux:
 
 - network-manager
+
+## Contribute
+
+Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull request.
+
+## Roadmap
+
+- [x] add conventional commits
+- [x] plug to travis
+- [x] add github templates
+- [x] add eslint
+- [x] add prettier
+- [x] switch to MIT license
+- [ ] rewrite the library using ES7
+- [ ] add unit tests
+- [ ] stdout how to reproduce bug
+- [ ] install commitizen
+- [ ] generate changelog and release note

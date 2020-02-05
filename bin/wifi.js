@@ -18,34 +18,34 @@ const optionDefinitions = [
   {
       name: 'connect',
       type: Boolean,
-      description: 'Connect to a wifi network. It needs options [bold]{--ssid} and [bold]{--password}. A specific interface may be selected by adding option [bold]{--iface}'
+      description: 'Connect to a wifi network. It needs options {bold --ssid} and {bold --password}. A specific interface may be selected by adding option {bold --iface}'
   },
   {
       name: 'disconnect',
       type: Boolean,
-      description: 'Disconnect from a wifi network. A specific interface may be selected by adding option [bold]{--iface}'
+      description: 'Disconnect from a wifi network. A specific interface may be selected by adding option {bold --iface}'
   },
   {
       name: 'current',
       type: Boolean,
-      description: 'List the current wifi connections. A specific interface may be selected by adding option [bold]{--iface}'
+      description: 'List the current wifi connections. A specific interface may be selected by adding option {bold --iface}'
   },
   {
       name: 'ssid',
       type: String,
-      typeLabel: '[underline]{ssid}',
+      typeLabel: '{underline ssid}',
       description: 'Ssid to connect to the wifi.'
   },
   {
       name: 'password',
       type: String,
-      typeLabel: '[underline]{password}',
+      typeLabel: '{underline password}',
       description: 'Password to connect to the wifi.'
   },
   {
       name: 'iface',
       type: String,
-      typeLabel: '[underline]{interface}',
+      typeLabel: '{underline interface}',
       description: 'Network interface to connect to the wifi.'
   },
   {

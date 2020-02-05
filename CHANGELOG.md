@@ -1,47 +1,107 @@
-# Version 1.2.3
+# Changelog
 
-* improve environment variables management
-* correct bug disconnection #9
-* correct bug #7
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-# Version 1.2.4
+### [2.0.12](https://github.com/friedrith/node-wifi/compare/v2.0.11...v2.0.12) (2019-09-06)
 
-* fixed bug introduced during #7 fix
 
-# Version 1.2.5
+### Bug Fixes
 
-* fixed bug #13
+* security vulnerability for cli (windows, mac and linux) ([a6668ca](https://github.com/friedrith/node-wifi/commit/a6668ca))
+* windows connection profile execute ([84549cb](https://github.com/friedrith/node-wifi/commit/84549cb)), closes [#78](https://github.com/friedrith/node-wifi/issues/78)
 
-# Version 2.0.0
+### [2.0.11](https://github.com/friedrith/node-wifi/compare/v2.0.10...v2.0.11) (2019-09-01)
 
-* add disconnection feature on windows (issue #16)
-* add new fields in scan results (bssid equals to mac, channel, security_flags)
-* improve stability of linux scan
 
-# Version 2.0.1
+### Bug Fixes
 
-* improve stability of windows scan and current connection
+* fix vulnerabilities ([f4b3965](https://github.com/friedrith/node-wifi/commit/f4b3965))
 
-# Version 2.0.2
+### [2.0.10](https://github.com/friedrith/node-wifi/compare/v2.0.8...v2.0.10) (2019-09-01)
 
-* correct bug #24
+### [2.0.9](https://github.com/friedrith/node-wifi/compare/v2.0.8...v2.0.9) (2019-09-01)
 
-# Version 2.0.3
+### 2.0.8 (2019-09-01)
 
-* correct bug #26
+### Bug Fixes
 
-# Version 2.0.4
+- **dependencies:** bump lodash from 3.10.1 to 4.17.11 [#75](https://github.com/friedrith/node-wifi/issues/75) ([04a9477](https://github.com/friedrith/node-wifi/commit/04a9477))
+- **lint:** travis build ([08ab90e](https://github.com/friedrith/node-wifi/commit/08ab90e))
+- adapt chalk string syntax ([d27b027](https://github.com/friedrith/node-wifi/commit/d27b027))
 
-* correct bug #29
-* change urls in package.json because of the author's login changed
+### 2.0.7
 
-# Version 2.0.5
+### Bug Fixes
 
-* correction bug #38
-* new license LGPL-3.0
-* add quality result which is as signal level but in percentage
-* change the environment settings for en_US
-* add new function to delete a previous profile #51
-* fix errors while scanning on raspberry or ASUS Tinker Board issue #41
+- bug #66
+- bug #50
 
-# Version 2.0.6
+### 2.0.6
+
+### Bug Fixes
+
+- bug #65
+- bug #73
+
+### 2.0.5
+
+- new license LGPL-3.0
+- add quality result which is as signal level but in percentage
+- change the environment settings for en_US
+- add new function to delete a previous profile #51
+
+### Bug Fixes
+
+- bug #38
+- errors while scanning on raspberry or ASUS Tinker Board issue #41
+
+### 2.0.4
+
+- change urls in package.json because of the author's login changed
+
+### Bug Fixes
+
+- bug #29
+
+### 2.0.3
+
+### Bug Fixes
+
+- bug #26
+
+### 2.0.2
+
+### Bug Fixes
+
+- bug #24
+
+### 2.0.1
+
+- improve stability of windows scan and current connection
+
+## 2.0.0
+
+- add disconnection feature on windows (issue #16)
+- add new fields in scan results (bssid equals to mac, channel, security_flags)
+- improve stability of linux scan
+
+### 1.2.5
+
+### Bug Fixes
+
+- bug #13
+
+### 1.2.4
+
+### Bug Fixes
+
+- bug introduced during #7 fix
+
+## 1.2.3
+
+- improve environment variables management
+
+### Bug Fixes
+
+- bug disconnection #9
+- bug #7

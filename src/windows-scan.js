@@ -1,24 +1,33 @@
-var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
 var networkUtils = require('./network-utils');
 var env = require('./env');
 
 function scanWifi(config, callback) {
-    try {
-        exec("chcp 65001 && netsh wlan show networks mode=Bssid", env, function(err, scanResults) {
-            if (err) {
-                callback && callback(err);
-                return;
-            }
+  try {
+    execFile(
+      'netsh',
+      ['wlan', 'show', 'networks', 'mode=Bssid'],
+      { env },
+      function(err, scanResults) {
+        if (err) {
+          callback && callback(err);
+          return;
+        }
 
-            scanResults = scanResults.toString('utf8').split('\r').join('').split('\n').slice(5, scanResults.length);
+        scanResults = scanResults
+          .toString('utf8')
+          .split('\r')
+          .join('')
+          .split('\n')
+          .slice(5, scanResults.length);
 
-            var numNetworks = -1;
-            var currentLine = 0;
-            var networkTmp;
-            var networksTmp = [];
-            var network;
-            var networks = [];
-            var i;
+        var numNetworks = -1;
+        var currentLine = 0;
+        var networkTmp;
+        var networksTmp = [];
+        var network;
+        var networks = [];
+        var i;
 
             const bssids = [];
 
@@ -50,28 +59,39 @@ function scanWifi(config, callback) {
                 networks.push(network);
             }
 
-            callback && callback(null, networks);
-        });
-    } catch (e) {
-        callback && callback(e);
-    }
+        callback && callback(null, networks);
+      }
+    );
+  } catch (e) {
+    callback && callback(e);
+  }
 }
 
 function parse(networkTmp) {
-    var network = {};
+  var network = {};
 
-    network.mac = networkTmp[4].match(/.*?:\s(.*)/)[1];
-    network.bssid = network.mac;
-    network.ssid = networkTmp[0].match(/.*?:\s(.*)/)[1];
-    network.channel = parseInt(networkTmp[7].match(/.*?:\s(.*)/)[1]);
-    network.frequency = parseInt(networkUtils.frequencyFromChannel(network.channel));
-    network.signal_level = networkUtils.dBFromQuality(networkTmp[5].match(/.*?:\s(.*)/)[1]);
-    network.quality = parseFloat(networkTmp[5].match(/.*?:\s(.*)/)[1]);
-    network.security = networkTmp[2].match(/.*?:\s(.*)/)[1];
-    network.security_flags = networkTmp[3].match(/.*?:\s(.*)/)[1];
-    network.mode = 'Unknown';
+  network.mac = networkTmp[4] ? networkTmp[4].match(/.*?:\s(.*)/)[1] : '';
+  network.bssid = network.mac;
+  network.ssid = networkTmp[0] ? networkTmp[0].match(/.*?:\s(.*)/)[1] : '';
+  network.channel = networkTmp[7]
+    ? parseInt(networkTmp[7].match(/.*?:\s(.*)/)[1])
+    : -1;
+  network.frequency = network.channel
+    ? parseInt(networkUtils.frequencyFromChannel(network.channel))
+    : 0;
+  network.signal_level = networkTmp[5]
+    ? networkUtils.dBFromQuality(networkTmp[5].match(/.*?:\s(.*)/)[1])
+    : Number.MIN_VALUE;
+  network.quality = networkTmp[5]
+    ? parseFloat(networkTmp[5].match(/.*?:\s(.*)/)[1])
+    : 0;
+  network.security = networkTmp[2] ? networkTmp[2].match(/.*?:\s(.*)/)[1] : '';
+  network.security_flags = networkTmp[3]
+    ? networkTmp[3].match(/.*?:\s(.*)/)[1]
+    : '';
+  network.mode = 'Unknown';
 
-    return network;
+  return network;
 }
 
 function parseBssid(networkTmp, bssid) {
@@ -107,4 +127,5 @@ module.exports = function (config) {
             });
         }
     }
+  };
 };
