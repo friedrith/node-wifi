@@ -25,9 +25,6 @@ function getCurrentConnection(config, callback) {
     }
 
     var lines = scanResults.split('\n');
-    if (config.iface) {
-      lines.shift();
-    }
 
     var networks = [];
     for (var i = 0; i < lines.length; i++) {
