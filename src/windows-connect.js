@@ -5,7 +5,7 @@ var scan = require('./windows-scan');
 
 function execCommand(cmd, params) {
   return new Promise(function(resolve, reject) {
-    execFile(cmd, params, { env }, function(err, stdout, stderr) {
+    execFile(cmd, params, { env, shell: true }, function(err, stdout, stderr) {
       if (err) {
         // Add command output to error, so it's easier to handle
         err.stdout = stdout;
@@ -44,7 +44,7 @@ function connectToWifi(config, ap, callback) {
       ]);
     })
     .then(function() {
-      var cmd = 'cmd';
+      var cmd = 'netsh';
       var params = [
         'wlan',
         'connect',
