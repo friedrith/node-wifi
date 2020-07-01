@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.13](https://github.com/friedrith/node-wifi/compare/v2.0.12...v2.0.13) (2020-07-01)
+
+
+### Bug Fixes
+
+* wifi connect issue fix for Windows ([8d992a6](https://github.com/friedrith/node-wifi/commit/8d992a6))
+
 ### [2.0.12](https://github.com/friedrith/node-wifi/compare/v2.0.11...v2.0.12) (2019-09-06)
 
 
