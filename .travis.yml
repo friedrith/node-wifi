@@ -1,10 +1,9 @@
 # travis.yml
 language: node_js
 node_js:
-  - "8"
+  - '8'
 install:
   - npm install
-  - npm install -g npx
 script:
   - npm run commitlint
   - npm run lint
