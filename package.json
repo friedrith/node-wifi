@@ -2,6 +2,26 @@
   "name": "node-wifi",
   "version": "2.0.13",
   "description": "NodeJS tool to manage wifi",
+  "keywords": [
+    "wifi",
+    "multiplatform",
+    "node"
+  ],
+  "author": "Thibault Friedrich",
+  "contributors": [
+    "Thibault Friedrich <thibault.friedrich@gmail.com> (https://thibaultfriedrich.io)"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/friedrith/node-wifi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/friedrith/node-wifi/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "bin": {
     "wifi": "bin/wifi.js"
   },
@@ -9,40 +29,13 @@
   "directories": {
     "test": "test"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "commitlint": "commitlint --from 8005de94dd1d0d1220d6fa09a163f97c4a22deda",
-    "lint": "eslint src/**/*.js",
-    "lint:fix": "eslint --fix src/**/*.js",
-    "prettier:check": "prettier --check 'src/**/*.js'",
-    "prettier:fix": "prettier --write 'src/**/*.js'",
-    "release": "standard-version"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/friedrith/node-wifi.git"
-  },
-  "keywords": [
-    "wifi",
-    "multiplatform",
-    "node"
-  ],
-  "author": "Thibault Friedrich",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/friedrith/node-wifi/issues"
+  "type": "commonjs",
+  "engines": {
+    "node": ">=8.0.0"
   },
   "dependencies": {
     "command-line-args": "^3.0.1",
     "command-line-usage": "^5.0.5"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "npx commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
@@ -57,8 +50,18 @@
     "prettier": "1.18.2",
     "standard-version": "^7.0.0"
   },
-  "type": "commonjs",
-  "engines": {
-    "node": ">=8.0.0"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commitlint": "commitlint --from 8005de94dd1d0d1220d6fa09a163f97c4a22deda",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint --fix src/**/*.js",
+    "prettier:check": "prettier --check 'src/**/*.js'",
+    "prettier:fix": "prettier --write 'src/**/*.js'",
+    "release": "standard-version"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "npx commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
