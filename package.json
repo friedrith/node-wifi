@@ -18,6 +18,9 @@
     "prettier:fix": "prettier --write 'src/**/*.js'",
     "release": "standard-version"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/friedrith/node-wifi.git"
