@@ -34,8 +34,6 @@ Please consider these guidelines when filing a pull request:
 - Consider your development for windows, linux and macOS platforms at the same time
   because having a module compatible with all platforms is the main concern of `node-wifi`.
 
-**May the force be with you !!**
-
 ## Coding Rules
 
 To keep the code base of commitlint neat and tidy the following rules apply to every change
@@ -81,8 +79,10 @@ release a version, he will use commands:
 ```bash
 git pull origin master
 npm run release
-push --follow-tags origin master && npm publish
+git push --follow-tags origin master && npm publish
 ```
 
 > Please do not use these commands if you don't have write capabilities on the repository. We want to
 > have versions synchronized with npm so these commands should be executed in the same time.
+
+**May the force be with you !!**
