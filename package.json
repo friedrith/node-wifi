@@ -55,8 +55,8 @@
     "commitlint": "commitlint --from 8005de94dd1d0d1220d6fa09a163f97c4a22deda",
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint --fix src/**/*.js",
-    "prettier:check": "prettier --check 'src/**/*.js'",
-    "prettier:fix": "prettier --write 'src/**/*.js'",
+    "format": "prettier --check 'src/**/*.js'",
+    "format:fix": "prettier --write 'src/**/*.js'",
     "release": "standard-version"
   },
   "husky": {
