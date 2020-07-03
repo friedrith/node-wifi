@@ -4,14 +4,15 @@
 <br>
 <br>
 <img src="https://travis-ci.org/friedrith/node-wifi.svg?branch=master" alt="travis" />
+<a href="https://badge.fury.io/js/node-wifi"><img src="https://badge.fury.io/js/node-wifi.svg" alt="npm version" height="18"></a>
 </p>
 </div>
 
 **I have great ambitions for this project and I am looking for maintainers who could help me to handle all improvements and
 bug fixes about this project because the hardware/os dependencies make it quite
-hard to test. You can contact me at [thibfrie@gmail.com](mailto:thibault.friedrich@gmail.com)**
+hard to test. You can contact me at [thibault.friedrich@gmail.com](mailto:thibault.friedrich@gmail.com).**
 
-The node-wifi module allows mac, windows and linux users to interact with surrounding wifi networks through various methods. These methods include scanning for wifi access points and connecting to these access points.
+The node-wifi module allows macOS, windows and linux users to interact with surrounding wifi networks through various methods. These methods include scanning for wifi access points and connecting to these access points.
 
 | Features                      | Linux | Mac | Windows |
 | ----------------------------- | ----- | --- | ------- |
@@ -49,9 +50,9 @@ wifi.init({
 });
 
 // Scan networks
-wifi.scan(function(err, networks) {
-  if (err) {
-    console.log(err);
+wifi.scan((error, networks) => {
+  if (error) {
+    console.log(error);
   } else {
     console.log(networks);
     /*
@@ -75,38 +76,40 @@ wifi.scan(function(err, networks) {
 });
 
 // Connect to a network
-wifi.connect({ ssid: 'ssid', password: 'password' }, function(err) {
-  if (err) {
-    console.log(err);
+wifi.connect({ ssid: 'ssid', password: 'password' }, error => {
+  if (error) {
+    console.log(error);
   }
   console.log('Connected');
 });
 
 // Disconnect from a network
 // not available on all os for now
-wifi.disconnect(function(err) {
-  if (err) {
-    console.log(err);
+wifi.disconnect(error => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Disconnected');
   }
-  console.log('Disconnected');
 });
 
 // Delete a saved network
 // not available on all os for now
-wifi.deleteConnection({ ssid: 'ssid' }, function(err) {
-  if (err) {
-    console.log(err);
+wifi.deleteConnection({ ssid: 'ssid' }, error => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Deleted');
   }
-  console.log('Deleted');
 });
 
 // List the current wifi connections
-wifi.getCurrentConnections(function(err, currentConnections) {
-  if (err) {
-    console.log(err);
-  }
-  console.log(currentConnections);
-  /*
+wifi.getCurrentConnections((error, currentConnections) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(currentConnections);
+    /*
     // you may have several connections
     [
         {
@@ -124,15 +127,16 @@ wifi.getCurrentConnections(function(err, currentConnections) {
         }
     ]
     */
+  }
 });
 
 // All functions also return promise if there is no callback given
 wifi
   .scan()
-  .then(function(networks) {
+  .then(networks => {
     // networks
   })
-  .catch(function(error) {
+  .catch(error => {
     // error
   });
 ```
@@ -148,6 +152,14 @@ wifi --disconnect
 
 wifi --current
 ```
+
+## Platforms compatibility
+
+This project is tested with operating systems:
+
+- macOS Catalina 10.15.5
+
+> Do not hesitate to create a pull request to add the OS you are using.
 
 ## Dependencies
 
@@ -167,8 +179,10 @@ Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull 
 - [x] add eslint
 - [x] add prettier
 - [x] switch to MIT license
+- [x] generate changelog and release note
+- [x] stdout how to reproduce bug
 - [ ] add unit tests
 - [ ] rewrite the library using ES7
-- [ ] stdout how to reproduce bug
+- [ ] use github actions
 - [ ] install commitizen
-- [ ] generate changelog and release note
+- [ ] use xml to stabilize parsers
