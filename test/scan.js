@@ -1,10 +1,10 @@
 const execute = require('../src/utils/executer');
-const getCommand = require('../src/macOS/scan/command');
+const command = require('../src/macOS/scan/command');
 
-const { cmd, args } = getCommand();
+const { cmd, args } = command();
 
 console.log(`$ ${cmd} ${args.join(' ')}`);
 
-execute(cmd, args)
+execute({ cmd, args })
   .then(output => console.log(output))
   .catch(error => console.error(error));
