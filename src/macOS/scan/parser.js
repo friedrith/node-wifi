@@ -1,55 +1,60 @@
 var networkUtils = require('../../network-utils.js');
 
-const terms = {
-  BSSID: 'BSSID',
-  RSSI: 'RSSI',
-  CHANNEL: 'CHANNEL',
-  HT: 'HT',
-  SECURITY: 'SECURITY',
-  CC: 'CC'
+const isNotEmpty = line => line.trim() !== '';
+
+const parseSecurity = security => {
+  const securities =
+    security === 'NONE'
+      ? [{ protocole: 'NONE', flag: '' }]
+      : security
+          .split(' ')
+          .map(s => s.match(/(.*)\((.*)\)/))
+          .filter(Boolean)
+          .map(([, protocole, flag]) => ({
+            protocole,
+            flag
+          }));
+
+  return {
+    security: securities.map(s => s.protocole).join(' '),
+    security_flags: securities.filter(s => s.flag).map(s => `(${s.flag})`)
+  };
 };
 
 const parse = stdout => {
-  var lines = stdout.split('\n');
-  var colMac = lines[0].indexOf(terms.BSSID);
-  var colRssi = lines[0].indexOf(terms.RSSI);
-  var colChannel = lines[0].indexOf(terms.CHANNEL);
-  var colHt = lines[0].indexOf(terms.HT);
-  var colSec = lines[0].indexOf(terms.SECURITY);
-  //var colCC = lines[0].indexOf(terms.CC);
+  const lines = stdout.split('\n');
 
-  var wifis = [];
-  for (var i = 1, l = lines.length; i < l; i++) {
-    var bssid = lines[i].substr(colMac, colRssi - colMac).trim();
-    var securityFlags = lines[i].substr(colSec).trim();
-    var security = 'none';
-    if (securityFlags != 'NONE') {
-      security = securityFlags.replace(/\(.*?\)/g, '');
-      securityFlags = securityFlags.match(/\((.*?)\)/g);
-    } else {
-      security = 'none';
-      securityFlags = [];
-    }
-    wifis.push({
-      mac: bssid, // for retrocompatibility
-      bssid: bssid,
-      ssid: lines[i].substr(0, colMac).trim(),
-      channel: parseInt(lines[i].substr(colChannel, colHt - colChannel)),
-      frequency: parseInt(
-        networkUtils.frequencyFromChannel(
-          lines[i].substr(colChannel, colHt - colChannel).trim()
-        )
-      ),
-      signal_level: lines[i].substr(colRssi, colChannel - colRssi).trim(),
-      quality: networkUtils.dBFromQuality(
-        lines[i].substr(colRssi, colChannel - colRssi).trim()
-      ),
-      security: security,
-      security_flags: securityFlags
-    });
-  }
-  wifis.pop();
-  return wifis;
+  const [, ...otherLines] = lines;
+
+  const networks = otherLines
+    .filter(isNotEmpty)
+    .map(line => line.trim())
+    .map(line => {
+      const match = line.match(
+        /(.*)\s+([a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2})\s+(-[0-9]+)\s+([0-9]+).*\s+([A-Z]+)\s+([a-zA-Z-]+)\s+([A-Z0-9(,)\s/]+)/
+      );
+
+      if (match) {
+        // eslint-disable-next-line no-unused-vars
+        const [, ssid, bssid, rssi, channel, ht, countryCode, security] = match;
+
+        return {
+          mac: bssid, // for retrocompatibility
+          bssid: bssid,
+          ssid,
+          channel: parseInt(channel),
+          frequency: parseInt(networkUtils.frequencyFromChannel(channel)),
+          signal_level: rssi,
+          quality: networkUtils.dBFromQuality(rssi),
+          ...parseSecurity(security)
+        };
+      }
+
+      return false;
+    })
+    .filter(Boolean);
+
+  return networks;
 };
 
 module.exports = parse;
