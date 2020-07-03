@@ -23,6 +23,7 @@ Please consider these guidelines when filing a pull request:
 - Follow the [Coding Rules](#coding-rules)
 - Follow the [Commit Rules](#commit-rules)
 - Make sure you rebased the current master branch when filing the pull request
+- Follow [Test guidelines](#tests)
 - Squash your commits when filing the pull request
 - Provide a short title with a maximum of 100 characters
 - Provide a more detailed description containing
@@ -43,7 +44,10 @@ To keep the code base of commitlint neat and tidy the following rules apply to e
 - Favor micro library over swiss army knives (rimraf, ncp vs. fs-extra)
 - Be awesome
 
-> use commands `npm run eslint` and `npm run prettier:check` to be sure your code respect coding rules.
+> use commands `npm run eslint` and `npm run format` to be sure your code
+> respect coding rules.
+
+> You can also use `npm run format:fix` to fix prettier errors
 
 ## Commit Rules
 
@@ -69,6 +73,15 @@ These are the authorized types:
 - revert
 - style
 - test
+
+## Test
+
+If you add a feature or fix a bug, you need to provide a test verifying your
+improvement. You can launch tests using `npm run test`.
+
+If you fix a bug related to a parser, please provide a log of a command standard
+output. For example for a scan, use `node test/scan.js > file.log` to generate a
+log file.
 
 ## Versioning
 
