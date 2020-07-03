@@ -55,10 +55,9 @@
   "scripts": {
     "test": "jest",
     "commitlint": "commitlint --from 8005de94dd1d0d1220d6fa09a163f97c4a22deda",
-    "lint": "eslint src/**/*.js",
-    "lint:fix": "eslint --fix src/**/*.js",
-    "format": "prettier --check 'src/**/*.js'",
-    "format:fix": "prettier --write 'src/**/*.js'",
+    "lint": "eslint {src,bin}/**/*.js",
+    "format": "prettier --check '{src,bin}/**/*.js'",
+    "format:fix": "prettier --write '{src,bin}/**/*.js'",
     "release": "standard-version"
   },
   "husky": {
