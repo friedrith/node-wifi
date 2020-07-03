@@ -45,13 +45,15 @@
     "dotenv": "^4.0.0",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-jest": "^23.17.1",
     "eslint-plugin-node": "^9.1.0",
     "husky": "^3.0.0",
+    "jest": "^26.1.0",
     "prettier": "1.18.2",
     "standard-version": "^7.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "commitlint": "commitlint --from 8005de94dd1d0d1220d6fa09a163f97c4a22deda",
     "lint": "eslint src/**/*.js",
     "lint:fix": "eslint --fix src/**/*.js",
