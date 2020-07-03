@@ -17,7 +17,7 @@ describe('parse macOS scan output', () => {
         ssid: 'foo-bar',
         channel: 6,
         frequency: 2437,
-        quality: -143,
+        quality: 28,
         signal_level: '-86',
         security: 'WPA2',
         security_flags: ['(PSK/AES/AES)']
@@ -28,7 +28,7 @@ describe('parse macOS scan output', () => {
         ssid: 'VIRGO1732',
         channel: 36,
         frequency: 5180,
-        quality: -143,
+        quality: 28,
         signal_level: '-86',
         security: 'WPA2',
         security_flags: ['(PSK/AES/AES)']
@@ -39,7 +39,7 @@ describe('parse macOS scan output', () => {
         ssid: 'NERMNET',
         channel: 1,
         frequency: 2412,
-        quality: -127.5,
+        quality: 90,
         signal_level: '-55',
         security: 'WPA WPA2',
         security_flags: ['(PSK/AES,TKIP/TKIP)', '(PSK/AES,TKIP/TKIP)']
@@ -50,7 +50,7 @@ describe('parse macOS scan output', () => {
         ssid: 'NERMNET',
         channel: 149,
         frequency: 5745,
-        quality: -132,
+        quality: 72,
         signal_level: '-64',
         security: 'WPA WPA2',
         security_flags: ['(PSK/TKIP,AES/TKIP)', '(PSK/TKIP,AES/TKIP)']
@@ -70,7 +70,7 @@ describe('parse macOS scan output', () => {
         ssid: 'NERMNET',
         channel: 149,
         frequency: 5745,
-        quality: -132,
+        quality: 72,
         signal_level: '-64',
         security: 'WPA WPA2',
         security_flags: ['(PSK/TKIP,AES/TKIP)', '(PSK/TKIP,AES/TKIP)']
@@ -81,7 +81,7 @@ describe('parse macOS scan output', () => {
         ssid: 'Linksys02787-invité',
         channel: 11,
         frequency: 2462,
-        quality: -116.5,
+        quality: 134,
         signal_level: '-33',
         security: 'NONE',
         security_flags: []
@@ -92,7 +92,7 @@ describe('parse macOS scan output', () => {
         ssid: 'Linksys02787',
         channel: 11,
         frequency: 2462,
-        quality: -116.5,
+        quality: 134,
         signal_level: '-33',
         security: 'WPA2',
         security_flags: ['(PSK/AES/AES)']
@@ -103,7 +103,7 @@ describe('parse macOS scan output', () => {
         ssid: 'NERMNET',
         channel: 1,
         frequency: 2412,
-        quality: -126.5,
+        quality: 94,
         signal_level: '-53',
         security: 'WPA2',
         security_flags: ['(PSK/TKIP,AES/TKIP)']
@@ -123,7 +123,7 @@ describe('parse macOS scan output', () => {
         ssid: 'Linksys02787',
         channel: 11,
         frequency: 2462,
-        quality: -116.5,
+        quality: 134,
         signal_level: '-33',
         security: 'WPA2',
         security_flags: ['(PSK/AES/AES)']
@@ -134,7 +134,7 @@ describe('parse macOS scan output', () => {
         ssid: 'Terminus 1',
         channel: 4,
         frequency: 2427,
-        quality: -113,
+        quality: 148,
         signal_level: '-26',
         security: 'WPA2',
         security_flags: ['(PSK/AES/AES)']
@@ -145,7 +145,7 @@ describe('parse macOS scan output', () => {
         ssid: 'Linksys02787_5GHz',
         channel: 36,
         frequency: 5180,
-        quality: -125.5,
+        quality: 98,
         signal_level: '-51',
         security: 'WPA2',
         security_flags: ['(PSK/AES/AES)']

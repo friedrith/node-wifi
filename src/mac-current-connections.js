@@ -2,7 +2,7 @@ var execFile = require('child_process').execFile;
 var macProvider =
   '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport';
 var env = require('./env');
-var networkUtils = require('./network-utils.js');
+var networkUtils = require('./utils/network-utils.js');
 
 function parseAirport(stdout) {
   var lines = stdout.split('\n');

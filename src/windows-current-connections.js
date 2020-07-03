@@ -1,6 +1,6 @@
 var execFile = require('child_process').execFile;
 var env = require('./env');
-var networkUtils = require('./network-utils.js');
+var networkUtils = require('./utils/network-utils.js');
 
 function parseShowInterfaces(stdout) {
   var lines = stdout.split('\r\n');

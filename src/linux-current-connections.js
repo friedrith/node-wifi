@@ -1,5 +1,5 @@
 var execFile = require('child_process').execFile;
-var networkUtils = require('./network-utils');
+var networkUtils = require('./utils/network-utils');
 var env = require('./env');
 
 function getCurrentConnection(config, callback) {
