@@ -42,4 +42,25 @@ describe('promiser', () => {
       done();
     });
   });
+
+  it('should execute function without error with all args and return promise if no callback provided', async () => {
+    const func = jest.fn(() => Promise.resolve('bar'));
+    const arg = { ssid: 'foo', password: 'bar' };
+
+    const result = await promiser(func)(config)(arg);
+
+    expect(func).toHaveBeenCalledWith(config, arg);
+    expect(result).toEqual('bar');
+  });
+
+  it('should execute function without error and call callback', done => {
+    const func = jest.fn(() => Promise.resolve('bar'));
+    const arg = { ssid: 'foo', password: 'bar' };
+
+    promiser(func)(config)(arg, (error, result) => {
+      expect(func).toHaveBeenCalledWith(config, arg);
+      expect(result).toEqual('bar');
+      done();
+    });
+  });
 });

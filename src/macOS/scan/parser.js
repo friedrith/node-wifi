@@ -1,4 +1,5 @@
-var networkUtils = require('../../network-utils.js');
+const { percentageFromDB } = require('../../utils/percentage-db');
+const frequencyFromChannel = require('../../utils/frequency-from-channel');
 
 const isNotEmpty = line => line.trim() !== '';
 
@@ -35,17 +36,29 @@ const parse = stdout => {
       );
 
       if (match) {
-        // eslint-disable-next-line no-unused-vars
-        const [, ssid, bssid, rssi, channel, ht, countryCode, security] = match;
+        const [
+          ,
+          ssid,
+          bssid,
+          rssi,
+          channelStr,
+          // eslint-disable-next-line no-unused-vars
+          ht,
+          // eslint-disable-next-line no-unused-vars
+          countryCode,
+          security
+        ] = match;
+
+        const channel = parseInt(channelStr);
 
         return {
           mac: bssid, // for retrocompatibility
           bssid: bssid,
           ssid,
-          channel: parseInt(channel),
-          frequency: parseInt(networkUtils.frequencyFromChannel(channel)),
+          channel,
+          frequency: frequencyFromChannel(channel),
           signal_level: rssi,
-          quality: networkUtils.dBFromQuality(rssi),
+          quality: percentageFromDB(rssi),
           ...parseSecurity(security)
         };
       }

@@ -1,8 +1,8 @@
-var channels = {};
+const channels = {};
 
 // cf [wlan channels frequency](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
 
-var frequency = 2412;
+let frequency = 2412;
 
 for (var i = 1; i < 15; i++) {
   channels[i] = frequency.toString();
