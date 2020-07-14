@@ -80,8 +80,8 @@ If you add a feature or fix a bug, you need to provide a test verifying your
 improvement. You can launch tests using `npm run test`.
 
 If you fix a bug related to a parser, please provide a log of a command standard
-output. For example for a scan, use `node test/scan.js > file.log` to generate a
-log file.
+output. For example for a scan, use `node scripts/scan.js > file.log` to generate a
+log file. Check unit tests for more details.
 
 ## Versioning
 

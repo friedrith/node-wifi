@@ -1,4 +1,4 @@
-$ /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s
+$ /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --scan
                             SSID BSSID             RSSI CHANNEL HT CC SECURITY (auth/unicast/group)
                          NERMNET 18:ff:7b:43:b5:26 -64  149     Y  US WPA(PSK/TKIP,AES/TKIP) WPA2(PSK/TKIP,AES/TKIP) 
             Linksys02787-invité 12:23:03:18:9f:1c -33  11      Y  US NONE
