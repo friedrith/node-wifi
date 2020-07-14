@@ -3,7 +3,7 @@
 <img src="https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png" alt="node-wifi" />
 <br>
 <br>
-<img src="https://travis-ci.org/friedrith/node-wifi.svg?branch=master" alt="travis" />
+<img src="https://github.com/friedrith/node-wifi/workflows/build/badge.svg" alt="travis" />
 <a href="https://badge.fury.io/js/node-wifi"><img src="https://badge.fury.io/js/node-wifi.svg" alt="npm version" height="18"></a>
 </p>
 </div>
@@ -181,8 +181,8 @@ Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull 
 - [x] switch to MIT license
 - [x] generate changelog and release note
 - [x] stdout how to reproduce bug
-- [ ] add unit tests
-- [ ] rewrite the library using ES7
-- [ ] use github actions
+- [x] use github actions
+- [ ] add unit tests (in progress)
+- [ ] rewrite the library using ES7 (in progress)
 - [ ] install commitizen
 - [ ] use xml to stabilize parsers
