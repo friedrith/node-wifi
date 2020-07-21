@@ -24,6 +24,12 @@ const optionDefinitions = [
       'List the current wifi connections. A specific interface may be selected by adding option {bold --iface}'
   },
   {
+    name: 'delete',
+    type: Boolean,
+    description:
+      'Delete the wifi config related to a specific network identified by a ssid. It needs options {bold --ssid}. A specific interface may be selected by adding option {bold --iface}'
+  },
+  {
     name: 'ssid',
     type: String,
     typeLabel: '{underline ssid}',
