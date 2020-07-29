@@ -38,6 +38,7 @@ if (options.connect) cmds++;
 if (options.disconnect) cmds++;
 if (options.scan) cmds++;
 if (options.current) cmds++;
+if (options.delete) cmds++;
 
 if (cmds > 1) {
   console.error('You cannot do several operations at the same time');
@@ -48,7 +49,8 @@ if (
   !options.connect &&
   !options.scan &&
   !options.disconnect &&
-  !options.current
+  !options.current &&
+  !options.delete
 ) {
   console.log(usage);
   process.exit(2);
@@ -98,6 +100,23 @@ if (options.scan) {
       process.exit(2);
     } else {
       console.log(currentConnections);
+    }
+  });
+} else if (options.delete) {
+  console.log('ok');
+  if (!options.ssid) {
+    console.error(usage);
+    process.exit(2);
+  }
+
+  const accessPoint = {
+    ssid: options.ssid
+  };
+
+  wifi.deleteConnection(accessPoint, error => {
+    if (error) {
+      console.error(error);
+      process.exit(2);
     }
   });
 }

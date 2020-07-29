@@ -88,3 +88,7 @@ exports.disconnect = function() {
 exports.getCurrentConnections = function() {
   throw new Error('ERROR : use init before');
 };
+
+exports.deleteConnection = function() {
+  throw new Error('ERROR : use init before');
+};
