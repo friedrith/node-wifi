@@ -158,6 +158,7 @@ wifi --current
 This project is tested with operating systems:
 
 - macOS Catalina 10.15.5
+- linux Ubuntu 18.04.3 LTS
 
 > Do not hesitate to create a pull request to add the OS you are using.
 
@@ -165,7 +166,7 @@ This project is tested with operating systems:
 
 Linux:
 
-- network-manager
+- network-manager (nmcli)
 
 ## Contribute
 
@@ -184,5 +185,6 @@ Please read [development guidelines](./CONTRIBUTING.md) before proposing a pull 
 - [x] use github actions
 - [ ] add unit tests (in progress)
 - [ ] rewrite the library using ES7 (in progress)
+- [ ] harmonize security flags and modes
 - [ ] install commitizen
 - [ ] use xml to stabilize parsers

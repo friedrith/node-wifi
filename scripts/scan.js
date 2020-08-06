@@ -1,7 +1,9 @@
 const execute = require('../src/utils/executer');
-const command = require('../src/macOS/scan/command');
+const platform = require('../src/platform');
 
-const { cmd, args } = command();
+const { command } = platform().scan;
+
+const { cmd, args } = command({ iface: null });
 
 console.log(`$ ${cmd} ${args.join(' ')}`);
 
