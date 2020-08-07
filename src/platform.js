@@ -1,4 +1,5 @@
-const linux = require('./linux/index');
+const linux = require('./linux');
+const macOS = require('./macOS');
 
 module.exports = () => {
   let platform;
@@ -8,6 +9,7 @@ module.exports = () => {
       platform = linux;
       break;
     case 'darwin':
+      platform = macOS;
       break;
     case 'win32':
       break;

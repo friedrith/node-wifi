@@ -1,6 +1,7 @@
 const execute = require('../src/utils/executer');
-const command = require('../src/macOS/current-connections/command');
+const platform = require('../src/platform');
 
+const { command } = platform().getCurrentConnections;
 const { cmd, args } = command();
 
 console.log(`$ ${cmd} ${args.join(' ')}`);
