@@ -1,5 +1,7 @@
 const execute = require('../src/utils/executer');
-const command = require('../src/macOS/delete/command');
+const platform = require('../src/platform');
+
+const { command } = platform().deleteConnection;
 
 const { cmd, args } = command({ iface: 'en0' }, { ssid: 'SSID' });
 
