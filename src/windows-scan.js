@@ -18,8 +18,18 @@ function scanWifi(config, callback) {
           .toString('utf8')
           .split('\r')
           .join('')
-          .split('\n')
-          .slice(5, scanResults.length);
+          .split('\n');
+          
+        scanResults = scanResults.slice((()=>{
+            let indexTemp;
+            scanResults.some((item, index)=>{
+              if (item.indexOf("SSID") != -1){
+                indexTemp = index;
+                return true;
+              }
+            })
+            if(indexTemp) return indexTemp;
+          })(), scanResults.length);
 
         var numNetworks = -1;
         var currentLine = 0;
