@@ -19,7 +19,7 @@ function scanWifi(config, callback) {
           .split('\r')
           .join('')
           .split('\n')
-          .slice(5, scanResults.length);
+          .slice(4, scanResults.length);
 
         var numNetworks = -1;
         var currentLine = 0;
