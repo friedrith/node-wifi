@@ -1,6 +1,6 @@
 {
   "name": "node-wifi",
-  "version": "2.0.13",
+  "version": "2.0.14",
   "description": "NodeJS tool to manage wifi",
   "keywords": [
     "wifi",
@@ -59,10 +59,5 @@
     "format": "prettier --check '{src,bin}/**/*.js'",
     "format:fix": "prettier --write '{src,bin}/**/*.js'",
     "release": "standard-version"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "npx commitlint -E HUSKY_GIT_PARAMS"
-    }
   }
 }

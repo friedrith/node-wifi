@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.14](https://github.com/friedrith/node-wifi/compare/v2.0.13...v2.0.14) (2020-10-11)
+
+
+### Bug Fixes
+
+* dependencies vulnerabilities ([1066263](https://github.com/friedrith/node-wifi/commit/10662634725a314c5f585a33abf61cff3ea299f9))
+* mac connect for quasar electron apps ([8005de9](https://github.com/friedrith/node-wifi/commit/8005de94dd1d0d1220d6fa09a163f97c4a22deda))
+* **dependencies:** vulnerabilities ([#133](https://github.com/friedrith/node-wifi/issues/133)) ([47ad8a2](https://github.com/friedrith/node-wifi/commit/47ad8a220e7c691c4195d9d7b89ff204005e3d80))
+* **dependencies:** vulnerabilities ([#135](https://github.com/friedrith/node-wifi/issues/135)) ([9a2a50e](https://github.com/friedrith/node-wifi/commit/9a2a50ee9b503d8b6ed78d82f094ab3ea1ecc114))
+* **macos:** scripts ([#132](https://github.com/friedrith/node-wifi/issues/132)) ([36c938f](https://github.com/friedrith/node-wifi/commit/36c938f58cf66c377b631d15056d1fe359541b5d))
+* **macos/scan:** parse networks when shifted ([0fa69c7](https://github.com/friedrith/node-wifi/commit/0fa69c7aaaca44ea83c4019dab342396e742a581))
+* windows wifi scan issue fix for first network ([#138](https://github.com/friedrith/node-wifi/issues/138)) ([f6e878d](https://github.com/friedrith/node-wifi/commit/f6e878d48b91410929c5fe5f0a0ff39e34e50c56))
+
 ### [2.0.13](https://github.com/friedrith/node-wifi/compare/v2.0.12...v2.0.13) (2020-07-01)
 
 
