@@ -2,9 +2,14 @@ var execFile = require('child_process').execFile;
 var env = require('./env');
 
 function connectToWifi(config, ap, callback) {
+  let timeout = parseInt(ap.timeout, 10);
+  if (Number.isNaN(timeout) || timeout < 0) {
+    timeout = 10;
+  }
+
   var args = [];
   args.push('-w');
-  args.push('10');
+  args.push(`${timeout}`);
   args.push('device');
   args.push('wifi');
   args.push('connect');
@@ -17,7 +22,13 @@ function connectToWifi(config, ap, callback) {
     args.push(config.iface);
   }
 
-  execFile('nmcli', args, { env: env }, function(err, resp) {
+  let file = 'nmcli';
+  if (ap.sudo) {
+    args.unshift(file);
+    file = 'sudo';
+  }
+
+  execFile(file, args, { env: env }, function(err, resp) {
     // Errors from nmcli came from stdout, we test presence of 'Error: ' string
     if (resp.includes('Error: ')) {
       err = new Error(resp.replace('Error: ', ''));
