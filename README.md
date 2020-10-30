@@ -83,6 +83,14 @@ wifi.connect({ ssid: 'ssid', password: 'password' }, error => {
   console.log('Connected');
 });
 
+// You can use sudo (need sudoer permission) or set timeout on linux
+wifi.connect({ ssid: 'ssid', password: 'password', sudo: true, timeout: 10 /* seconds */ }, error => {
+  if (error) {
+    console.log(error);
+  }
+  console.log('Connected');
+});
+
 // Disconnect from a network
 // not available on all os for now
 wifi.disconnect(error => {
