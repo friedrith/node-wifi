@@ -90,14 +90,23 @@ function getHexSsid(plainTextSsid) {
   return hex;
 }
 
+function xmlEncode(value) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 function win32WirelessProfileBuilder(selectedAp, key) {
   var profile_content =
     '<?xml version="1.0"?> <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"> <name>' +
-    selectedAp.ssid +
+    xmlEncode(selectedAp.ssid) +
     '</name> <SSIDConfig> <SSID> <hex>' +
     getHexSsid(selectedAp.ssid) +
     '</hex> <name>' +
-    selectedAp.ssid +
+    xmlEncode(selectedAp.ssid) +
     '</name> </SSID> </SSIDConfig>';
 
   if (selectedAp.security.indexOf('WPA2') !== -1) {
