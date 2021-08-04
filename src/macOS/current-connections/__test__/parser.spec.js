@@ -2,7 +2,7 @@ const path = require('path');
 const unlog = require('../../../__test__/unlogger');
 const parse = require('../parser');
 
-const log = filename => path.resolve(__dirname, `../__logs__/`, filename);
+const log = filename => path.resolve(__dirname, '../__logs__/', filename);
 
 describe('parse macOS get current connections output', () => {
   it('should return current wifi networks', async () => {

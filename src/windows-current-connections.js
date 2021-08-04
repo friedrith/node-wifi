@@ -1,14 +1,14 @@
-var execFile = require('child_process').execFile;
-var env = require('./env');
-var networkUtils = require('./utils/network-utils.js');
+const execFile = require('child_process').execFile;
+const env = require('./env');
+const networkUtils = require('./utils/network-utils.js');
 
 function parseShowInterfaces(stdout) {
-  var lines = stdout.split('\r\n');
-  var connections = [];
-  var i = 3;
+  const lines = stdout.split('\r\n');
+  const connections = [];
+  let i = 3;
   while (lines.length > i + 18) {
-    var tmpConnection = {};
-    var fields = [
+    const tmpConnection = {};
+    const fields = [
       'name',
       'description',
       'guid',
@@ -27,25 +27,25 @@ function parseShowInterfaces(stdout) {
       'signal',
       'profil'
     ];
-    for (var j = 0; j < fields.length; j++) {
-      var line = lines[i + j];
+    for (let j = 0; j < fields.length; j++) {
+      const line = lines[i + j];
       tmpConnection[fields[j]] = line.match(/.*: (.*)/)[1];
     }
 
     connections.push({
-      iface: tmpConnection['name'],
-      ssid: tmpConnection['ssid'],
-      bssid: tmpConnection['bssid'],
-      mac: tmpConnection['bssid'],
-      mode: tmpConnection['mode'],
-      channel: parseInt(tmpConnection['channel']),
+      iface: tmpConnection.name,
+      ssid: tmpConnection.ssid,
+      bssid: tmpConnection.bssid,
+      mac: tmpConnection.bssid,
+      mode: tmpConnection.mode,
+      channel: parseInt(tmpConnection.channel),
       frequency: parseInt(
-        networkUtils.frequencyFromChannel(parseInt(tmpConnection['channel']))
+        networkUtils.frequencyFromChannel(parseInt(tmpConnection.channel))
       ),
-      signal_level: networkUtils.dBFromQuality(tmpConnection['signal']),
-      quality: parseFloat(tmpConnection['signal']),
-      security: tmpConnection['authentication'],
-      security_flags: tmpConnection['encryption']
+      signal_level: networkUtils.dBFromQuality(tmpConnection.signal),
+      quality: parseFloat(tmpConnection.signal),
+      security: tmpConnection.authentication,
+      security_flags: tmpConnection.encryption
     });
 
     i = i + 18;
@@ -55,13 +55,13 @@ function parseShowInterfaces(stdout) {
 }
 
 function getCurrentConnection(config, callback) {
-  var params = ['wlan', 'show', 'interfaces'];
-  execFile('netsh', params, { env }, function(err, stdout) {
+  const params = ['wlan', 'show', 'interfaces'];
+  execFile('netsh', params, { env }, (err, stdout) => {
     if (err) {
       callback && callback(err);
     } else {
       try {
-        var connections = parseShowInterfaces(stdout, config);
+        const connections = parseShowInterfaces(stdout, config);
         callback && callback(null, connections);
       } catch (e) {
         callback && callback(e);
@@ -70,13 +70,13 @@ function getCurrentConnection(config, callback) {
   });
 }
 
-module.exports = function(config) {
-  return function(callback) {
+module.exports = config => {
+  return callback => {
     if (callback) {
       getCurrentConnection(config, callback);
     } else {
-      return new Promise(function(resolve, reject) {
-        getCurrentConnection(config, function(err, connections) {
+      return new Promise((resolve, reject) => {
+        getCurrentConnection(config, (err, connections) => {
           if (err) {
             reject(err);
           } else {

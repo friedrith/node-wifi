@@ -1,6 +1,6 @@
-var execFile = require('child_process').execFile;
-var networkUtils = require('./utils/network-utils');
-var env = require('./env');
+const execFile = require('child_process').execFile;
+const networkUtils = require('./utils/network-utils');
+const env = require('./env');
 
 function scanWifi(config, callback) {
   try {
@@ -8,7 +8,7 @@ function scanWifi(config, callback) {
       'netsh',
       ['wlan', 'show', 'networks', 'mode=Bssid'],
       { env },
-      function(err, scanResults) {
+      (err, scanResults) => {
         if (err) {
           callback && callback(err);
           return;
@@ -21,13 +21,13 @@ function scanWifi(config, callback) {
           .split('\n')
           .slice(4, scanResults.length);
 
-        var numNetworks = -1;
-        var currentLine = 0;
-        var networkTmp;
-        var networksTmp = [];
-        var network;
-        var networks = [];
-        var i;
+        let numNetworks = -1;
+        let currentLine = 0;
+        let networkTmp;
+        const networksTmp = [];
+        let network;
+        const networks = [];
+        let i;
 
         for (i = 0; i < scanResults.length; i++) {
           if (scanResults[i] === '') {
@@ -55,7 +55,7 @@ function scanWifi(config, callback) {
 }
 
 function parse(networkTmp) {
-  var network = {};
+  const network = {};
 
   network.mac = networkTmp[4] ? networkTmp[4].match(/.*?:\s(.*)/)[1] : '';
   network.bssid = network.mac;
@@ -81,13 +81,13 @@ function parse(networkTmp) {
   return network;
 }
 
-module.exports = function(config) {
-  return function(callback) {
+module.exports = config => {
+  return callback => {
     if (callback) {
       scanWifi(config, callback);
     } else {
-      return new Promise(function(resolve, reject) {
-        scanWifi(config, function(err, networks) {
+      return new Promise((resolve, reject) => {
+        scanWifi(config, (err, networks) => {
           if (err) {
             reject(err);
           } else {
