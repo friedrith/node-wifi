@@ -53,7 +53,7 @@ const parse = stdout => {
 
         return {
           mac: bssid, // for retrocompatibility
-          bssid: bssid,
+          bssid,
           ssid,
           channel,
           frequency: frequencyFromChannel(channel),

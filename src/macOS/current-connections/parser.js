@@ -10,7 +10,7 @@ const channelRegex = /[ ]*channel: (.*)/;
 const formatMacAddress = mac =>
   mac
     .split(':')
-    .map(part => (part.length === 1 ? '0' + part : part))
+    .map(part => (part.length === 1 ? `0${part}` : part))
     .join(':');
 
 const parse = stdout => {
@@ -52,7 +52,6 @@ const parse = stdout => {
       connection.frequency = frequencyFromChannel(connection.channel);
       connections.push(connection);
       connection = {};
-      return;
     }
   });
 

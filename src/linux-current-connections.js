@@ -1,9 +1,9 @@
-var execFile = require('child_process').execFile;
-var networkUtils = require('./utils/network-utils');
-var env = require('./env');
+const execFile = require('child_process').execFile;
+const networkUtils = require('./utils/network-utils');
+const env = require('./env');
 
 function getCurrentConnection(config, callback) {
-  var args = [];
+  const args = [];
   args.push('--terse');
   args.push('--fields');
   args.push(
@@ -18,18 +18,18 @@ function getCurrentConnection(config, callback) {
     args.push(config.iface);
   }
 
-  execFile('nmcli', args, { env }, function(err, scanResults) {
+  execFile('nmcli', args, { env }, (err, scanResults) => {
     if (err) {
       callback && callback(err);
       return;
     }
 
-    var lines = scanResults.split('\n');
+    const lines = scanResults.split('\n');
 
-    var networks = [];
-    for (var i = 0; i < lines.length; i++) {
+    const networks = [];
+    for (let i = 0; i < lines.length; i++) {
       if (lines[i] != '') {
-        var fields = lines[i].replace(/\\:/g, '&&').split(':');
+        const fields = lines[i].replace(/\\:/g, '&&').split(':');
         if (fields[0] == 'yes') {
           networks.push({
             iface: fields[10].replace(/&&/g, ':'),
@@ -56,13 +56,13 @@ function getCurrentConnection(config, callback) {
   });
 }
 
-module.exports = function(config) {
-  return function(callback) {
+module.exports = config => {
+  return callback => {
     if (callback) {
       getCurrentConnection(config, callback);
     } else {
-      return new Promise(function(resolve, reject) {
-        getCurrentConnection(config, function(err, connections) {
+      return new Promise((resolve, reject) => {
+        getCurrentConnection(config, (err, connections) => {
           if (err) {
             reject(err);
           } else {

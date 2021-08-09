@@ -1,18 +1,18 @@
-var windowsConnect = require('./windows-connect.js');
-var windowsScan = require('./windows-scan.js');
-var windowsDisconnect = require('./windows-disconnect.js');
-var windowsGetCurrentConnections = require('./windows-current-connections');
-var linuxConnect = require('./linux-connect');
-var linuxDisconnect = require('./linux-disconnect');
-var linuxDelete = require('./linux-delete');
-var linuxGetCurrentConnections = require('./linux-current-connections');
-var linuxScan = require('./linux-scan.js');
-var macConnect = require('./mac-connect.js');
-var macScan = require('./mac-scan.js');
-var macDelete = require('./mac-delete');
-var macGetCurrentConnections = require('./mac-current-connections');
+const windowsConnect = require('./windows-connect.js');
+const windowsScan = require('./windows-scan.js');
+const windowsDisconnect = require('./windows-disconnect.js');
+const windowsGetCurrentConnections = require('./windows-current-connections');
+const linuxConnect = require('./linux-connect');
+const linuxDisconnect = require('./linux-disconnect');
+const linuxDelete = require('./linux-delete');
+const linuxGetCurrentConnections = require('./linux-current-connections');
+const linuxScan = require('./linux-scan.js');
+const macConnect = require('./mac-connect.js');
+const macScan = require('./mac-scan.js');
+const macDelete = require('./mac-delete');
+const macGetCurrentConnections = require('./mac-current-connections');
 
-var config = {
+const config = {
   debug: false,
   iface: null
 };
@@ -26,19 +26,19 @@ function init(options) {
     config.iface = options.iface;
   }
 
-  var scan = function() {
+  let scan = () => {
     throw new Error('ERROR : not available for this OS');
   };
-  var connect = function() {
+  let connect = () => {
     throw new Error('ERROR : not available for this OS');
   };
-  var disconnect = function() {
+  let disconnect = () => {
     throw new Error('ERROR : not available for this OS');
   };
-  var deleteConnection = function() {
+  let deleteConnection = () => {
     throw new Error('ERROR : not available for this OS');
   };
-  var getCurrentConnections = function() {
+  let getCurrentConnections = () => {
     throw new Error('ERROR : not available for this OS');
   };
 
@@ -73,22 +73,22 @@ function init(options) {
 }
 
 exports.init = init;
-exports.scan = function() {
+exports.scan = () => {
   throw new Error('ERROR : use init before');
 };
 
-exports.connect = function() {
+exports.connect = () => {
   throw new Error('ERROR : use init before');
 };
 
-exports.disconnect = function() {
+exports.disconnect = () => {
   throw new Error('ERROR : use init before');
 };
 
-exports.getCurrentConnections = function() {
+exports.getCurrentConnections = () => {
   throw new Error('ERROR : use init before');
 };
 
-exports.deleteConnection = function() {
+exports.deleteConnection = () => {
   throw new Error('ERROR : use init before');
 };

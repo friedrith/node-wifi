@@ -13,7 +13,7 @@ const { sections, optionDefinitions } = require('./help');
 
 const usage = getUsage(sections);
 
-var options = null;
+let options = null;
 
 try {
   options = commandLineArgs(optionDefinitions);
@@ -23,7 +23,7 @@ try {
 }
 
 if (options.version) {
-  console.log('Version ' + packageJson.version);
+  console.log(`Version ${packageJson.version}`);
   process.exit(0);
 }
 
@@ -32,7 +32,7 @@ if (options.help) {
   process.exit(0);
 }
 
-var cmds = 0;
+let cmds = 0;
 
 if (options.connect) cmds++;
 if (options.disconnect) cmds++;

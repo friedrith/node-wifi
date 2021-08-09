@@ -1,8 +1,8 @@
-var execFile = require('child_process').execFile;
-var env = require('./env');
+const execFile = require('child_process').execFile;
+const env = require('./env');
 
 function connectToWifi(config, ap, callback) {
-  var args = [];
+  const args = [];
   args.push('-w');
   args.push('10');
   args.push('device');
@@ -17,7 +17,7 @@ function connectToWifi(config, ap, callback) {
     args.push(config.iface);
   }
 
-  execFile('nmcli', args, { env: env }, function(err, resp) {
+  execFile('nmcli', args, { env }, (err, resp) => {
     // Errors from nmcli came from stdout, we test presence of 'Error: ' string
     if (resp.includes('Error: ')) {
       err = new Error(resp.replace('Error: ', ''));
@@ -26,13 +26,13 @@ function connectToWifi(config, ap, callback) {
   });
 }
 
-module.exports = function(config) {
-  return function(ap, callback) {
+module.exports = config => {
+  return (ap, callback) => {
     if (callback) {
       connectToWifi(config, ap, callback);
     } else {
-      return new Promise(function(resolve, reject) {
-        connectToWifi(config, ap, function(err) {
+      return new Promise((resolve, reject) => {
+        connectToWifi(config, ap, err => {
           if (err) {
             reject(err);
           } else {
