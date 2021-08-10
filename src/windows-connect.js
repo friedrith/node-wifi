@@ -34,7 +34,7 @@ function connectToWifi(config, ap, callback) {
       }
 
       fs.writeFileSync(
-        path.join(tempDir,'nodeWifiConnect.xml'),
+        path.join(tempDir, 'nodeWifiConnect.xml'),
         win32WirelessProfileBuilder(selectedAp, ap.password)
       );
     })
@@ -43,7 +43,7 @@ function connectToWifi(config, ap, callback) {
         'wlan',
         'add',
         'profile',
-        `filename=${path.join(tempDir,'nodeWifiConnect.xml')}`
+        `filename=${path.join(tempDir, 'nodeWifiConnect.xml')}`
       ]);
     })
     .then(() => {
@@ -60,7 +60,7 @@ function connectToWifi(config, ap, callback) {
       return execCommand(cmd, params);
     })
     .then(() => {
-      return execCommand(`del ${path.join(tempDir,'nodeWifiConnect.xml')}`);
+      return execCommand(`del ${path.join(tempDir, 'nodeWifiConnect.xml')}`);
     })
     .then(() => {
       callback && callback();
