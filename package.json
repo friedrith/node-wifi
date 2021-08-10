@@ -34,23 +34,23 @@
     "node": ">=10.0.0"
   },
   "dependencies": {
-    "command-line-args": "^3.0.1",
-    "command-line-usage": "^5.0.5"
+    "command-line-args": "^5.2.0",
+    "command-line-usage": "^6.1.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^9.1.2",
-    "@commitlint/config-conventional": "^8.3.4",
-    "@commitlint/travis-cli": "^9.1.2",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@commitlint/travis-cli": "^13.1.0",
     "babel-eslint": "^10.1.0",
-    "dotenv": "^4.0.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-jest": "^23.17.1",
-    "eslint-plugin-node": "^9.2.0",
-    "husky": "^3.1.0",
-    "jest": "^26.1.0",
-    "prettier": "1.18.2",
-    "standard-version": "^8.0.0"
+    "dotenv": "^10.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-node": "^11.1.0",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "standard-version": "^9.3.1"
   },
   "scripts": {
     "test": "jest",

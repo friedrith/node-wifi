@@ -15,7 +15,9 @@ const init = newConfig => {
   };
 };
 
-const notAvailable = () => { throw new Error('ERROR : not available for this OS'); }
+const notAvailable = () => {
+  throw new Error('ERROR : not available for this OS');
+};
 
 const scan = () => {
   if (!platform().scan) {
