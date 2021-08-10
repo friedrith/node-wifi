@@ -13,18 +13,21 @@ const extractArgs = allArgs => {
   };
 };
 
-module.exports = func => config => (...allArgs) => {
-  const { args, callback } = extractArgs(allArgs);
+module.exports =
+  func =>
+  config =>
+  (...allArgs) => {
+    const { args, callback } = extractArgs(allArgs);
 
-  if (typeof callback === 'function') {
-    func(config, ...args)
-      .then(response => {
-        callback(null, response);
-      })
-      .catch(error => {
-        callback(error);
-      });
-  } else {
-    return func(config, ...args);
-  }
-};
+    if (typeof callback === 'function') {
+      func(config, ...args)
+        .then(response => {
+          callback(null, response);
+        })
+        .catch(error => {
+          callback(error);
+        });
+    } else {
+      return func(config, ...args);
+    }
+  };
