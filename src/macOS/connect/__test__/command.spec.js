@@ -1,6 +1,6 @@
 const command = require('../command');
 
-describe('mac Os scan command', () => {
+describe('mac Os connect command', () => {
   it('should generate command with default interface', () => {
     const config = { iface: null };
     const accessPoint = { ssid: 'foo', password: 'bar' };
