@@ -4,7 +4,7 @@
 
 ## Found an Issue?
 
-Thank you for reporting any issues you find. We do our best to test and make node-wifi as solid as possible, but any reported issue is a real help.
+Thank you for reporting any issues you find. We do our best to test and make `node-wifi` as solid as possible, but any reported issue is a real help.
 
 Please follow these guidelines when reporting issues:
 
@@ -12,12 +12,12 @@ Please follow these guidelines when reporting issues:
 - Tag your issue with the tag `bug`
 - Provide a short summary of what you are trying to do
 - Provide the log of the encountered error if applicable
-- Provide the exact version of node-wifi.
+- Provide the exact version of `node-wifi`.
 - Be awesome and consider contributing a [pull request](#want-to-contribute)
 
 ## Want to contribute?
 
-You consider contributing changes to node-wifi – we dig that!
+You consider contributing changes to `node-wifi` – we dig that!
 Please consider these guidelines when filing a pull request:
 
 - Follow the [Coding Rules](#coding-rules)
@@ -86,8 +86,7 @@ log file. Check unit tests for more details.
 ## Versioning
 
 `node-wifi` use [standard-version](https://github.com/conventional-changelog/standard-version) to handle versioning
-automatically. So you just need to follow commit rules and once the maintainer will want to  
-release a version, he will use commands:
+automatically. So you just need to follow commit rules and once the maintainer will want to release a version, he will use commands:
 
 ```bash
 git pull origin master
