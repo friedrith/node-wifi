@@ -4,7 +4,7 @@ const env = require('./env');
 const scan = require('./windows-scan');
 const path = require('path');
 const os = require('os');
-const tempDir = os.tmpdir();
+const profileFilename = path.join(os.tmpdir(), 'nodeWifiConnect.xml');
 
 function execCommand(cmd, params) {
   return new Promise((resolve, reject) => {
@@ -34,7 +34,7 @@ function connectToWifi(config, ap, callback) {
       }
 
       fs.writeFileSync(
-        path.join(tempDir, 'nodeWifiConnect.xml'),
+        profileFilename,
         win32WirelessProfileBuilder(selectedAp, ap.password)
       );
     })
@@ -43,7 +43,7 @@ function connectToWifi(config, ap, callback) {
         'wlan',
         'add',
         'profile',
-        `filename=${path.join(tempDir, 'nodeWifiConnect.xml')}`
+        `filename=${profileFilename}`
       ]);
     })
     .then(() => {
@@ -60,7 +60,7 @@ function connectToWifi(config, ap, callback) {
       return execCommand(cmd, params);
     })
     .then(() => {
-      return execCommand(`del ${path.join(tempDir, 'nodeWifiConnect.xml')}`);
+      return execCommand(`del ${profileFilename}`);
     })
     .then(() => {
       callback && callback();
