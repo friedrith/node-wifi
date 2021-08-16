@@ -33,9 +33,6 @@ We wish to be clear in saying that this module is inspired from [node-wifi-contr
 ```bash
 # Use as a module
 npm install node-wifi
-
-# Use as a CLI
-npm install node-wifi -g
 ```
 
 ## Getting started
@@ -143,15 +140,7 @@ wifi
 
 ## Use as CLI
 
-```javascript
-wifi --scan
-
-wifi --connect --ssid <ssid> --password <password> [--iface <wlan0>]
-
-wifi --disconnect
-
-wifi --current
-```
+`node-wifi` is also usable as a CLI tool with the library `[node-wifi-cli](https://github.com/friedrith/node-wifi-cli)`.
 
 ## Platforms compatibility
 
