@@ -138,9 +138,10 @@ wifi
   });
 ```
 
+
 ## Use as CLI
 
-`node-wifi` is also usable as a CLI tool with the library `[node-wifi-cli](https://github.com/friedrith/node-wifi-cli)`.
+`node-wifi` is also usable as a CLI tool with the library [node-wifi-cli](https://github.com/friedrith/node-wifi-cli).
 
 ## Platforms compatibility
 
