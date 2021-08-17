@@ -40,4 +40,4 @@
 
 - OS:
 - node-wifi version
-- wifi card:
+- wifi card: (on linux, use command `lspci | egrep -i --color 'network|ethernet'`)
