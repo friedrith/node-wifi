@@ -15,6 +15,12 @@ const usage = getUsage(sections);
 
 let options = null;
 
+const fgRed = '\x1b[31m'; // cf https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
+
+console.error(
+  `${fgRed}[Deprecated] node-wifi CLI is deprecated and will be removed in the next major release. Use node-wifi-cli instead.`
+);
+
 try {
   options = commandLineArgs(optionDefinitions);
 } catch (e) {
