@@ -18,18 +18,16 @@ jobs:
           issue-lock-inactive-days: '365'
           issue-exclude-created-before: ''
           issue-exclude-labels: ''
-          issue-lock-labels: ''
           issue-lock-labels: 'outdated'
           issue-lock-comment: >
             This issue has been automatically locked since there
             has not been any recent activity after it was closed.
             Please open a new issue for related bugs.
-
-          issue-lock-reason: 'resolved'
+          issue-lock-reason: 'outdated'
           pr-lock-inactive-days: '365'
           pr-exclude-created-before: ''
           pr-exclude-labels: ''
-          pr-lock-labels: ''
+          pr-lock-labels: 'outdated'
           pr-lock-comment: >
             This pull request has been automatically locked since there
             has not been any recent activity after it was closed.
