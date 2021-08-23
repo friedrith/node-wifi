@@ -23,7 +23,7 @@ jobs:
             This issue has been automatically locked since there
             has not been any recent activity after it was closed.
             Please open a new issue for related bugs.
-          issue-lock-reason: 'outdated'
+          issue-lock-reason: ''
           pr-lock-inactive-days: '365'
           pr-exclude-created-before: ''
           pr-exclude-labels: ''
@@ -32,5 +32,5 @@ jobs:
             This pull request has been automatically locked since there
             has not been any recent activity after it was closed.
             Please open a new issue for related bugs.
-          pr-lock-reason: 'outdated'
+          pr-lock-reason: ''
           process-only: ''
