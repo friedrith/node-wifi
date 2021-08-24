@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0-alpha.1](https://github.com/friedrith/node-wifi/compare/v2.1.0-alpha.0...v2.1.0-alpha.1) (2021-08-24)
+
+
+### Bug Fixes
+
+* deleteConnection function for windows ([b0fd8f3](https://github.com/friedrith/node-wifi/commit/b0fd8f3979834f7c5e12b29c2639bd3ee92f40b0))
+
 ## [2.1.0-alpha.0](https://github.com/friedrith/node-wifi/compare/v2.0.15...v2.1.0-alpha.0) (2021-08-24)
 
 ### [2.0.15](https://github.com/friedrith/node-wifi/compare/v2.0.14...v2.0.15) (2021-08-11)
