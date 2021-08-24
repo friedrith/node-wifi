@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0-alpha.0](https://github.com/friedrith/node-wifi/compare/v2.0.15...v2.1.0-alpha.0) (2021-08-24)
+
 ### [2.0.15](https://github.com/friedrith/node-wifi/compare/v2.0.14...v2.0.15) (2021-08-11)
 
 
