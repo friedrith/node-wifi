@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const wifi = require('../src/wifi');
+const wifi = require('../src/index');
 
 wifi.init({
   debug: true,

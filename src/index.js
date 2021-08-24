@@ -1,5 +1,6 @@
-const execute = require('./utils/executer');
+const executeCommand = require('./utils/execute-command');
 const promiser = require('./utils/promiser');
+const extractCallback = require('./utils/extract-callback');
 
 const platform = require('./platform');
 
@@ -19,34 +20,33 @@ const notAvailable = () => {
   throw new Error('ERROR : not available for this OS');
 };
 
-const scan = () => {
-  if (!platform().scan) {
+const defaultParse = foo => foo;
+
+const feature = featureName => (...allArgs) => {
+  if (!platform()[featureName]) {
     notAvailable();
   }
 
-  const { command, parse } = platform().scan;
+  const { allInOne, command, parse = defaultParse } = platform()[featureName];
 
-  const scanWifi = config =>
-    execute(command(config)).then(output => parse(output));
-
-  return promiser(scanWifi)(config)();
-};
-
-const connect = accessPoint => {
-  if (!platform().connect) {
-    notAvailable();
+  if (allInOne) {
+    // for windows
+    return allInOne(config)(...allArgs);
   }
 
-  const { command, parse } = platform().connect;
+  const func = (...args) =>
+    executeCommand(command(config, ...args)).then(parse);
 
-  const connectWifi = config =>
-    execute(command(config)).then(output => parse(output));
+  const { callback, args } = extractCallback(allArgs);
 
-  return promiser(connectWifi)(config)(accessPoint);
+  return promiser(func, args, callback);
 };
 
 module.exports = {
   init,
-  scan,
-  connect
+  scan: feature('scan'),
+  connect: feature('connect'),
+  deleteConnection: feature('deleteConnection'),
+  getCurrentConnections: feature('getCurrentConnections'),
+  disconnect: feature('disconnect')
 };
