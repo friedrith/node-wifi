@@ -1,3 +1,0 @@
-$ /usr/sbin/networksetup -removepreferredwirelessnetwork en0 SSID
-Network SSID was not found in the preferred networks list
-

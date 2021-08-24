@@ -1,4 +1,4 @@
-const execute = require('../src/utils/executer');
+const execute = require('../src/utils/execute-command');
 const platform = require('../src/platform');
 
 const { command } = platform().scan;
