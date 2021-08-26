@@ -1,0 +1,80 @@
+name: Bug
+description: Report a bug for node-wifi
+title: '[Bug]: expected behavior'
+labels: [Bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for asking Mish for a Tip. Tune into a Live stream or read Mish's articles on DEV for great GitHub tips.
+  - type: input
+    id: Name
+    attributes:
+      label: Name of the bug
+      description: What is the name of this bug
+      placeholder: ex. fail to launch nmcli with electron
+    validations:
+      required: true
+  - type: textarea
+    id: expectedBehavior
+    attributes:
+      label: Expected behavior
+      description: Tell us what should happen
+    validations:
+      required: true
+  - type: textarea
+    id: currentBehavior
+    attributes:
+      label: Current behavior
+      description: tell us what happens instead of the expected behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: features
+    attributes:
+      label: Which are the affected features
+      options:
+        - label: node API
+          required: false
+        - label: CLI
+          required: false
+  - type: dropdown
+    id: operatingSystem
+    attributes:
+      label: Which is your operating system?
+      options:
+        - Linux
+        - MacOS
+        - Windows
+    validations:
+      required: true
+  - type: input
+    id: operatingSystemDetails
+    attributes:
+      label: Environment
+      description: Include as many relevant details about the environment you experienced the bug in
+      placeholder: ex. raspbian, electron, wifi card version
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: Version of node-wifi
+      description: What is the npm version of node-wifi
+      placeholder: ex. 2.0.1
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: List the steps to reproduce the bug
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Steps to Reproduce
+      description: Not obligatory, but suggest a fix/reason for the bug, or ideas how to implement the addition or change
+    validations:
+      required: true
