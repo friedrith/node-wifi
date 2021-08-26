@@ -1,20 +1,8 @@
 name: Bug
 description: Report a bug for node-wifi
-title: '[Bug]: expected behavior'
+title: '[Bug]: unexpected behavior'
 labels: [Bug]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for asking Mish for a Tip. Tune into a Live stream or read Mish's articles on DEV for great GitHub tips.
-  - type: input
-    id: Name
-    attributes:
-      label: Name of the bug
-      description: What is the name of this bug
-      placeholder: ex. fail to launch nmcli with electron
-    validations:
-      required: true
   - type: textarea
     id: expectedBehavior
     attributes:
@@ -48,7 +36,7 @@ body:
         - Windows
     validations:
       required: true
-  - type: input
+  - type: textarea
     id: operatingSystemDetails
     attributes:
       label: Environment
@@ -74,7 +62,8 @@ body:
   - type: textarea
     id: solution
     attributes:
-      label: Steps to Reproduce
+      label: Solutions
       description: Not obligatory, but suggest a fix/reason for the bug, or ideas how to implement the addition or change
+      placeholder: 1. 2. 3. 4.
     validations:
       required: true
