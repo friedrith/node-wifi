@@ -1,5 +1,5 @@
-name: Bug
-description: Report a bug for node-wifi
+name: Bug Report
+description: Create a report to help us improve node-wifi
 title: '[Bug]: unexpected behavior'
 labels: [Bug]
 body:

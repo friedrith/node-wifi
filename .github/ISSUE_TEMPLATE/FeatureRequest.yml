@@ -1,0 +1,34 @@
+name: Feature Request
+description: Suggest an idea for node-wifi
+title: '[Feat]: unexpected behavior'
+labels: [enhancement]
+body:
+  - type: textarea
+    id: pain
+    attributes:
+      label: Is your feature request related to a problem? Please describe.
+      description: A clear and concise description of what the problem is.
+      placeholder: Ex. I have an issue when [...]
+    validations:
+      required: false
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen. Add any considered drawbacks.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered
+      description: A clear and concise description of any alternative solutions or features you've considered.
+    validations:
+      required: false
+  - type: textarea
+    id: plan
+    attributes:
+      label: Teachability, Documentation, Adoption, Migration Strategy
+      description: If you can, explain how users will be able to use this and possibly write out a version the docs.
+    validations:
+      required: false
