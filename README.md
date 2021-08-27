@@ -8,11 +8,13 @@
 </p>
 </div>
 
-**I have great ambitions for this project and I am looking for maintainers who could help me to handle all improvements and
+**I am looking for maintainers who could help me to handle all improvements and
 bug fixes about this project because the hardware/os dependencies make it quite
-hard to test. You can contact me at [thibault.friedrich@gmail.com](mailto:thibault.friedrich@gmail.com).**
+hard to test. **
 
 The node-wifi module allows macOS, windows and linux users to interact with surrounding wifi networks through various methods. These methods include scanning for wifi access points and connecting to these access points.
+
+<div align="center">
 
 | Features                      | Linux | Mac | Windows |
 | ----------------------------- | ----- | --- | ------- |
@@ -21,6 +23,8 @@ The node-wifi module allows macOS, windows and linux users to interact with surr
 | List current wifi connections | ✓     | ✓   | ✓       |
 | Disconnect                    | ✓     |     | ✓       |
 | Delete connection information | ✓     | ✓   |         |
+
+</div>
 
 We wish to be clear in saying that this module is inspired from [node-wifi-control](https://github.com/msolters/wifi-control-node) but with some slight modifications to certain functions such as the various OS-specific parsers for terminal output as we noticed that these parsers did not work well on certain operating systems.
 
@@ -156,6 +160,15 @@ This project is tested with operating systems:
 Linux:
 
 - network-manager (nmcli)
+
+Windows:
+
+- netsh 
+
+MacOS:
+
+- airport
+- networksetup
 
 ## Contribute
 
