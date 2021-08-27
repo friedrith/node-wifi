@@ -151,6 +151,7 @@ wifi
 This project is tested with operating systems:
 
 - macOS Catalina 10.15.5
+- macOS Big Sur 11.5.1
 - linux Ubuntu 18.04.3 LTS
 
 > Do not hesitate to create a pull request to add the OS you are using.
