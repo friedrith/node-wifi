@@ -10,7 +10,7 @@
 
 **I am looking for maintainers who could help me to handle all improvements and
 bug fixes about this project because the hardware/os dependencies make it quite
-hard to test. **
+hard to test.**
 
 The node-wifi module allows macOS, windows and linux users to interact with surrounding wifi networks through various methods. These methods include scanning for wifi access points and connecting to these access points.
 
