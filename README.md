@@ -73,11 +73,10 @@ wifi.scan((error, networks) => {
 });
 
 // Connect to a network
-wifi.connect({ ssid: 'ssid', password: 'password' }, error => {
-  if (error) {
-    console.log(error);
-  }
-  console.log('Connected');
+wifi.connect({ ssid: 'ssid', password: 'password' }, () => {
+  console.log('Connected'); 
+  // on windows, the callback is called even if the connection failed due to netsh limitations
+  // if your software may work on windows, you should use `wifi.getCurrentConnections` to check if the connection succeeded
 });
 
 // Disconnect from a network
