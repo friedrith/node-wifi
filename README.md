@@ -3,8 +3,9 @@
 <img src="https://raw.githubusercontent.com/friedrith/assets/master/node-wifi/logo.png" alt="node-wifi" />
 <br>
 <br>
-<img src="https://github.com/friedrith/node-wifi/workflows/build/badge.svg" alt="travis" />
-<a href="https://badge.fury.io/js/node-wifi"><img src="https://badge.fury.io/js/node-wifi.svg" alt="npm version" height="18"></a>
+<img src="https://img.shields.io/github/workflow/status/friedrith/node-wifi/build" alt="build" />
+<img src="https://img.shields.io/bundlephobia/min/node-wifi" alt="size" >
+<img src="https://img.shields.io/npm/v/node-wifi?color=green&label=npm%20package" alt= "version">
 </p>
 </div>
 
