@@ -44,7 +44,6 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-node": "^11.1.0",
-    "husky": "^7.0.1",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
     "standard-version": "^9.3.1"
