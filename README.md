@@ -9,6 +9,8 @@
 </p>
 </div>
 
+> We think about switching to ES Modules only for next major release. We would like to have your opinion on this. Please consider leave a comment in the [discussion thread](https://github.com/friedrith/node-wifi/discussions/170).
+
 **I am looking for maintainers who could help me to handle all improvements and
 bug fixes about this project because the hardware/os dependencies make it quite
 hard to test.**
