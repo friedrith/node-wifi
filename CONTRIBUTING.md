@@ -54,7 +54,6 @@ To keep the code base of commitlint neat and tidy the following rules apply to e
 To help everyone with understanding the commit history of commitlint the following commit rules are enforced.
 
 - [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/)
-- husky commit message hook available
 - present tense
 - maximum of 100 characters
 - for bugs, includes the github tag of the issue in the description.
