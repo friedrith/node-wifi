@@ -22,9 +22,6 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "bin": {
-    "wifi": "bin/wifi.js"
-  },
   "main": "src/wifi.js",
   "directories": {
     "test": "test"
