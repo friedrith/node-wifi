@@ -2,3 +2,5 @@
 test
 .github
 scripts
+__test__/**
+__logs__/**
