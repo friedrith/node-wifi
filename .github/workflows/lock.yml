@@ -35,3 +35,11 @@ jobs:
             Please open a new issue for related bugs.
           pr-lock-reason: ''
           process-only: ''
+      - name: Log processed threads
+        run: |
+          if [ '${{ steps.lock.outputs.issues }}' ]; then
+            echo "Issues:" && echo '${{ steps.lock.outputs.issues }}' | jq .
+          fi
+          if [ '${{ steps.lock.outputs.prs }}' ]; then
+            echo "Pull requests:" && echo '${{ steps.lock.outputs.prs }}' | jq .
+          fi
