@@ -152,4 +152,57 @@ describe('parse macOS scan output', () => {
       }
     ]);
   });
+
+  it('should return wifi networks on macOS Monterey', async () => {
+    const output = await unlog(log('scan-monterey.log'));
+
+    const networks = parse(output);
+
+    expect(networks).toEqual([
+      {
+        mac: '',
+        bssid: '',
+        ssid: 'XXXX-AMPLIFI',
+        channel: 36,
+        frequency: 5180,
+        quality: 38,
+        signal_level: '-81',
+        security: 'WPA2',
+        security_flags: ['(PSK/AES/AES)']
+      },
+      {
+        mac: '',
+        bssid: '',
+        ssid: 'XXXX-AMPLIFI',
+        channel: 36,
+        frequency: 5180,
+        quality: 70,
+        signal_level: '-65',
+        security: 'WPA2',
+        security_flags: ['(PSK/AES/AES)']
+      },
+      {
+        mac: '',
+        bssid: '',
+        ssid: 'XXXX-2.4GHz',
+        channel: 11,
+        frequency: 2462,
+        quality: 146,
+        signal_level: '-27',
+        security: 'WPA WPA2',
+        security_flags: ['(PSK/TKIP,AES/TKIP)', '(PSK/TKIP,AES/TKIP)']
+      },
+      {
+        mac: '',
+        bssid: '',
+        ssid: 'XXXX-5GHz',
+        channel: 149,
+        frequency: 5745,
+        quality: 134,
+        signal_level: '-33',
+        security: 'WPA WPA2',
+        security_flags: ['(PSK/TKIP,AES/TKIP)', '(PSK/TKIP,AES/TKIP)']
+      }
+    ]);
+  });
 });

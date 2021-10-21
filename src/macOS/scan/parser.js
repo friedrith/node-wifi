@@ -32,7 +32,7 @@ const parse = stdout => {
     .map(line => line.trim())
     .map(line => {
       const match = line.match(
-        /(.*)\s+([a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2})\s+(-[0-9]+)\s+([0-9]+).*\s+([A-Z]+)\s+([a-zA-Z-]+)\s+([A-Z0-9(,)\s/]+)/
+        /(.*)\s+([a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}:[a-zA-Z0-9]{2}|)\s+(-[0-9]+)\s+([0-9]+).*\s+([A-Z]+)\s+([a-zA-Z-]+)\s+([A-Z0-9(,)\s/]+)/
       );
 
       if (match) {
@@ -54,7 +54,7 @@ const parse = stdout => {
         return {
           mac: bssid, // for retrocompatibility
           bssid,
-          ssid,
+          ssid: ssid.trim(),
           channel,
           frequency: frequencyFromChannel(channel),
           signal_level: rssi,
