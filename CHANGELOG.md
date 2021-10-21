@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.16-alpha.0](https://github.com/friedrith/node-wifi/compare/v2.0.15...v2.0.16-alpha.0) (2021-10-21)
+
+
+### Bug Fixes
+
+* hash integrity ([c33b4f3](https://github.com/friedrith/node-wifi/commit/c33b4f3842ff185fcfcbe3abf93178be8d947ed1))
+* quick but remove bssid for macOS Monterey ([a450bec](https://github.com/friedrith/node-wifi/commit/a450becd7b29692f0dc7668d9769e5c391193463))
+* vulnerable dependency ([5bb555d](https://github.com/friedrith/node-wifi/commit/5bb555dd9f2aca16c5520bdce9a9ec9025f91637))
+
 ### [2.0.15](https://github.com/friedrith/node-wifi/compare/v2.0.14...v2.0.15) (2021-08-11)
 
 
