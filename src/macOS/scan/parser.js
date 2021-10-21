@@ -1,6 +1,34 @@
+const xml2js = require('xml2js');
+
 const { percentageFromDB } = require('../../utils/percentage-db');
 const frequencyFromChannel = require('../../utils/frequency-from-channel');
 
+const parseNetwork = network => {
+  const values = [
+    ...network.dict,
+    ...network.integer.map(parseInt),
+    ...network.string,
+    ...network.data
+  ];
+
+  return network.key.reduce(
+    (acc, key, index) => ({ ...acc, [key]: values[index] }),
+    {}
+  );
+};
+
+const parse = xml =>
+  xml2js
+    .parseStringPromise(xml)
+    .then(data => data.plist.array)
+    .then(data => data['0'].dict)
+    // .then(data => data.map(parseNetwork))
+    .then(data => {
+      console.log(data);
+      return data;
+    });
+
+/*
 const isNotEmpty = line => line.trim() !== '';
 
 const parseSecurity = security => {
@@ -69,5 +97,7 @@ const parse = stdout => {
 
   return networks;
 };
+
+*/
 
 module.exports = parse;

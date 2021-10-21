@@ -6,6 +6,16 @@ const log = filename => path.resolve(__dirname, '../__logs__/', filename);
 
 describe('parse macOS scan output', () => {
   it('should return wifi networks', async () => {
+    const xml = await unlog(log('airport-xml-2.log'));
+
+    const networks = await parse(xml);
+
+    expect(networks).toEqual([]);
+  });
+
+  /*
+
+  it('should return wifi networks', async () => {
     const output = await unlog(log('scan-01.log'));
 
     const networks = parse(output);
@@ -205,4 +215,5 @@ describe('parse macOS scan output', () => {
       }
     ]);
   });
+  */
 });
