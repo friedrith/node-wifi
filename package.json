@@ -1,6 +1,6 @@
 {
   "name": "node-wifi",
-  "version": "2.0.16-alpha.0",
+  "version": "2.0.16",
   "description": "NodeJS tool to manage wifi",
   "keywords": [
     "wifi",
