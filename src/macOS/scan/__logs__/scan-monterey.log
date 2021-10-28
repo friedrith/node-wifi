@@ -1,0 +1,6 @@
+$ /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --scan
+                            SSID BSSID             RSSI CHANNEL HT CC SECURITY (auth/unicast/group)
+                    XXXX-AMPLIFI                   -81  36      Y  -- WPA2(PSK/AES/AES) 
+                    XXXX-AMPLIFI                   -65  36      Y  -- WPA2(PSK/AES/AES) 
+                     XXXX-2.4GHz                   -27  11      Y  -- WPA(PSK/TKIP,AES/TKIP) WPA2(PSK/TKIP,AES/TKIP) 
+                       XXXX-5GHz                   -33  149     Y  -- WPA(PSK/TKIP,AES/TKIP) WPA2(PSK/TKIP,AES/TKIP)
