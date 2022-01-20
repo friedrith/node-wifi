@@ -44,7 +44,7 @@ To keep the code base of commitlint neat and tidy the following rules apply to e
 - Favor micro library over swiss army knives (rimraf, ncp vs. fs-extra)
 - Be awesome
 
-> use commands `npm run eslint` and `npm run format` to be sure your code
+> use commands `npm run lint` and `npm run format` to be sure your code
 > respect coding rules.
 
 > You can also use `npm run format:fix` to fix prettier errors
