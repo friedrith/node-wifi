@@ -1,0 +1,6 @@
+$ /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --scan
+                            SSID BSSID             RSSI CHANNEL HT CC SECURITY (auth/unicast/group)
+                         foo-bar f6:d1:6d:b3:d2:88 -86  6       Y  ca WPA2(PSK/AES/AES) 
+                       VIRGO1732 c1:ee:0e:e4:fa:1f -86  36      Y  CA WPA2(PSK/AES/AES) 
+                         NERMNET 34:e8:94:1e:fc:5c -55  1       Y  -- WPA(PSK/AES,TKIP/TKIP) WPA2(PSK/AES,TKIP/TKIP) 
+                         NERMNET 45:ff:7b:43:b5:26 -64  149     Y  US WPA(PSK/TKIP,AES/TKIP) WPA2(PSK/TKIP,AES/TKIP) 

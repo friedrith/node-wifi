@@ -1,0 +1,5 @@
+$ /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --scan
+                            SSID BSSID             RSSI CHANNEL HT CC SECURITY (auth/unicast/group)
+                    Linksys02787 10:23:03:1a:9f:1c -33  11      Y  US WPA2(PSK/AES/AES) 
+                      Terminus 1 1e:27:e2:fa:c6:32 -26  4       Y  -- WPA2(PSK/AES/AES) 
+               Linksys02787_5GHz 10:23:03:1a:9f:1d -51  36      Y  US WPA2(PSK/AES/AES) 
