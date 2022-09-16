@@ -100,20 +100,13 @@ function getHexSsid(plainTextSsid) {
 }
 
 function win32WirelessProfileBuilder(selectedAp, key, hiddenWifi = false) {
-  let profile_content = `
-  <?xml version="1.0"?> <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-    <name>${ selectedAp.ssid }</name>
-    <SSIDConfig>
-     <SSID>
-       <hex>
-         ${getHexSsid(selectedAp.ssid,)}
-       </hex>
-       <name>${selectedAp.ssid}</name> 
-     </SSID>
-     <nonBroadcast>
-       ${hiddenWifi ?'true' : 'false'}
-     </nonBroadcast>
-    </SSIDConfig>`;
+  let profile_content = `<?xml version="1.0"?> <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"> <name>${
+    selectedAp.ssid
+  }</name> <SSIDConfig> <SSID> <hex>${getHexSsid(
+    selectedAp.ssid
+  )}</hex> <name>${selectedAp.ssid}</name> </SSID> ${
+    hiddenWifi ? '<nonBroadcast>true</nonBroadcast>' : ''
+  } </SSIDConfig>`;
 
   if (selectedAp.security.includes('WPA2')) {
     profile_content += `<connectionType>ESS</connectionType> <connectionMode>auto</connectionMode> <autoSwitch>true</autoSwitch> <MSM> <security> <authEncryption> <authentication>WPA2PSK</authentication> <encryption>AES</encryption> <useOneX>false</useOneX> </authEncryption> <sharedKey> <keyType>passPhrase</keyType> <protected>false</protected> <keyMaterial>${key}</keyMaterial> </sharedKey> </security> </MSM>`;
