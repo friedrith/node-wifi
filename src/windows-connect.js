@@ -43,10 +43,6 @@ function connectToWifi(config, ap, callback) {
   if (selectedAp === undefined) {
     throw 'SSID not found';
   }
-  fs.writeFileSync(
-    profileFilename,
-    win32WirelessProfileBuilder(selectedAp, ap.password, ap.hiddenWifi)
-  );
 
   fs.writeFile(
     profileFilename,
