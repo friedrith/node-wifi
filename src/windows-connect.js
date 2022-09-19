@@ -25,7 +25,7 @@ function execCommand(cmd, params) {
 function connectToWifi(config, ap, callback) {
   let selectedAp = null;
   let profile;
-  if (ap.hiddenWifi) {
+  if (ap.isHidden) {
     selectedAp = {
       ssid: ap.ssid,
       security: ['WPA2']
@@ -46,7 +46,7 @@ function connectToWifi(config, ap, callback) {
 
   fs.writeFile(
     profileFilename,
-    win32WirelessProfileBuilder(selectedAp, ap.password, ap.hiddenWifi),
+    win32WirelessProfileBuilder(selectedAp, ap.password, ap.isHidden),
     err => {
       if (err) {
         return Promise.reject(err);
@@ -109,13 +109,13 @@ function getHexSsid(plainTextSsid) {
   return hex;
 }
 
-function win32WirelessProfileBuilder(selectedAp, key, hiddenWifi = false) {
+function win32WirelessProfileBuilder(selectedAp, key, isHidden = false) {
   let profile_content = `<?xml version="1.0"?> <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"> <name>${
     selectedAp.ssid
   }</name> <SSIDConfig> <SSID> <hex>${getHexSsid(
     selectedAp.ssid
   )}</hex> <name>${selectedAp.ssid}</name> </SSID> ${
-    hiddenWifi ? '<nonBroadcast>true</nonBroadcast>' : ''
+    isHidden ? '<nonBroadcast>true</nonBroadcast>' : ''
   } </SSIDConfig>`;
 
   if (selectedAp.security.includes('WPA2')) {
