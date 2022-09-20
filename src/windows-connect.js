@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const execFile = require('child_process').execFile;
 const env = require('./env');
 const scan = require('./windows-scan');
@@ -22,59 +22,74 @@ function execCommand(cmd, params) {
   });
 }
 
-function connectToWifi(config, ap, callback) {
-  scan(config)()
-    .then(networks => {
-      const selectedAp = networks.find(network => {
-        return network.ssid === ap.ssid;
+function connectToWifi(config, givenAP, callback) {
+  let selectedAp = null;
+  let profile;
+  if (givenAP.isHidden) {
+    selectedAp = {
+      ssid: givenAP.ssid,
+      security: ['WPA2']
+    };
+    profile = new Promise(resolve => resolve(selectedAp));
+  } else {
+    profile = scan(config)().then(networks => {
+      selectedAp = networks.find(network => {
+        return network.ssid === givenAP.ssid;
       });
-
-      if (selectedAp === undefined) {
-        throw 'SSID not found';
-      }
-
-      fs.writeFileSync(
-        profileFilename,
-        win32WirelessProfileBuilder(selectedAp, ap.password)
-      );
-    })
-    .then(() => {
-      return execCommand('netsh', [
-        'wlan',
-        'add',
-        'profile',
-        `filename=${profileFilename}`
-      ]);
-    })
-    .then(() => {
-      const cmd = 'netsh';
-      const params = [
-        'wlan',
-        'connect',
-        `ssid="${ap.ssid}"`,
-        `name="${ap.ssid}"`
-      ];
-      if (config.iface) {
-        params.push(`interface="${config.iface}"`);
-      }
-      return execCommand(cmd, params);
-    })
-    .then(() => {
-      return execCommand(`del ${profileFilename}`);
-    })
-    .then(() => {
-      callback && callback();
-    })
-    .catch(err => {
-      execFile(
-        'netsh',
-        ['wlan', 'delete', `profile "${ap.ssid}"`],
-        { env },
-        () => {
-          callback && callback(err);
-        }
-      );
+      return Promise.resolve(selectedAp);
     });
+  }
+
+  profile
+    .then(resolvedAP => {
+      if (resolvedAP == null) {
+        return Promise.reject('SSID not found');
+      }
+
+      fs.writeFile(
+        profileFilename,
+        win32WirelessProfileBuilder(
+          resolvedAP,
+          givenAP.password,
+          givenAP.isHidden
+        )
+      )
+        .then(() => {
+          return execCommand('netsh', [
+            'wlan',
+            'add',
+            'profile',
+            `filename=${profileFilename}`
+          ])
+            .then(() => {
+              const cmd = 'netsh';
+              const params = [
+                'wlan',
+                'connect',
+                `ssid="${givenAP.ssid}"`,
+                `name="${givenAP.ssid}"`
+              ];
+              if (config.iface) {
+                params.push(`interface="${config.iface}"`);
+              }
+              return execCommand(cmd, params);
+            })
+            .then(() => execCommand(`del ${profileFilename}`))
+            .then(() => callback && callback())
+            .catch(err => {
+              execFile(
+                'netsh',
+                ['wlan', 'delete', `profile "${givenAP.ssid}"`],
+                { env },
+                () => {
+                  callback && callback(err);
+                }
+              );
+            });
+        })
+        .catch(e => Promise.reject(e));
+    })
+    .catch(e => Promise.reject(e));
 }
 
 function getHexSsid(plainTextSsid) {
@@ -93,12 +108,14 @@ function getHexSsid(plainTextSsid) {
   return hex;
 }
 
-function win32WirelessProfileBuilder(selectedAp, key) {
+function win32WirelessProfileBuilder(selectedAp, key, isHidden = false) {
   let profile_content = `<?xml version="1.0"?> <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1"> <name>${
     selectedAp.ssid
   }</name> <SSIDConfig> <SSID> <hex>${getHexSsid(
     selectedAp.ssid
-  )}</hex> <name>${selectedAp.ssid}</name> </SSID> </SSIDConfig>`;
+  )}</hex> <name>${selectedAp.ssid}</name> </SSID> ${
+    isHidden ? '<nonBroadcast>true</nonBroadcast>' : ''
+  } </SSIDConfig>`;
 
   if (selectedAp.security.includes('WPA2')) {
     profile_content += `<connectionType>ESS</connectionType> <connectionMode>auto</connectionMode> <autoSwitch>true</autoSwitch> <MSM> <security> <authEncryption> <authentication>WPA2PSK</authentication> <encryption>AES</encryption> <useOneX>false</useOneX> </authEncryption> <sharedKey> <keyType>passPhrase</keyType> <protected>false</protected> <keyMaterial>${key}</keyMaterial> </sharedKey> </security> </MSM>`;
