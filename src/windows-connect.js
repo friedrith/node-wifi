@@ -22,70 +22,71 @@ function execCommand(cmd, params) {
   });
 }
 
-function connectToWifi(config, ap, callback) {
+function connectToWifi(config, givenAP, callback) {
   let selectedAp = null;
   let profile;
-  if (ap.isHidden) {
+  if (givenAP.isHidden) {
     selectedAp = {
-      ssid: ap.ssid,
+      ssid: givenAP.ssid,
       security: ['WPA2']
     };
     profile = new Promise(resolve => resolve(selectedAp));
   } else {
     profile = scan(config)().then(networks => {
       selectedAp = networks.find(network => {
-        return network.ssid === ap.ssid;
+        return network.ssid === givenAP.ssid;
       });
+      return Promise.resolve(selectedAp);
     });
   }
 
-  profile.then(err => {
-    if (err) {
-      return Promise.reject(err);
-    }
-    if (selectedAp === undefined) {
-      return Promise.reject('SSID not found');
-    }
-    fs.writeFileSync(
-      profileFilename,
-      win32WirelessProfileBuilder(selectedAp, ap.password, ap.isHidden)
-    );
-    return execCommand('netsh', [
-      'wlan',
-      'add',
-      'profile',
-      `filename=${profileFilename}`
-    ])
-      .then(() => {
-        const cmd = 'netsh';
-        const params = [
-          'wlan',
-          'connect',
-          `ssid="${ap.ssid}"`,
-          `name="${ap.ssid}"`
-        ];
-        if (config.iface) {
-          params.push(`interface="${config.iface}"`);
-        }
-        return execCommand(cmd, params);
-      })
-      .then(() => {
-        return execCommand(`del ${profileFilename}`);
-      })
-      .then(() => {
-        callback && callback();
-      })
-      .catch(err => {
-        execFile(
-          'netsh',
-          ['wlan', 'delete', `profile "${ap.ssid}"`],
-          { env },
-          () => {
-            callback && callback(err);
+  profile
+    .then(resolvedAP => {
+      if (resolvedAP == null) {
+        return Promise.reject('SSID not found');
+      }
+
+      fs.writeFileSync(
+        profileFilename,
+        win32WirelessProfileBuilder(
+          resolvedAP,
+          givenAP.password,
+          givenAP.isHidden
+        )
+      );
+      return execCommand('netsh', [
+        'wlan',
+        'add',
+        'profile',
+        `filename=${profileFilename}`
+      ])
+        .then(() => {
+          const cmd = 'netsh';
+          const params = [
+            'wlan',
+            'connect',
+            `ssid="${givenAP.ssid}"`,
+            `name="${givenAP.ssid}"`
+          ];
+          if (config.iface) {
+            params.push(`interface="${config.iface}"`);
           }
-        );
-      });
-  });
+          return execCommand(cmd, params);
+        })
+        .then(() => execCommand(`del ${profileFilename}`))
+        .then(() => callback && callback())
+        .catch(err => {
+          execFile(
+            'netsh',
+            ['wlan', 'delete', `profile "${givenAP.ssid}"`],
+            { env },
+            () => {
+              callback && callback(err);
+            }
+          );
+        });
+    })
+    .catch(e => Promise.reject(e));
 }
 
 function getHexSsid(plainTextSsid) {
