@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const execFile = require('child_process').execFile;
 const env = require('./env');
 const scan = require('./windows-scan');
@@ -46,45 +46,48 @@ function connectToWifi(config, givenAP, callback) {
         return Promise.reject('SSID not found');
       }
 
-      fs.writeFileSync(
+      fs.writeFile(
         profileFilename,
         win32WirelessProfileBuilder(
           resolvedAP,
           givenAP.password,
           givenAP.isHidden
         )
-      );
-      return execCommand('netsh', [
-        'wlan',
-        'add',
-        'profile',
-        `filename=${profileFilename}`
-      ])
+      )
         .then(() => {
-          const cmd = 'netsh';
-          const params = [
+          return execCommand('netsh', [
             'wlan',
-            'connect',
-            `ssid="${givenAP.ssid}"`,
-            `name="${givenAP.ssid}"`
-          ];
-          if (config.iface) {
-            params.push(`interface="${config.iface}"`);
-          }
-          return execCommand(cmd, params);
+            'add',
+            'profile',
+            `filename=${profileFilename}`
+          ])
+            .then(() => {
+              const cmd = 'netsh';
+              const params = [
+                'wlan',
+                'connect',
+                `ssid="${givenAP.ssid}"`,
+                `name="${givenAP.ssid}"`
+              ];
+              if (config.iface) {
+                params.push(`interface="${config.iface}"`);
+              }
+              return execCommand(cmd, params);
+            })
+            .then(() => execCommand(`del ${profileFilename}`))
+            .then(() => callback && callback())
+            .catch(err => {
+              execFile(
+                'netsh',
+                ['wlan', 'delete', `profile "${givenAP.ssid}"`],
+                { env },
+                () => {
+                  callback && callback(err);
+                }
+              );
+            });
         })
-        .then(() => execCommand(`del ${profileFilename}`))
-        .then(() => callback && callback())
-        .catch(err => {
-          execFile(
-            'netsh',
-            ['wlan', 'delete', `profile "${givenAP.ssid}"`],
-            { env },
-            () => {
-              callback && callback(err);
-            }
-          );
-        });
+        .catch(e => Promise.reject(e));
     })
     .catch(e => Promise.reject(e));
 }
