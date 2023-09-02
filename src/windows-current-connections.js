@@ -3,36 +3,61 @@ const env = require('./env');
 const networkUtils = require('./utils/network-utils.js');
 
 function parseShowInterfaces(stdout) {
-  const lines = stdout.split('\r\n');
-  const connections = [];
-  let i = 3;
-  while (lines.length > i + 18) {
-    const tmpConnection = {};
-    const fields = [
-      'name',
-      'description',
-      'guid',
-      'mac',
-      'state',
-      'ssid',
-      'bssid',
-      'mode',
-      'radio',
-      'authentication',
-      'encryption',
-      'connection',
-      'channel',
-      'reception',
-      'transmission',
-      'signal',
-      'profil'
-    ];
-    for (let j = 0; j < fields.length; j++) {
-      const line = lines[i + j];
-      tmpConnection[fields[j]] = line.match(/.*: (.*)/)[1];
-    }
+  let connections = [];
+  // The package does not use the keys returned by netsh, this object helps the conversion
+  const fields = {
+    // "Interface type"
+    Name: 'name',
+    Description: 'description',
+    GUID: 'guid',
+    'Physical address': 'mac',
+    'Interface type': 'interfaceType',
+    State: 'state',
+    SSID: 'ssid',
+    BSSID: 'bssid',
+    'Network type': 'mode',
+    'Radio type': 'radio',
+    Authentication: 'authentication',
+    Cipher: 'encryption',
+    'Connection mode': 'connection',
+    Band: 'band',
+    Channel: 'channel',
+    'Receive rate (Mbps)': 'reception',
+    'Transmit rate (Mbps)': 'transmission',
+    Signal: 'signal',
+    Profile: 'profil'
+  };
 
-    connections.push({
+  // Group stdout by interfaces based on the spaces in the output (empty lines)
+  let groups = [];
+  let currentGroup = 0;
+  let data = stdout.trim().split('\r\n');
+  data.forEach(line => {
+    line = line.trim();
+    if (line === '') {
+      currentGroup++;
+    } else {
+      let items = [];
+      if (groups[currentGroup]) {
+        items = groups[currentGroup];
+      }
+      items.push(line);
+      groups[currentGroup] = items;
+    }
+  });
+  groups = groups.filter(group => group.length > 1);
+
+  // Parse each group
+  connections = groups.map(group => {
+    let tmpConnection = {};
+    group.forEach(line => {
+      const parts = line.split(' :').map(part => part.trim());
+      const key = fields[parts[0]];
+      tmpConnection[key] = parts[1];
+    });
+
+    // This is the original object returned
+    let connection = {
       iface: tmpConnection.name,
       ssid: tmpConnection.ssid,
       bssid: tmpConnection.bssid,
@@ -46,10 +71,10 @@ function parseShowInterfaces(stdout) {
       quality: parseFloat(tmpConnection.signal),
       security: tmpConnection.authentication,
       security_flags: tmpConnection.encryption
-    });
+    };
 
-    i = i + 18;
-  }
+    return connection;
+  });
 
   return connections;
 }
